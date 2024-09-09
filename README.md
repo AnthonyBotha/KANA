@@ -15,7 +15,13 @@ Welcome to KANA, the platform where you can gamify your productivity by transfor
 * Customization: Choose from different styles, hair colors, outfits, and more to build a unique avatar that reflects your in-game achievements.
 ### Level Up
 * Experience: As you complete your habits, daily tasks, and to-dos, you earn experience points that accumulate over time, allowing you to level up and showcase your progress and achievements.
-* Health: If you fail to complete or engage in negative habits, you lose health points. If your health bar reaches zero, you level down, reflecting a setback in your progress
+* Health: You lose health points if you fail to complete or engage in negative habits. If your health bar reaches zero, you level down, reflecting a setback in your progress.
+### Rewards
+* Unlock: Earn rewards by completing tasks and leveling up. As you progress, more exciting rewards will be unlocked, keeping you motivated.
+* Create: Customize your own rewards to celebrate your achievements. For example, treat yourself to "Watch my favorite TV show for 1 hour" or "Go for a relaxing walk" after completing your tasks. Personalize your rewards to suit your preferences!
+### Inventory
+* Buy: Completing tasks grants you gold, which you can use to purchase items for your inventory. The more tasks you complete, the more gold you'll accumulate!
+* Create: Design and add unique items to your inventory that reflect your personality and interests. Whether it's a rare collectible or a personal milestone, your inventory becomes an extension of you.
 
 ## Frontend Tech Stack
 * **JavaScript** (JS)
