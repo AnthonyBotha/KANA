@@ -24,7 +24,7 @@ class User(db.Model, UserMixin):
 
 
     # creates one to one relationship to Avatar
-    avatar= db.relationship('Avatar',backref='user',uselist=False,cascade="all,delete")
+    avatar= db.relationship('Avatar',backref='user',uselist=False,cascade="all,delete-orphan")
 
     @property
     def password(self):
@@ -42,12 +42,12 @@ class User(db.Model, UserMixin):
             'id': self.id,
             'username': self.username,
             'email': self.email,
-            'first_name':self.first_name,
-            'last_name':self.last_name,
+            'firstName':self.first_name,
+            'lastName':self.last_name,
             'experience':self.experience,
             'level':self.level,
             'health':self.health,
             'gold':self.gold,
-            'created_at':self.created_at,
-            'updated_at':self.updated_at,
+            'createdAt':self.created_at,
+            'updatedAt':self.updated_at,
         }
