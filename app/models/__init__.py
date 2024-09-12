@@ -1,6 +1,8 @@
 from .db import db
+
 from .user import User
 from .avatar import Avatar
+from .habit import Habit
 
 # parts imported
 from .parts.body import Body

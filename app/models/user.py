@@ -22,7 +22,8 @@ class User(db.Model, UserMixin):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow,onupdate=datetime.utcnow)
 
-
+    # connects habits to users creating a one to many relationship
+    habits=db.relationship('Habit',backref='user',lazy=True)
     # creates one to one relationship to Avatar
     avatar= db.relationship('Avatar',backref='user',uselist=False,cascade="all,delete-orphan")
 
