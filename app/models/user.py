@@ -1,7 +1,7 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
-
+from datetime import datetime
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
@@ -9,10 +9,22 @@ class User(db.Model, UserMixin):
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
 
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True,autoincrement=True)
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
+    first_name = db.Column(db.String(30), nullable=False)
+    last_name = db.Column(db.String(30), nullable=False)
+    experience = db.Column(db.Integer, default=0)
+    health = db.Column(db.Integer,default=100)
+    level = db.Column(db.Integer,default=1)
+    gold = db.Column(db.Float,default=0.0)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow,onupdate=datetime.utcnow)
+
+
+    # creates one to one relationship to Avatar
+    avatar= db.relationship('Avatar',backref='user',uselist=False,cascade="all,delete")
 
     @property
     def password(self):
@@ -29,5 +41,13 @@ class User(db.Model, UserMixin):
         return {
             'id': self.id,
             'username': self.username,
-            'email': self.email
+            'email': self.email,
+            'first_name':self.first_name,
+            'last_name':self.last_name,
+            'experience':self.experience,
+            'level':self.level,
+            'health':self.health,
+            'gold':self.gold,
+            'created_at':self.created_at,
+            'updated_at':self.updated_at,
         }
