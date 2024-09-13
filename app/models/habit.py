@@ -19,5 +19,5 @@ class Habit(db.Model):
     is_postitve = db.Column(db.Boolean, nullable=True)
 
     # connects habits to users creating a one to many relationship
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'),nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')),nullable=False)
     user= db.relationship('User',backref=db.backref('habits',lazy=True))

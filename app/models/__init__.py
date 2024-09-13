@@ -2,8 +2,12 @@ from .db import db
 
 from .user import User
 from .avatar import Avatar
+
+# habits todos dailies
 from .habit import Habit
 from .todo import Todo
+
+# items inventory rewards
 from .item import Item
 
 # parts imported
