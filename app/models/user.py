@@ -1,7 +1,8 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
-from datetime import datetime
+from datetime import datetime,timezone
+from .item import inventory
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
@@ -19,15 +20,18 @@ class User(db.Model, UserMixin):
     health = db.Column(db.Integer,default=100)
     level = db.Column(db.Integer,default=1)
     gold = db.Column(db.Float,default=0.0)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime, default=datetime.utcnow,onupdate=datetime.utcnow)
+    created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
+    updated_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
 
+
+    # connects items to users creating a many to many relationship
+    items=db.relationship('Item',secondary=inventory,back_populates='users')
     # connects habits to users creating a one to many relationship
-    habits=db.relationship('Habit',backref='user',lazy=True, cascade='all, delete-orphan')
+    habits=db.relationship('Habit',back_populates='user',cascade='all, delete-orphan')
     # connects habits to users creating a one to many relationship
     todos=db.relationship('Todo', back_populates='user', cascade='all, delete-orphan')
     # creates one to one relationship to Avatar
-    avatar= db.relationship('Avatar',backref='user',uselist=False,cascade="all,delete-orphan")
+    avatar= db.relationship('Avatar',back_populates='user',uselist=False,cascade="all,delete-orphan")
 
     @property
     def password(self):
@@ -53,4 +57,8 @@ class User(db.Model, UserMixin):
             'gold':self.gold,
             'createdAt':self.created_at,
             'updatedAt':self.updated_at,
+            'avatar':self.avatar,
+            'habits':self.habits,
+            'todos':self.todos,
+            'items':self.items
         }
