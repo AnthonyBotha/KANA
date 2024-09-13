@@ -43,7 +43,7 @@ function SignupFormPage() {
   return (
     <div className="displayFlex flexColumn alignCenter">
       <h1 className="font whiteFont">Sign Up</h1>
-      <p className="font whiteFont smallFont">Username must be 1-20 characters, containing only letters a to z, 
+      <p className="font whiteFont smallFont textCenter">Username must be 1-20 characters, containing only letters a to z, 
         numbers 0 to 9, hyphens, or underscores, and cannot include any 
         inappropriate terms.
       </p>

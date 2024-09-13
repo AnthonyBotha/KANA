@@ -41,6 +41,8 @@
   font-family: "Varela Round", sans-serif;
   font-weight: 400;
   font-style: normal;
+
+  text-decoration: none;
 }
 
 .fontLight:hover {
@@ -189,6 +191,10 @@
   height: 75px;
 }
 
+.smallLogo {
+  height: 50px;
+}
+
 .removeDecorations {
   list-style-type: none;
 }
@@ -211,6 +217,14 @@
 
 .alignCenter {
   align-items: center;
+}
+
+.alignBottom {
+  align-items: flex-end;
+}
+
+.textCenter {
+  text-align: center;
 }
 
 .justifyCenter {
