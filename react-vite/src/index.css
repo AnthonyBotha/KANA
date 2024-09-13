@@ -119,6 +119,14 @@
   margin-right: 50px;
 }
 
+.littleTopMargin {
+  margin-top: 5px;
+}
+
+.littleBottomMargin {
+  margin-bottom: 5px;
+}
+
 .noPadding {
   padding: 0px;
 }
@@ -127,8 +135,20 @@
   padding-right: 25px;
 }
 
+.littleRightPadding {
+  padding-right: 5px;
+}
+
 .topPadding {
   padding-top: 10px;
+}
+
+.littleTopPadding {
+  padding-top: 5px;
+}
+
+.littleBottomPadding {
+  padding-bottom: 5px;
 }
 
 /* general sizing */
@@ -136,10 +156,17 @@
   width: 50%;
 }
 
+.fullWidth {
+  width: 100%;
+}
 
 /* misc items */
 .testBorder {
   border: 1px solid red;
+}
+
+.roundedCorners {
+  border-radius: 3px;
 }
 
 .fullScreen {
@@ -170,6 +197,14 @@
   display: flex;
 }
 
+.flexWrap {
+  flex-wrap: wrap;
+}
+
+.flexColumn {
+  flex-direction: column;
+}
+
 .spaceBetween {
   justify-content: space-between;
 }
@@ -185,6 +220,42 @@
 /* base set up page stylings */
 body {
   margin: 0;
+}
+
+::placeholder {
+  font-family: "Varela Round", sans-serif;
+  font-weight: 400;
+  font-size: medium;
+  font-style: normal;
+  padding: 10px;
+  color: #6F42C1;
+}
+
+button {
+  font-family: "Varela Round", sans-serif;
+  font-weight: 400;
+  font-size: medium;
+  font-style: normal;
+  color: #F8F9FA;
+  background-color: #BDA8FF;
+  padding: 10px 15px;
+  margin: 5px 0px;
+  border: none;
+  border-radius: 5px;
+}
+
+button:hover {
+  font-family: "Varela Round", sans-serif;
+  font-weight: 400;
+  font-size: medium;
+  font-style: normal;
+  color: #F8F9FA;
+  background-color: #432874;
+  padding: 10px 15px;
+  margin: 5px 0px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 

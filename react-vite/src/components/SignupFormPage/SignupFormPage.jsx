@@ -41,53 +41,61 @@ function SignupFormPage() {
   };
 
   return (
-    <>
-      <h1>Sign Up</h1>
+    <div className="displayFlex flexColumn alignCenter">
+      <h1 className="font whiteFont">Sign Up</h1>
+      <p className="font whiteFont smallFont">Username must be 1-20 characters, containing only letters a to z, 
+        numbers 0 to 9, hyphens, or underscores, and cannot include any 
+        inappropriate terms.
+      </p>
       {errors.server && <p>{errors.server}</p>}
       <form onSubmit={handleSubmit}>
         <label>
-          Email
           <input
+            className="fullWidth darkPurple noBorder topPadding littleBottomPadding littleBottomMargin roundedCorners"
             type="text"
             value={email}
+            placeholder="Email"
             onChange={(e) => setEmail(e.target.value)}
             required
           />
         </label>
         {errors.email && <p>{errors.email}</p>}
         <label>
-          Username
           <input
+            className="fullWidth darkPurple noBorder topPadding littleBottomPadding littleBottomMargin littleTopMargin roundedCorners"
             type="text"
             value={username}
+            placeholder="Username"
             onChange={(e) => setUsername(e.target.value)}
             required
           />
         </label>
         {errors.username && <p>{errors.username}</p>}
         <label>
-          Password
           <input
+            className="fullWidth darkPurple noBorder topPadding littleBottomPadding littleBottomMargin littleTopMargin roundedCorners"
             type="password"
             value={password}
+            placeholder="Password"
             onChange={(e) => setPassword(e.target.value)}
             required
           />
         </label>
         {errors.password && <p>{errors.password}</p>}
         <label>
-          Confirm Password
           <input
+            className="fullWidth darkPurple noBorder topPadding littleBottomPadding littleBottomMargin littleTopMargin roundedCorners"
             type="password"
             value={confirmPassword}
+            placeholder="Confirm Password"
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
           />
         </label>
         {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
-        <button type="submit">Sign Up</button>
+        <button className="dropShadow" type="submit">Sign Up</button>
       </form>
-    </>
+    </div>
   );
 }
 
