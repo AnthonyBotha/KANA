@@ -41,7 +41,7 @@ function ProfileButton() {
 
   return (
     <>
-      <button className="logo mouseOver rightPageBorder xx-largeFont noPadding whiteFont noBackground noBorder" onClick={toggleMenu}>
+      <button className="mouseOver rightPageBorder xx-largeFont noPadding whiteFont noBackground noBorder" onClick={toggleMenu}>
         <FaUser />
       </button>
       {showMenu && (
