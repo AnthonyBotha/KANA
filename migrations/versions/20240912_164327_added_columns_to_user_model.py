@@ -137,7 +137,10 @@ def upgrade():
         op.execute(f"ALTER TABLE mouths SET SCHEMA {SCHEMA};")
 
     if environment == "production":
-        op.execute(f"ALTER TABLE backgrounds necks SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE necks SCHEMA {SCHEMA};")
+
+    if environment == "production":
+        op.execute(f"ALTER TABLE backgrounds SCHEMA {SCHEMA};")
 
     if environment == "production":
         op.execute(f"ALTER TABLE noses SET SCHEMA {SCHEMA};")

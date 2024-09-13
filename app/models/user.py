@@ -25,7 +25,7 @@ class User(db.Model, UserMixin):
     # connects habits to users creating a one to many relationship
     habits=db.relationship('Habit',backref='user',lazy=True)
     # connects habits to users creating a one to many relationship
-    todos=db.relationshihp('Todo', backref='user', lazy=True)
+    todos=db.relationship('Todo', backref='user', lazy=True)
     # creates one to one relationship to Avatar
     avatar= db.relationship('Avatar',backref='user',uselist=False,cascade="all,delete-orphan")
 

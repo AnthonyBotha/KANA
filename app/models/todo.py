@@ -18,9 +18,10 @@ class Todo(db.Model):
     created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
     updated_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
 
-    #connetc Todos to user creating a many to one relationship
+    #connect Todos to user creating a many to one relationship
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-
+    user = db.relationship('User', backref=db.backref('todos', lazy=True))
+    
     def to_dict(self):
         return {
             'id': self.id,
