@@ -3,6 +3,7 @@ from .db import db
 from .user import User
 from .avatar import Avatar
 from .habit import Habit
+from .todo import Todo
 from .item import Item
 
 # parts imported
