@@ -20,7 +20,7 @@ class Todo(db.Model):
 
     #connect Todos to user creating a many to one relationship
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
-    user = db.relationship('User', backref=db.backref('todos', lazy=True))
+    user = db.relationship('User', back_populates='todos')
 
     def to_dict(self):
         return {
