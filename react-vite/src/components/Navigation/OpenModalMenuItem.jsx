@@ -15,7 +15,7 @@ function OpenModalMenuItem({
   };
 
   return (
-    <li onClick={onClick}>{itemText}</li>
+    <li className="fontLight whiteFont topPadding" onClick={onClick}>{itemText}</li>
   );
 }
 
