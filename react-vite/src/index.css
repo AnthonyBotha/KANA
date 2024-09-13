@@ -32,6 +32,11 @@
 }
 
 /* font */
+.font {
+  font-family: "Varela Round", sans-serif;
+  font-style: normal;
+}
+
 .fontLight {
   font-family: "Varela Round", sans-serif;
   font-weight: 400;
@@ -46,12 +51,15 @@
   text-decoration: underline;
 }
 
+/* font weight */
+.bold {
+  font-weight: 600;
+}
+
 /* font colors */
 .whiteFont {
   color: #F8F9FA;
 }
-
-
 
 /* font sizes */
 .xx-largeFont {
@@ -87,12 +95,20 @@
   margin: 0px;
 }
 
+.fullPadding {
+  padding: 5%
+}
+
 .largeLeftMargin {
   margin-left: 40px;
 }
 
 .leftMargin {
   margin-left: 25px;
+}
+
+.leftPageBorder {
+  margin-left: 50px;
 }
 
 .rightMargin {
@@ -116,11 +132,18 @@
 }
 
 /* general sizing */
+.halfScreen {
+  width: 50%;
+}
 
 
 /* misc items */
 .testBorder {
   border: 1px solid red;
+}
+
+.fullScreen {
+  height: 100vh;
 }
 
 .dropShadow {
