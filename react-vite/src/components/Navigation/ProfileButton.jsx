@@ -45,7 +45,7 @@ function ProfileButton() {
         <FaUser />
       </button>
       {showMenu && (
-        <ul className={"profile-dropdown"} ref={ulRef}>
+        <ul className="profile-dropdown lightGrey removeDecorations dropShadow" ref={ulRef}>
           {user ? (
             <>
               <li>{user.username}</li>

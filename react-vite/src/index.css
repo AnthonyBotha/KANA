@@ -1,4 +1,8 @@
 /* theme colors */
+.white {
+  background-color: #F8F9FA;
+}
+
 .lightGrey {
   background-color: #6C757D;
 }
@@ -91,12 +95,20 @@
   margin-left: 25px;
 }
 
+.rightMargin {
+  margin-right: 25px;
+}
+
 .rightPageBorder {
   margin-right: 50px;
 }
 
 .noPadding {
   padding: 0px;
+}
+
+.rightPadding {
+  padding-right: 25px;
 }
 
 /* general sizing */
@@ -137,6 +149,10 @@
 
 .alignCenter {
   align-items: center;
+}
+
+.justifyCenter {
+  justify-items: center;
 }
 
 /* base set up page stylings */
