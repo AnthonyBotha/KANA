@@ -47,7 +47,7 @@ function SignupFormPage() {
         numbers 0 to 9, hyphens, or underscores, and cannot include any 
         inappropriate terms.
       </p>
-      {errors.server && <p>{errors.server}</p>}
+      {errors.server && <p className="font whiteFont smallFont textCenter">{errors.server}</p>}
       <form onSubmit={handleSubmit}>
         <label>
           <input
@@ -59,7 +59,7 @@ function SignupFormPage() {
             required
           />
         </label>
-        {errors.email && <p>{errors.email}</p>}
+        {errors.email && <p className="font whiteFont smallFont textCenter">{errors.email}</p>}
         <label>
           <input
             className="fullWidth darkPurple noBorder topPadding littleBottomPadding littleBottomMargin littleTopMargin roundedCorners"
@@ -70,7 +70,7 @@ function SignupFormPage() {
             required
           />
         </label>
-        {errors.username && <p>{errors.username}</p>}
+        {errors.username && <p className="font whiteFont smallFont textCenter">{errors.username}</p>}
         <label>
           <input
             className="fullWidth darkPurple noBorder topPadding littleBottomPadding littleBottomMargin littleTopMargin roundedCorners"
@@ -81,7 +81,7 @@ function SignupFormPage() {
             required
           />
         </label>
-        {errors.password && <p>{errors.password}</p>}
+        {errors.password && <p className="font whiteFont smallFont textCenter">{errors.password}</p>}
         <label>
           <input
             className="fullWidth darkPurple noBorder topPadding littleBottomPadding littleBottomMargin littleTopMargin roundedCorners"
@@ -92,7 +92,7 @@ function SignupFormPage() {
             required
           />
         </label>
-        {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
+        {errors.confirmPassword && <p className="font whiteFont smallFont textCenter">{errors.confirmPassword}</p>}
         <button className="dropShadow" type="submit">Sign Up</button>
       </form>
     </div>

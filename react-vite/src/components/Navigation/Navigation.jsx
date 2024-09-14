@@ -11,14 +11,16 @@ function Navigation() {
 
   const navLinks = sessionUser ?
     (
-      <div>
+      <div className="displayFlex alignCenter spaceBetween">
         <div className="displayFlex largeLeftMargin">
           <p className="fontLight largeFont whiteFont">Tasks</p>
           <p className="fontLight largeFont whiteFont leftMargin">Inventory</p>
         </div>
-        <li>
-          <ProfileButton user={sessionUser} />
-        </li>
+        <div>
+          <li>
+            <ProfileButton user={sessionUser} />
+          </li>
+        </div>
       </div>
     )
     :
@@ -41,7 +43,7 @@ function Navigation() {
         </NavLink>
       </li>
 
-      <li className="rightPageBorder">
+      <li className="rightPageBorder fullWidth">
         {navLinks}
       </li>
     </ul>
