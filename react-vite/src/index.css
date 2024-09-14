@@ -41,7 +41,6 @@
   font-family: "Varela Round", sans-serif;
   font-weight: 400;
   font-style: normal;
-
   text-decoration: none;
 }
 
@@ -153,6 +152,10 @@
   padding-bottom: 5px;
 }
 
+.bottomPageBorder {
+  margin-bottom: 50px;
+}
+
 /* general sizing */
 .halfScreen {
   width: 50%;
@@ -227,8 +230,16 @@
   text-align: center;
 }
 
+.textRight {
+  text-align: right;
+}
+
 .justifyCenter {
   justify-items: center;
+}
+
+.justifyEnd {
+  justify-items: end;
 }
 
 /* base set up page stylings */

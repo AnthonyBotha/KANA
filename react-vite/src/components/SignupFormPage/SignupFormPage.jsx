@@ -13,7 +13,7 @@ function SignupFormPage() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
 
-  if (sessionUser) return <Navigate to="/" replace={true} />;
+  if (sessionUser) return <Navigate to="/home" replace={true} />;  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -41,7 +41,7 @@ function SignupFormPage() {
   };
 
   return (
-    <div className="displayFlex flexColumn alignCenter">
+    <div className="displayFlex flexColumn alignCenter bottomPageBorder">
       <h1 className="font whiteFont">Sign Up</h1>
       <p className="font whiteFont smallFont textCenter">Username must be 1-20 characters, containing only letters a to z, 
         numbers 0 to 9, hyphens, or underscores, and cannot include any 

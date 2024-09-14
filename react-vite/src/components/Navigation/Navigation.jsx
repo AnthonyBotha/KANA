@@ -25,7 +25,7 @@ function Navigation() {
     )
     :
     (
-      <li>
+      <li className="textRight">
         <OpenModalButton
           buttonText="Log In"
           modalComponent={<LoginFormModal />}
