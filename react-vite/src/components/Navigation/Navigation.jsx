@@ -36,11 +36,17 @@ function Navigation() {
   return (
     <ul className="dropShadow purple noMargin removeDecorations displayFlex spaceBetween alignCenter">
       <li className="displayFlex alignCenter">
-        <NavLink to="/">
-          <a href="">
-            <img className="logo" src={logo} alt="logo"/>
-          </a>
-        </NavLink>
+        {sessionUser ?
+          (
+            <NavLink to="/home">
+              <a href="">
+                <img className="logo" src={logo} alt="logo"/>
+              </a>
+            </NavLink>
+          )
+          :
+          <img className="logo" src={logo} alt="logo"/>
+        }
       </li>
 
       <li className="rightPageBorder fullWidth">
