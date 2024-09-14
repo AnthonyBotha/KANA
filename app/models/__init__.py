@@ -7,8 +7,9 @@ from .avatar import Avatar
 from .habit import Habit
 from .todo import Todo
 
-# items inventory rewards
+# items and rewards
 from .item import Item
+from .reward import Reward
 
 # parts imported
 from .parts.body import Body

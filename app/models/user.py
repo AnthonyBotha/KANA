@@ -3,6 +3,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from datetime import datetime,timezone
 from .item import inventory
+from .reward import user_rewards
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
@@ -24,6 +25,8 @@ class User(db.Model, UserMixin):
     updated_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
 
 
+    # connects rewards to users creating a many to many relationship
+    rewards=db.relationship('Reward',secondary=user_rewards,back_populates='users')
     # connects items to users creating a many to many relationship
     items=db.relationship('Item',secondary=inventory,back_populates='users')
     # connects habits to users creating a one to many relationship
@@ -60,5 +63,6 @@ class User(db.Model, UserMixin):
             'avatar':self.avatar,
             'habits':self.habits,
             'todos':self.todos,
-            'items':self.items
+            'items':self.items,
+            'rewards':self.rewards
         }
