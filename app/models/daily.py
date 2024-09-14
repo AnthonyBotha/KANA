@@ -24,6 +24,9 @@ class Daily(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     user = db.relationship('User', back_populates='dailies')
 
+    checklist = db.relationship('Checklist', back_populates='daily')
+    
+
     def to_dict(self):
         return {
             'id': self.id,
