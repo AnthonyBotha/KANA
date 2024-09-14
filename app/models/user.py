@@ -26,6 +26,8 @@ class User(db.Model, UserMixin):
     habits=db.relationship('Habit',backref='user',lazy=True, cascade='all, delete-orphan')
     # connects habits to users creating a one to many relationship
     todos=db.relationship('Todo', back_populates='user', cascade='all, delete-orphan')
+    #dailies
+    dailies=db.relationship('Daily', back_populates='user', cascade='all, delete-orphan')
     # creates one to one relationship to Avatar
     avatar= db.relationship('Avatar',backref='user',uselist=False,cascade="all,delete-orphan")
 
