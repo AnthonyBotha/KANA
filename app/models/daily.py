@@ -42,3 +42,4 @@ class Daily(db.Model):
             'createdAt':self.created_at,
             'updatedAt':self.updated_at
         }
+    print('hello')
