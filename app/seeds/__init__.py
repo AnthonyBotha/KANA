@@ -9,6 +9,10 @@ from .parts.mouths import undo_mouths,seed_mouths
 from .parts.necks import undo_necks,seed_necks
 from .parts.noses import undo_noses,seed_noses
 from .parts.backgrounds import undo_backgrounds,seed_backgrounds
+from .items.specials import seed_specials,undo_specials
+from .items.eggs import seed_eggs,undo_eggs
+from .items.foods import seed_foods,undo_foods
+from .items.potions import seed_potions,undo_potions
 
 
 from app.models.db import db, environment, SCHEMA
@@ -36,7 +40,11 @@ def seed():
         undo_necks()
         undo_noses()
         undo_backgrounds()
-        
+        undo_specials()
+        undo_eggs()
+        undo_foods()
+        undo_potions()
+
     seed_users()
     seed_bodies()
     seed_antennas()
@@ -47,6 +55,10 @@ def seed():
     seed_necks()
     seed_noses()
     seed_backgrounds()
+    seed_specials()
+    seed_eggs()
+    seed_foods()
+    seed_potions()
     # Add other seed functions here
 
 
@@ -63,4 +75,8 @@ def undo():
     undo_necks()
     undo_noses()
     undo_backgrounds()
+    undo_specials()
+    undo_eggs()
+    undo_foods()
+    undo_potions()
     # Add other undo functions here
