@@ -1,8 +1,11 @@
-from app.models import db, Item, environment, SCHEMA
+from app.models import db, Item,User, environment, SCHEMA
 from sqlalchemy.sql import text
 
 
 def seed_potions():
+    demo=User.query.filter_by(email='demo@aa.io').first()
+    bobbie=User.query.filter_by(email='bobbie@aa.io').first()
+
     potion1= Item(
         name='yellow potion',
         type='potion',
@@ -71,6 +74,12 @@ def seed_potions():
     potions=[potion1,potion2,potion3,potion4,potion5,potion6,potion7,potion8]
     for potion in potions:
         db.session.add(potion)
+    db.session.commit()
+
+    demo.items.append(potion1)
+    demo.items.append(potion2)
+    bobbie.items.append(potion3)
+
     db.session.commit()
 
 def undo_potions():

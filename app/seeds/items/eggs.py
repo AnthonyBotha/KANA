@@ -102,6 +102,25 @@ def undo_eggs():
     demo.items.remove(food2)
     bobbie.items.remove(food3)
 
+
+    # potions removed
+    potion1=Item.query.filter_by(item_img='https://res.cloudinary.com/dzsguqdmg/image/upload/v1726331310/Yellow_Potion_ltq2s8.png',type='potion').first()
+    potion2=Item.query.filter_by(item_img='https://res.cloudinary.com/dzsguqdmg/image/upload/v1726331308/White_Potion_jvpmak.png',type='potion').first()
+    potion3=Item.query.filter_by(item_img='https://res.cloudinary.com/dzsguqdmg/image/upload/v1726331305/Red_Potion_xa8idn.png',type='potion').first()
+
+    demo.items.remove(potion1)
+    demo.items.remove(potion2)
+    bobbie.items.remove(potion3)
+
+
+    # specials removed
+    special1=Item.query.filter_by(item_img='https://res.cloudinary.com/dzsguqdmg/image/upload/v1726331484/Yellow_Baby_Dragon_tbk3l1.png',type='special').first()
+    special2=Item.query.filter_by(item_img='https://res.cloudinary.com/dzsguqdmg/image/upload/v1726331482/White_Baby_Dragon_wgn3uv.png',type='special').first()
+    special3=Item.query.filter_by(item_img='https://res.cloudinary.com/dzsguqdmg/image/upload/v1726331479/Red_Baby_Dragon_nyrbuo.png',type='special').first()
+
+    demo.items.remove(special1)
+    demo.items.remove(special2)
+    bobbie.items.remove(special3)
     if environment == "production":
         db.session.execute(f"TRUNCATE table {SCHEMA}.items RESTART IDENTITY CASCADE;")
     else:

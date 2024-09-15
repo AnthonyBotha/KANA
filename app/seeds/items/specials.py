@@ -1,7 +1,10 @@
-from app.models import db, Item, environment, SCHEMA
+from app.models import db, Item,User, environment, SCHEMA
 from sqlalchemy.sql import text
 
 def seed_specials():
+    demo=User.query.filter_by(email='demo@aa.io').first()
+    bobbie=User.query.filter_by(email='bobbie@aa.io').first()
+
     special1= Item(
         name='yellow dragon',
         type='special',
@@ -70,6 +73,12 @@ def seed_specials():
     specials=[special1,special2,special3,special4,special5,special6,special7,special8]
     for special in specials:
         db.session.add(special)
+    db.session.commit()
+
+    demo.items.append(special1)
+    demo.items.append(special2)
+    bobbie.items.append(special3)
+
     db.session.commit()
 
 def undo_specials():
