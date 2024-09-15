@@ -3,6 +3,7 @@ import { thunkLogin } from "../../redux/session";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import "./LoginForm.css";
+import SmallLogo from '../../static/SmallLogoWhite.png';
 
 function LoginFormModal() {
   const dispatch = useDispatch();
@@ -29,24 +30,26 @@ function LoginFormModal() {
   };
 
   return (
-    <>
-      <h1>Log In</h1>
+    <div className="displayFlex flexColumn alignCenter">
+      <img className="logo bottomMargin" src={SmallLogo} />
       <form onSubmit={handleSubmit}>
         <label>
-          Email
           <input
+            className="fullWidth darkGrey noBorder topPadding littleBottomPadding littleBottomMargin roundedCorners"
             type="text"
             value={email}
+            placeholder="Email"
             onChange={(e) => setEmail(e.target.value)}
             required
           />
         </label>
         {errors.email && <p>{errors.email}</p>}
         <label>
-          Password
           <input
+            className="fullWidth darkGrey noBorder topPadding littleBottomPadding littleBottomMargin roundedCorners"
             type="password"
             value={password}
+            placeholder="Password"
             onChange={(e) => setPassword(e.target.value)}
             required
           />
@@ -54,7 +57,7 @@ function LoginFormModal() {
         {errors.password && <p>{errors.password}</p>}
         <button type="submit">Log In</button>
       </form>
-    </>
+    </div>
   );
 }
 

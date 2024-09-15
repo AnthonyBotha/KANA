@@ -20,5 +20,16 @@
 
 #modal-content {
   position: absolute;
-  background-color:white;
+  background-color:#131517;
+  padding: 50px 25px;
+  border-radius: 5px;
+}
+
+::placeholder {
+  font-family: "Varela Round", sans-serif;
+  font-weight: 400;
+  font-size: medium;
+  font-style: normal;
+  padding: 10px;
+  color: white;
 }

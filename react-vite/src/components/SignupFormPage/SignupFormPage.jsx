@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
 import { thunkSignup } from "../../redux/session";
+import './SignupForm.css';
 
 function SignupFormPage() {
   const dispatch = useDispatch();
@@ -41,7 +42,7 @@ function SignupFormPage() {
   };
 
   return (
-    <div className="displayFlex flexColumn alignCenter bottomPageBorder">
+    <div className="frontPage displayFlex flexColumn alignCenter bottomPageBorder">
       <h1 className="font whiteFont">Sign Up</h1>
       <p className="font whiteFont smallFont textCenter">Username must be 1-20 characters, containing only letters a to z, 
         numbers 0 to 9, hyphens, or underscores, and cannot include any 
