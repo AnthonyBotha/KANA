@@ -2,7 +2,16 @@ from .db import db
 
 from .user import User
 from .avatar import Avatar
+
+# habits todos dailies
 from .habit import Habit
+from .todo import Todo
+from .daily import Daily
+from .checklist import Checklist
+
+# items and rewards
+from .item import Item
+from .reward import Reward
 
 # parts imported
 from .parts.body import Body

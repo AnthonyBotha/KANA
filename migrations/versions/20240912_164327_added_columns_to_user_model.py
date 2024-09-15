@@ -81,7 +81,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), autoincrement=True, nullable=False),
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
-    sa.Column('body_id', sa.Integer(), nullable=False),
+    # sa.Column('body_id', sa.Integer(), nullable=False),
     sa.Column('head_id', sa.Integer(), nullable=False),
     sa.Column('eye_id', sa.Integer(), nullable=False),
     sa.Column('mouth_id', sa.Integer(), nullable=False),
@@ -93,7 +93,7 @@ def upgrade():
     sa.Column('user_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['antenna_id'], ['antennas.id'], ),
     sa.ForeignKeyConstraint(['background_id'], ['backgrounds.id'], ),
-    sa.ForeignKeyConstraint(['body_id'], ['bodies.id'], ),
+    # sa.ForeignKeyConstraint(['body_id'], ['bodies.id'], ),
     sa.ForeignKeyConstraint(['ear_id'], ['ears.id'], ),
     sa.ForeignKeyConstraint(['eye_id'], ['eyes.id'], ),
     sa.ForeignKeyConstraint(['head_id'], ['heads.id'], ),
@@ -137,7 +137,10 @@ def upgrade():
         op.execute(f"ALTER TABLE mouths SET SCHEMA {SCHEMA};")
 
     if environment == "production":
-        op.execute(f"ALTER TABLE backgrounds necks SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE necks SCHEMA {SCHEMA};")
+
+    if environment == "production":
+        op.execute(f"ALTER TABLE backgrounds SCHEMA {SCHEMA};")
 
     if environment == "production":
         op.execute(f"ALTER TABLE noses SET SCHEMA {SCHEMA};")
