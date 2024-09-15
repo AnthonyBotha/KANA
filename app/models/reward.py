@@ -11,7 +11,7 @@ user_rewards=db.Table(
     db.Column("reward_id",db.Integer,db.ForeignKey(add_prefix_for_prod('rewards.id')),primary_key=True),
     db.Column("created_at",db.DateTime, default=lambda: datetime.now(timezone.utc)),
     db.Column("updated_at",db.DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc)),
-    db.PrimaryKeyConstraint('user_id', 'reward_id')
+    # db.PrimaryKeyConstraint('user_id', 'reward_id')
 )
 
 class Reward(db.Model):
