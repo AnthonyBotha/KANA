@@ -7,6 +7,7 @@ from .avatar import Avatar
 from .habit import Habit
 from .todo import Todo
 from .daily import Daily
+from .checklist import Checklist
 
 # items and rewards
 from .item import Item
