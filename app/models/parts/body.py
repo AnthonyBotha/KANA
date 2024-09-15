@@ -15,7 +15,7 @@ class Body(db.Model):
     created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
     updated_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
 
-    avatars = db.relationship('Avatar', back_populates='body', cascade="all, delete")
+    # avatars = db.relationship('Avatar', back_populates='body', cascade="all, delete")
 
     def to_dict(self):
         return {

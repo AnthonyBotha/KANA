@@ -13,7 +13,7 @@ class Avatar(db.Model):
     updated_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
 
     # all images for avatar forgein keys
-    body_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('bodies.id')),nullable=False)
+    # body_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('bodies.id')),nullable=False)
     head_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('heads.id')), nullable=False)
     eye_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('eyes.id')), nullable=False)
     mouth_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('mouths.id')), nullable=False)
@@ -24,7 +24,7 @@ class Avatar(db.Model):
     background_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('backgrounds.id')), nullable=False)
 
 
-    body=db.relationship('Body',back_populates='avatars')
+    # body=db.relationship('Body',back_populates='avatars')
     head=db.relationship('Head',back_populates='avatars')
     eye=db.relationship('Eye',back_populates='avatars')
     mouth=db.relationship('Mouth',back_populates='avatars')
@@ -42,7 +42,7 @@ class Avatar(db.Model):
         return {
             'id': self.id,
             'userId': self.user_id,
-            'bodyId': self.body_id,
+            # 'bodyId': self.body_id,
             'headId': self.head_id,
             'eyeId': self.eye_id,
             'mouthId': self.mouth_id,
