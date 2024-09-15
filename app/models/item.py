@@ -6,7 +6,7 @@ from datetime import datetime,timezone
 inventory=db.Table(
     'inventory',
     db.Model.metadata,
-    db.Column("id",db.Integer, primary_key=True,autoincrement=True),
+    # db.Column("id",db.Integer, primary_key=True,autoincrement=True),
     db.Column('user_id', db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), primary_key=True),
     db.Column('item_id', db.Integer, db.ForeignKey(add_prefix_for_prod('items.id')), primary_key=True),
     db.Column("created_at",db.DateTime, default=lambda: datetime.now(timezone.utc)),
