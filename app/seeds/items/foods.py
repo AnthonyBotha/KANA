@@ -1,8 +1,11 @@
-from app.models import db, Item, environment, SCHEMA
+from app.models import db, Item,User, environment, SCHEMA
 from sqlalchemy.sql import text
 
 
 def seed_foods():
+    demo=User.query.filter_by(email='demo@aa.io').first()
+    bobbie=User.query.filter_by(email='bobbie@aa.io').first()
+
     food1= Item(
         name='strawberry',
         type='food',
@@ -71,6 +74,11 @@ def seed_foods():
     foods=[food1,food2,food3,food4,food5,food6,food7,food8]
     for food in foods:
         db.session.add(food)
+    db.session.commit()
+    demo.items.append(food1)
+    demo.items.append(food2)
+    bobbie.items.append(food3)
+
     db.session.commit()
 
 def undo_foods():

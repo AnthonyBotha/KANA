@@ -6,6 +6,7 @@ def seed_eggs():
     demo=User.query.filter_by(email='demo@aa.io').first()
     bobbie=User.query.filter_by(email='bobbie@aa.io').first()
 
+
     egg1= Item(
         name='yellow egg',
         type='egg',
@@ -82,6 +83,25 @@ def seed_eggs():
     db.session.commit()
 
 def undo_eggs():
+    demo=User.query.filter_by(email='demo@aa.io').first()
+    bobbie=User.query.filter_by(email='bobbie@aa.io').first()
+    # eggs removed from inventory
+    egg8=Item.query.filter_by(item_img='https://res.cloudinary.com/dzsguqdmg/image/upload/v1726331199/Black_Egg_aqud1z.png',type='egg').first()
+    egg1=Item.query.filter_by(item_img='https://res.cloudinary.com/dzsguqdmg/image/upload/v1726331213/Yellow_Egg_amwdrb.png',type='egg').first()
+    egg4=Item.query.filter_by(item_img='https://res.cloudinary.com/dzsguqdmg/image/upload/v1726331207/Purple_Egg_a8gnz0.png',type='egg').first()
+
+    demo.items.remove(egg8)
+    demo.items.remove(egg1)
+    bobbie.items.remove(egg4)
+    # foods removed from inventory
+    food1=Item.query.filter_by(item_img='https://res.cloudinary.com/dzsguqdmg/image/upload/v1726331254/Strawberry_yuwpqx.png',type='food').first()
+    food2=Item.query.filter_by(item_img='https://res.cloudinary.com/dzsguqdmg/image/upload/v1726331252/Pineapple_h4xmqi.png',type='food').first()
+    food3=Item.query.filter_by(item_img='https://res.cloudinary.com/dzsguqdmg/image/upload/v1726331256/Watermelon_kaqmno.png',type='food').first()
+
+    demo.items.remove(food1)
+    demo.items.remove(food2)
+    bobbie.items.remove(food3)
+
     if environment == "production":
         db.session.execute(f"TRUNCATE table {SCHEMA}.items RESTART IDENTITY CASCADE;")
     else:
