@@ -22,6 +22,9 @@ class Todo(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     user = db.relationship('User', back_populates='todos')
 
+    checklist = db.relationship('Checklist', back_populates='todo')
+
+
     def to_dict(self):
         return {
             'id': self.id,

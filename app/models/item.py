@@ -11,7 +11,7 @@ inventory=db.Table(
     db.Column("item_id",db.Integer,db.ForeignKey(add_prefix_for_prod('items.id')),primary_key=True),
     db.Column("created_at",db.DateTime, default=lambda: datetime.now(timezone.utc)),
     db.Column("updated_at",db.DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc)),
-    db.PrimaryKeyConstraint('user_id', 'item_id')
+    # db.PrimaryKeyConstraint('user_id', 'item_id')
 
     )
 
