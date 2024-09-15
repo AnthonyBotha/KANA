@@ -8,6 +8,8 @@ from .parts.heads import undo_heads,seed_heads
 from .parts.mouths import undo_mouths,seed_mouths
 from .parts.necks import undo_necks,seed_necks
 from .parts.noses import undo_noses,seed_noses
+from .parts.backgrounds import undo_backgrounds,seed_backgrounds
+
 
 from app.models.db import db, environment, SCHEMA
 
@@ -33,6 +35,7 @@ def seed():
         undo_mouths()
         undo_necks()
         undo_noses()
+        undo_backgrounds()
         
     seed_users()
     seed_bodies()
@@ -43,6 +46,7 @@ def seed():
     seed_mouths()
     seed_necks()
     seed_noses()
+    seed_backgrounds()
     # Add other seed functions here
 
 
@@ -58,4 +62,5 @@ def undo():
     undo_mouths()
     undo_necks()
     undo_noses()
+    undo_backgrounds()
     # Add other undo functions here
