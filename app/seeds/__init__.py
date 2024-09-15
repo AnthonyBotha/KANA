@@ -2,6 +2,14 @@ from flask.cli import AppGroup
 from .users import seed_users, undo_users
 from .parts.bodies import undo_bodies,seed_bodies
 from .parts.antennas import undo_antennas,seed_antennas
+from .parts.ears import undo_ears,seed_ears
+from .parts.eyes import undo_eyes,seed_eyes
+from .parts.heads import undo_heads,seed_heads
+from .parts.mouths import undo_mouths,seed_mouths
+from .parts.necks import undo_necks,seed_necks
+from .parts.noses import undo_noses,seed_noses
+from .parts.backgrounds import undo_backgrounds,seed_backgrounds
+
 
 from app.models.db import db, environment, SCHEMA
 
@@ -21,9 +29,24 @@ def seed():
         undo_users()
         undo_bodies()
         undo_antennas()
+        undo_ears()
+        undo_eyes()
+        undo_heads()
+        undo_mouths()
+        undo_necks()
+        undo_noses()
+        undo_backgrounds()
+        
     seed_users()
     seed_bodies()
     seed_antennas()
+    seed_ears()
+    seed_eyes()
+    seed_heads()
+    seed_mouths()
+    seed_necks()
+    seed_noses()
+    seed_backgrounds()
     # Add other seed functions here
 
 
@@ -33,4 +56,11 @@ def undo():
     undo_users()
     undo_bodies()
     undo_antennas()
+    undo_ears()
+    undo_eyes()
+    undo_heads()
+    undo_mouths()
+    undo_necks()
+    undo_noses()
+    undo_backgrounds()
     # Add other undo functions here
