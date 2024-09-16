@@ -4,6 +4,7 @@ from sqlalchemy.sql import text
 def seed_specials():
     demo=User.query.filter_by(email='demo@aa.io').first()
     bobbie=User.query.filter_by(email='bobbie@aa.io').first()
+    marnie=User.query.filter_by(email='marnie@aa.io').first()
 
     special1= Item(
         name='yellow dragon',
@@ -76,12 +77,13 @@ def seed_specials():
     db.session.commit()
 
     demo.items.append(special1)
-    demo.items.append(special2)
-    bobbie.items.append(special3)
+    bobbie.items.append(special1)
+    marnie.items.append(special1)
 
     db.session.commit()
 
 def undo_specials():
+    # for no errors i had to remove in eggs file
     if environment == "production":
         db.session.execute(f"TRUNCATE table {SCHEMA}.items RESTART IDENTITY CASCADE;")
     else:
