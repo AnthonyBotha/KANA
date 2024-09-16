@@ -1,5 +1,4 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
-from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime,timezone
 
 
@@ -12,7 +11,6 @@ inventory=db.Table(
     db.Column("created_at",db.DateTime, default=lambda: datetime.now(timezone.utc)),
     db.Column("updated_at",db.DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc)),
     # db.PrimaryKeyConstraint('user_id', 'item_id')
-
     )
 
 class Item(db.Model):
