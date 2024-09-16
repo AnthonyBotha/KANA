@@ -85,7 +85,7 @@ def seed_eggs():
 
 def undo_eggs():
     demo=User.query.filter_by(email='demo@aa.io').first()
-    if  demo.items is not None and len(demo.items) > 0:
+    if demo is not None and demo.items is not None and len(demo.items) > 0:
         undo_inventory()
 
     if environment == "production":
