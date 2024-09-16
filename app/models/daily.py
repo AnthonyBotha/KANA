@@ -31,7 +31,7 @@ class Daily(db.Model):
     # Relationship with Tags through TagsTasks joint table
     tags = db.relationship(
         'Tag',
-        secondary='taskstags',  # The association table
+        secondary='tags_tasks',  # The association table
         primaryjoin="and_(TagsTasks.task_id == Daily.id, TagsTasks.task_type == 'daily')",
         secondaryjoin='Tag.id == TagsTasks.tag_id',
         back_populates='tasks'
