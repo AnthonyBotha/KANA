@@ -8,6 +8,7 @@ from .habit import Habit
 from .todo import Todo
 from .daily import Daily
 from .checklist import Checklist
+from .tag import Tag, TagsTasks
 
 # items and rewards
 from .item import Item
