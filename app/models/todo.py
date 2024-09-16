@@ -1,6 +1,8 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from sqlalchemy import Enum
 from datetime import datetime, timezone
+from .tag import tasks_tags
+
 
 class Todo(db.Model):
     __tablename__ = 'todos'
@@ -24,14 +26,9 @@ class Todo(db.Model):
     # Relationship with Checklist
     checklist = db.relationship('Checklist', back_populates='todo')
 
-    # Relationship with Tags throught TagsTasks joint table
-    tags = db.relationship(
-        'Tag',
-        secondary='tags_tasks',  # The association table
-        primaryjoin="and_(TagsTasks.task_id == Todo.id, TagsTasks.task_type == 'todo')",
-        secondaryjoin='Tag.id == TagsTasks.tag_id',
-        back_populates='tasks'
-    )
+    # Relationship with Tags throught tasks_tags joint table
+    tags = db.relationship('Tag', secondary=tasks_tags, back_populates='todo_tags')
+
 
 
     def to_dict(self):
