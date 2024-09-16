@@ -31,7 +31,7 @@ def upgrade():
     sa.Column('start_date', sa.Date(), nullable=True),
     sa.Column('repeats', sa.Enum('Daily', 'Weekly', 'Monthly', 'Yearly', name='repeat_timeframe'), nullable=True),
     sa.Column('repeat_every', sa.Integer(), nullable=True),
-    sa.Column('repeat_on', sa.Enum('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'), nullable=True),
+    sa.Column('repeat_on', sa.Enum('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday',name='week_days'), nullable=True),
     sa.Column('is_due', sa.Boolean(), nullable=True),
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
