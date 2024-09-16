@@ -35,17 +35,16 @@ def seed_rewards():
 
 def undo_rewards():
     # user_rewards undo
-    rewards=Reward.query.all()
     demo=User.query.filter_by(email='demo@aa.io').first()
     bobbie=User.query.filter_by(email='bobbie@aa.io').first()
     marnie=User.query.filter_by(email='marnie@aa.io').first()
 
-
-    # if rewards is not None and len(rewards) > 0:
-    for reward in rewards:
-        demo.rewards.remove(reward)
-        marnie.rewards.remove(reward)
-        bobbie.rewards.remove(reward)
+    if demo and demo.rewards:
+        demo.rewards.clear()  # This will remove all rewards associated with demo
+    if marnie and marnie.rewards:
+        marnie.rewards.clear()  # This will remove all rewards associated with marnie
+    if bobbie and bobbie.rewards:
+        bobbie.rewards.clear()  # This will remove all rewards associated with bobbie
 
 
     if environment == "production":
