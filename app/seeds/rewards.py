@@ -40,10 +40,12 @@ def undo_rewards():
     bobbie=User.query.filter_by(email='bobbie@aa.io').first()
     marnie=User.query.filter_by(email='marnie@aa.io').first()
 
-    for reward in rewards:
-        demo.rewards.remove(reward)
-        marnie.rewards.remove(reward)
-        bobbie.rewards.remove(reward)
+
+    if rewards is not None and len(rewards) > 0:
+        for reward in rewards:
+            demo.rewards.remove(reward)
+            marnie.rewards.remove(reward)
+            bobbie.rewards.remove(reward)
 
 
     if environment == "production":

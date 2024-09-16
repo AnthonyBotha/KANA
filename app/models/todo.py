@@ -10,8 +10,8 @@ class Todo(db.Model):
 
     id = db.Column(db.Integer, primary_key=True,autoincrement=True)
 
-    title = db.Column(db.String(30), nullable=False)
-    notes = db.Column(db.Text, nullable=False)
+    title = db.Column(db.Text, nullable=False)
+    notes = db.Column(db.Text, nullable=True)
     difficulty = db.Column(Enum('Trivial', 'Easy', 'Medium', 'Hard', name='dificulty_level'), default='Easy',nullable=False)
     due_date = db.Column(db.Date,nullable=False)
     completed = db.Column(db.Boolean, default=False)

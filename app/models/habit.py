@@ -1,6 +1,7 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime,timezone
+from sqlalchemy import Enum
 
 class Habit(db.Model):
     __tablename__ = 'habits'
@@ -12,9 +13,9 @@ class Habit(db.Model):
     created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
     updated_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
 
-    title = db.Column(db.String(30), nullable=False)
+    title = db.Column(db.Text, nullable=False)
     notes = db.Column(db.Text, nullable=True)
-    difficulty = db.Column(db.String(10), nullable=True)
+    difficulty = db.Column(Enum('Trivial', 'Easy', 'Medium', 'Hard', name='difficulty_level'), nullable=False, default='Easy')
     score= db.Column(db.Integer, default=0, nullable=False)
     is_positive = db.Column(db.Boolean, nullable=True)
 
