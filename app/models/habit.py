@@ -22,6 +22,15 @@ class Habit(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')),nullable=False)
     user= db.relationship('User',back_populates='habits')
 
+    # Relationship with Tags through TagsTasks joint table
+    tags = db.relationship(
+        'Tag',
+        secondary='taskstags',  # The association table
+        primaryjoin="and_(TagsTasks.task_id == Habit.id, TagsTasks.task_type == 'habit')",
+        secondaryjoin='Tag.id == TagsTasks.tag_id',
+        back_populates='tasks'
+    )
+
     def to_dict(self):
         return {
             'id':self.id,

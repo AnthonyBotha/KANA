@@ -21,8 +21,17 @@ class Todo(db.Model):
     #connect Todos to user creating a many to one relationship
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     user = db.relationship('User', back_populates='todos')
-
+    # Relationship with Checklist
     checklist = db.relationship('Checklist', back_populates='todo')
+
+    # Relationship with Tags throught TagsTasks joint table
+    tags = db.relationship(
+        'Tag',
+        secondary='taskstags',  # The association table
+        primaryjoin="and_(TagsTasks.task_id == Todo.id, TagsTasks.task_type == 'todo')",
+        secondaryjoin='Tag.id == TagsTasks.tag_id',
+        back_populates='tasks'
+    )
 
 
     def to_dict(self):
