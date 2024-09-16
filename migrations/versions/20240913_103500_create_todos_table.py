@@ -26,7 +26,7 @@ def upgrade():
     sa.Column('title', sa.String(length=30), nullable=False),
     sa.Column('notes', sa.Text(), nullable=False),
     sa.Column('difficulty', sa.Enum('Trivial', 'Easy', 'Medium', 'Hard', name='dificulty_level'), nullable=False),
-    sa.Column('due_date', sa.Date(), nullable=True),
+    sa.Column('due_date', sa.Date(), nullable=False),
     sa.Column('completed', sa.Boolean(), nullable=True),
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
