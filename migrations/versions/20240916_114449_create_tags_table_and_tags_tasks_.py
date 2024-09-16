@@ -8,6 +8,10 @@ Create Date: 2024-09-16 11:44:49.436397
 from alembic import op
 import sqlalchemy as sa
 
+import os
+environment = os.getenv("FLASK_ENV")
+SCHEMA = os.environ.get("SCHEMA")
+
 
 # revision identifiers, used by Alembic.
 revision = '7b3a68112486'
@@ -25,6 +29,11 @@ def upgrade():
     sa.Column('updated_at', sa.DateTime(), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
+
+    if environment == "production":
+        op.execute(f"ALTER TABLE tags SET SCHEMA {SCHEMA};")
+
+
     op.create_table('tags_tasks',
     sa.Column('id', sa.Integer(), autoincrement=True, nullable=False),
     sa.Column('task_type', sa.Enum('habit', 'todo', 'daily', name='task_types'), nullable=False),
