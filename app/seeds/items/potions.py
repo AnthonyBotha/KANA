@@ -5,6 +5,7 @@ from sqlalchemy.sql import text
 def seed_potions():
     demo=User.query.filter_by(email='demo@aa.io').first()
     bobbie=User.query.filter_by(email='bobbie@aa.io').first()
+    marnie=User.query.filter_by(email='marnie@aa.io').first()
 
     potion1= Item(
         name='yellow potion',
@@ -77,12 +78,13 @@ def seed_potions():
     db.session.commit()
 
     demo.items.append(potion1)
-    demo.items.append(potion2)
-    bobbie.items.append(potion3)
+    bobbie.items.append(potion1)
+    marnie.items.append(potion1)
 
     db.session.commit()
 
 def undo_potions():
+    # for no errors i had to remove in eggs file
     if environment == "production":
         db.session.execute(f"TRUNCATE table {SCHEMA}.items RESTART IDENTITY CASCADE;")
     else:

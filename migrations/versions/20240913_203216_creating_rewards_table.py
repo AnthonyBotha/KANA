@@ -35,7 +35,6 @@ def upgrade():
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('user_rewards',
-    sa.Column('id', sa.Integer(), autoincrement=True, nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('reward_id', sa.Integer(), nullable=False),
     sa.Column('created_at', sa.DateTime(), nullable=True),
