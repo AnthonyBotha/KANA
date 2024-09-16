@@ -36,6 +36,5 @@ def downgrade():
     with op.batch_alter_table('inventory', schema=schema) as batch_op:
         batch_op.drop_column('updated_at')
         batch_op.drop_column('created_at')
-        batch_op.drop_column('id')
 
     # ### end Alembic commands ###

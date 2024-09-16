@@ -5,6 +5,7 @@ from sqlalchemy.sql import text
 def seed_foods():
     demo=User.query.filter_by(email='demo@aa.io').first()
     bobbie=User.query.filter_by(email='bobbie@aa.io').first()
+    marnie=User.query.filter_by(email='marnie@aa.io').first()
 
     food1= Item(
         name='strawberry',
@@ -76,12 +77,13 @@ def seed_foods():
         db.session.add(food)
     db.session.commit()
     demo.items.append(food1)
-    demo.items.append(food2)
-    bobbie.items.append(food3)
+    bobbie.items.append(food1)
+    marnie.items.append(food1)
 
     db.session.commit()
 
 def undo_foods():
+    # for no errors i had to remove in eggs file
     if environment == "production":
         db.session.execute(f"TRUNCATE table {SCHEMA}.items RESTART IDENTITY CASCADE;")
     else:
