@@ -9,19 +9,19 @@ def seed_tags():
         tag_name='Excercise'
     )
     health = Tag(
-        tag_name='health'
+        tag_name='Health'
     )
     school = Tag(
-        tag_name='school'
+        tag_name='School'
     )
     teams = Tag(
-        tag_name='teams'
+        tag_name='Teams'
     )
     chores = Tag(
-        tag_name='chores'
+        tag_name='Chores'
     )
     creativity = Tag(
-        tag_name='creativity'
+        tag_name='Creativity'
     )
 
     tags = [work,excercise,health, school, teams, chores, creativity]
