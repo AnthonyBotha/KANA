@@ -84,13 +84,15 @@ def seed_eggs():
     db.session.commit()
 
 def undo_eggs():
-    demo=User.query.filter_by(email='demo@aa.io').first()
-    if demo is not None and demo.items is not None and len(demo.items) > 0:
-        undo_inventory()
+    # demo=User.query.filter_by(email='demo@aa.io').first()
+    # if demo is not None and demo.items is not None and len(demo.items) > 0:
+    #     undo_inventory()
 
     if environment == "production":
+        db.session.execute(f"TRUNCATE table {SCHEMA}.inventory RESTART IDENTITY CASCADE;")
         db.session.execute(f"TRUNCATE table {SCHEMA}.items RESTART IDENTITY CASCADE;")
     else:
+        db.session.execute(text("DELETE FROM inventory"))
         db.session.execute(text("DELETE FROM items"))
 
     db.session.commit()

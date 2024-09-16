@@ -35,21 +35,23 @@ def seed_rewards():
 
 def undo_rewards():
     # user_rewards undo
-    demo=User.query.filter_by(email='demo@aa.io').first()
-    bobbie=User.query.filter_by(email='bobbie@aa.io').first()
-    marnie=User.query.filter_by(email='marnie@aa.io').first()
+    # demo=User.query.filter_by(email='demo@aa.io').first()
+    # bobbie=User.query.filter_by(email='bobbie@aa.io').first()
+    # marnie=User.query.filter_by(email='marnie@aa.io').first()
 
-    if demo and demo.rewards:
-        demo.rewards.clear()  # This will remove all rewards associated with demo
-    if marnie and marnie.rewards:
-        marnie.rewards.clear()  # This will remove all rewards associated with marnie
-    if bobbie and bobbie.rewards:
-        bobbie.rewards.clear()  # This will remove all rewards associated with bobbie
+    # if demo and demo.rewards:
+    #     demo.rewards.clear()  # This will remove all rewards associated with demo
+    # if marnie and marnie.rewards:
+    #     marnie.rewards.clear()  # This will remove all rewards associated with marnie
+    # if bobbie and bobbie.rewards:
+    #     bobbie.rewards.clear()  # This will remove all rewards associated with bobbie
 
 
     if environment == "production":
+        db.session.execute(f"TRUNCATE table {SCHEMA}.user_rewards RESTART IDENTITY CASCADE;")
         db.session.execute(f"TRUNCATE table {SCHEMA}.rewards RESTART IDENTITY CASCADE;")
     else:
+        db.session.execute(text("DELETE FROM user_rewards"))
         db.session.execute(text("DELETE FROM rewards"))
 
     db.session.commit()
