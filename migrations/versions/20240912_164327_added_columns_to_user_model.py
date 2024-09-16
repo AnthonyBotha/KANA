@@ -105,8 +105,8 @@ def upgrade():
     sa.UniqueConstraint('user_id')
     )
     with op.batch_alter_table('users', schema=schema) as batch_op:
-        batch_op.add_column(sa.Column('first_name', sa.String(length=30), nullable=False))
-        batch_op.add_column(sa.Column('last_name', sa.String(length=30), nullable=False))
+        batch_op.add_column(sa.Column('first_name', sa.String(length=30), nullable=True))
+        batch_op.add_column(sa.Column('last_name', sa.String(length=30), nullable=True))
         batch_op.add_column(sa.Column('experience', sa.Integer(), nullable=True))
         batch_op.add_column(sa.Column('health', sa.Integer(), nullable=True))
         batch_op.add_column(sa.Column('level', sa.Integer(), nullable=True))
