@@ -13,7 +13,7 @@ class Todo(db.Model):
     title = db.Column(db.String(30), nullable=False)
     notes = db.Column(db.Text, nullable=False)
     difficulty = db.Column(Enum('Trivial', 'Easy', 'Medium', 'Hard', name='dificulty_level'), default='Easy',nullable=False)
-    due_date = db.Column(db.Date)
+    due_date = db.Column(db.Date,nullable=False)
     completed = db.Column(db.Boolean, default=False)
     created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
     updated_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
