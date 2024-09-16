@@ -4,6 +4,8 @@ from sqlalchemy.sql import text
 
 def seed_rewards():
     demo=User.query.filter_by(email='demo@aa.io').first()
+    bobbie=User.query.filter_by(email='bobbie@aa.io').first()
+    marnie=User.query.filter_by(email='marnie@aa.io').first()
     items= Item.query.all()
 
     for item in items:
@@ -21,10 +23,29 @@ def seed_rewards():
             )
             db.session.add(reward)
     db.session.commit()
+    # user_rewards seeds
+    rewards=Reward.query.all()
+    for reward in rewards:
+        demo.rewards.append(reward)
+        marnie.rewards.append(reward)
+        bobbie.rewards.append(reward)
+    db.session.commit()
+
 
 
 def undo_rewards():
-    # for no errors i had to remove in eggs file
+    # user_rewards undo
+    rewards=Reward.query.all()
+    demo=User.query.filter_by(email='demo@aa.io').first()
+    bobbie=User.query.filter_by(email='bobbie@aa.io').first()
+    marnie=User.query.filter_by(email='marnie@aa.io').first()
+
+    for reward in rewards:
+        demo.rewards.remove(reward)
+        marnie.rewards.remove(reward)
+        bobbie.rewards.remove(reward)
+
+
     if environment == "production":
         db.session.execute(f"TRUNCATE table {SCHEMA}.rewards RESTART IDENTITY CASCADE;")
     else:
