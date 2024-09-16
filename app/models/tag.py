@@ -38,21 +38,21 @@ class Tag(db.Model):
     # Relationships with each task type through TagsTasks joint table
     dailies = db.relationship(
         'Daily',
-        secondary='taskstags',
+        secondary='tags_tasks',
         primaryjoin='Tag.id == TagsTasks.tag_id',
         secondaryjoin="and_(TagsTasks.task_id == Daily.id, TagsTasks.task_type == 'daily')",
         back_populates='tags'
     )
     todos = db.relationship(
         'Todo',
-        secondary='taskstags',
+        secondary='tags_tasks',
         primaryjoin='Tag.id == TagsTasks.tag_id',
         secondaryjoin="and_(TagsTasks.task_id == Todo.id, TagsTasks.task_type == 'todo')",
         back_populates='tags'
     )
     habits = db.relationship(
         'Habit',
-        secondary='taskstags',
+        secondary='tags_tasks',
         primaryjoin='Tag.id == TagsTasks.tag_id',
         secondaryjoin="and_(TagsTasks.task_id == Habit.id, TagsTasks.task_type == 'habit')",
         back_populates='tags'

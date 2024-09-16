@@ -27,7 +27,7 @@ class Todo(db.Model):
     # Relationship with Tags throught TagsTasks joint table
     tags = db.relationship(
         'Tag',
-        secondary='taskstags',  # The association table
+        secondary='tags_tasks',  # The association table
         primaryjoin="and_(TagsTasks.task_id == Todo.id, TagsTasks.task_type == 'todo')",
         secondaryjoin='Tag.id == TagsTasks.tag_id',
         back_populates='tasks'
