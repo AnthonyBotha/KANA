@@ -23,15 +23,13 @@ def seed_tags():
     creativity = Tag(
         tag_name='creativity'
     )
-    
+
     tags = [work,excercise,health, school, teams, chores, creativity]
     for tag in tags:
         db.session.add(tag)
+
     db.session.commit()
 
-
-    habit1 = Habit.query.filter_by(title='Add a task to KANA')
-    habit1.tags.append(work)
 
 def undo_tags():
     if environment == "production":
