@@ -25,7 +25,7 @@ def seed_potions():
     potion3= Item(
         name='red potion',
         type='potion',
-        description="better then blue",
+        description="better than blue",
         equipment=False,
         cost=20.0,
         item_img='https://res.cloudinary.com/dzsguqdmg/image/upload/v1726331305/Red_Potion_xa8idn.png'
