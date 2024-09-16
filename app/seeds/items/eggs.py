@@ -85,16 +85,33 @@ def seed_eggs():
 
 def undo_eggs():
     demo=User.query.filter_by(email='demo@aa.io').first()
+    if  demo.items is not None and len(demo.items) > 0:
+        undo_inventory()
+
+    if environment == "production":
+        db.session.execute(f"TRUNCATE table {SCHEMA}.items RESTART IDENTITY CASCADE;")
+    else:
+        db.session.execute(text("DELETE FROM items"))
+
+    db.session.commit()
+
+
+
+def undo_inventory():
+    demo=User.query.filter_by(email='demo@aa.io').first()
     bobbie=User.query.filter_by(email='bobbie@aa.io').first()
     marnie=User.query.filter_by(email='marnie@aa.io').first()
     # eggs removed from inventory
     egg1=Item.query.filter_by(item_img='https://res.cloudinary.com/dzsguqdmg/image/upload/v1726331213/Yellow_Egg_amwdrb.png',type='egg').first()
+
+
 
     demo.items.remove(egg1)
     bobbie.items.remove(egg1)
     marnie.items.remove(egg1)
     # foods removed from inventory
     food1=Item.query.filter_by(item_img='https://res.cloudinary.com/dzsguqdmg/image/upload/v1726331254/Strawberry_yuwpqx.png',type='food').first()
+
 
     demo.items.remove(food1)
     bobbie.items.remove(food1)
@@ -103,6 +120,7 @@ def undo_eggs():
 
     # potions removed
     potion1=Item.query.filter_by(item_img='https://res.cloudinary.com/dzsguqdmg/image/upload/v1726331310/Yellow_Potion_ltq2s8.png',type='potion').first()
+
 
     demo.items.remove(potion1)
     bobbie.items.remove(potion1)
@@ -148,11 +166,3 @@ def undo_eggs():
     demo.items.remove(weapon1)
     bobbie.items.remove(weapon1)
     marnie.items.remove(weapon1)
-
-
-    if environment == "production":
-        db.session.execute(f"TRUNCATE table {SCHEMA}.items RESTART IDENTITY CASCADE;")
-    else:
-        db.session.execute(text("DELETE FROM items"))
-
-    db.session.commit()
