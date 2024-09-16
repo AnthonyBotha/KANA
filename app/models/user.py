@@ -31,9 +31,9 @@ class User(db.Model, UserMixin):
     items=db.relationship('Item',secondary=inventory,back_populates='users')
     # connects habits to users creating a one to many relationship
     habits=db.relationship('Habit',back_populates='user',cascade='all, delete-orphan')
-    # connects habits to users creating a one to many relationship
+    # connects todos to users creating a one to many relationship
     todos=db.relationship('Todo', back_populates='user', cascade='all, delete-orphan')
-    #dailies
+    # connects dailies to users creating a one to many relationship
     dailies=db.relationship('Daily', back_populates='user', cascade='all, delete-orphan')
     # creates one to one relationship to Avatar
     avatar= db.relationship('Avatar',back_populates='user',uselist=False,cascade="all,delete-orphan")
