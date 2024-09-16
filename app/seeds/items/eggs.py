@@ -5,7 +5,7 @@ from sqlalchemy.sql import text
 def seed_eggs():
     demo=User.query.filter_by(email='demo@aa.io').first()
     bobbie=User.query.filter_by(email='bobbie@aa.io').first()
-
+    marnie=User.query.filter_by(email='marnie@aa.io').first()
 
     egg1= Item(
         name='yellow egg',
@@ -76,54 +76,93 @@ def seed_eggs():
     for egg in eggs:
         db.session.add(egg)
     db.session.commit()
-    demo.items.append(egg8)
+
     demo.items.append(egg1)
-    bobbie.items.append(egg4)
+    bobbie.items.append(egg1)
+    marnie.items.append(egg1)
 
     db.session.commit()
 
 def undo_eggs():
     demo=User.query.filter_by(email='demo@aa.io').first()
-    bobbie=User.query.filter_by(email='bobbie@aa.io').first()
-    # eggs removed from inventory
-    egg8=Item.query.filter_by(item_img='https://res.cloudinary.com/dzsguqdmg/image/upload/v1726331199/Black_Egg_aqud1z.png',type='egg').first()
-    egg1=Item.query.filter_by(item_img='https://res.cloudinary.com/dzsguqdmg/image/upload/v1726331213/Yellow_Egg_amwdrb.png',type='egg').first()
-    egg4=Item.query.filter_by(item_img='https://res.cloudinary.com/dzsguqdmg/image/upload/v1726331207/Purple_Egg_a8gnz0.png',type='egg').first()
+    if demo is not None and demo.items is not None and len(demo.items) > 0:
+        undo_inventory()
 
-    demo.items.remove(egg8)
-    demo.items.remove(egg1)
-    bobbie.items.remove(egg4)
-    # foods removed from inventory
-    food1=Item.query.filter_by(item_img='https://res.cloudinary.com/dzsguqdmg/image/upload/v1726331254/Strawberry_yuwpqx.png',type='food').first()
-    food2=Item.query.filter_by(item_img='https://res.cloudinary.com/dzsguqdmg/image/upload/v1726331252/Pineapple_h4xmqi.png',type='food').first()
-    food3=Item.query.filter_by(item_img='https://res.cloudinary.com/dzsguqdmg/image/upload/v1726331256/Watermelon_kaqmno.png',type='food').first()
-
-    demo.items.remove(food1)
-    demo.items.remove(food2)
-    bobbie.items.remove(food3)
-
-
-    # potions removed
-    potion1=Item.query.filter_by(item_img='https://res.cloudinary.com/dzsguqdmg/image/upload/v1726331310/Yellow_Potion_ltq2s8.png',type='potion').first()
-    potion2=Item.query.filter_by(item_img='https://res.cloudinary.com/dzsguqdmg/image/upload/v1726331308/White_Potion_jvpmak.png',type='potion').first()
-    potion3=Item.query.filter_by(item_img='https://res.cloudinary.com/dzsguqdmg/image/upload/v1726331305/Red_Potion_xa8idn.png',type='potion').first()
-
-    demo.items.remove(potion1)
-    demo.items.remove(potion2)
-    bobbie.items.remove(potion3)
-
-
-    # specials removed
-    special1=Item.query.filter_by(item_img='https://res.cloudinary.com/dzsguqdmg/image/upload/v1726331484/Yellow_Baby_Dragon_tbk3l1.png',type='special').first()
-    special2=Item.query.filter_by(item_img='https://res.cloudinary.com/dzsguqdmg/image/upload/v1726331482/White_Baby_Dragon_wgn3uv.png',type='special').first()
-    special3=Item.query.filter_by(item_img='https://res.cloudinary.com/dzsguqdmg/image/upload/v1726331479/Red_Baby_Dragon_nyrbuo.png',type='special').first()
-
-    demo.items.remove(special1)
-    demo.items.remove(special2)
-    bobbie.items.remove(special3)
     if environment == "production":
         db.session.execute(f"TRUNCATE table {SCHEMA}.items RESTART IDENTITY CASCADE;")
     else:
         db.session.execute(text("DELETE FROM items"))
 
     db.session.commit()
+
+
+
+def undo_inventory():
+    demo=User.query.filter_by(email='demo@aa.io').first()
+    bobbie=User.query.filter_by(email='bobbie@aa.io').first()
+    marnie=User.query.filter_by(email='marnie@aa.io').first()
+    # eggs removed from inventory
+    egg1=Item.query.filter_by(item_img='https://res.cloudinary.com/dzsguqdmg/image/upload/v1726331213/Yellow_Egg_amwdrb.png',type='egg').first()
+
+
+
+    demo.items.remove(egg1)
+    bobbie.items.remove(egg1)
+    marnie.items.remove(egg1)
+    # foods removed from inventory
+    food1=Item.query.filter_by(item_img='https://res.cloudinary.com/dzsguqdmg/image/upload/v1726331254/Strawberry_yuwpqx.png',type='food').first()
+
+
+    demo.items.remove(food1)
+    bobbie.items.remove(food1)
+    marnie.items.remove(food1)
+
+
+    # potions removed
+    potion1=Item.query.filter_by(item_img='https://res.cloudinary.com/dzsguqdmg/image/upload/v1726331310/Yellow_Potion_ltq2s8.png',type='potion').first()
+
+
+    demo.items.remove(potion1)
+    bobbie.items.remove(potion1)
+    marnie.items.remove(potion1)
+
+
+    # specials removed
+    special1=Item.query.filter_by(item_img='https://res.cloudinary.com/dzsguqdmg/image/upload/v1726331484/Yellow_Baby_Dragon_tbk3l1.png',type='special').first()
+
+    demo.items.remove(special1)
+    bobbie.items.remove(special1)
+    marnie.items.remove(special1)
+
+    # off hands removed
+    sheild1=Item.query.filter_by(item_img='https://res.cloudinary.com/dzsguqdmg/image/upload/v1726331934/Wooden_Shield_vrlqfc.png',name='Wood Sheild').first()
+
+    demo.items.remove(sheild1)
+    bobbie.items.remove(sheild1)
+    marnie.items.remove(sheild1)
+
+    # armor removed
+    armor1=Item.query.filter_by(item_img='https://res.cloudinary.com/dzsguqdmg/image/upload/v1726331571/Tunic_ni2cut.png',type='armor').first()
+
+    demo.items.remove(armor1)
+    bobbie.items.remove(armor1)
+    marnie.items.remove(armor1)
+
+    # hats
+    hat1=Item.query.filter_by(item_img='https://res.cloudinary.com/dzsguqdmg/image/upload/v1726331816/Sant_Hat_eh6jyy.png',type='hat').first()
+
+    demo.items.remove(hat1)
+    bobbie.items.remove(hat1)
+    marnie.items.remove(hat1)
+
+    # helmets
+    helmet1=Item.query.filter_by(item_img='https://res.cloudinary.com/dzsguqdmg/image/upload/v1726331857/Hat_fngaa9.png',type='helmet').first()
+    demo.items.remove(helmet1)
+    bobbie.items.remove(helmet1)
+    marnie.items.remove(helmet1)
+
+    #weapons
+    weapon1=Item.query.filter_by(item_img='https://res.cloudinary.com/dzsguqdmg/image/upload/v1726331895/Dagger_lv3g4u.png',type='weapon').first()
+    demo.items.remove(weapon1)
+    bobbie.items.remove(weapon1)
+    marnie.items.remove(weapon1)

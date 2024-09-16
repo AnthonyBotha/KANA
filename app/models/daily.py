@@ -9,13 +9,15 @@ class Daily(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    title = db.Column(db.String(30), nullable=False)
-    notes = db.Column(db.Text, nullable=False)
-    difficulty = db.Column(Enum('Trivial', 'Easy', 'Medium', 'Hard', name='difficulty_level'), nullable=False)
+    title = db.Column(db.Text, nullable=False)
+    notes = db.Column(db.Text, nullable=True)
+    difficulty = db.Column(Enum('Trivial', 'Easy', 'Medium', 'Hard', name='difficulty_level'), nullable=False, default='Easy')
     start_date = db.Column(db.Date, default=lambda: datetime.now().date())
     repeats = db.Column(Enum('Daily', 'Weekly', 'Monthly', 'Yearly', name='repeat_timeframe'), default='Weekly')
     repeat_every = db.Column(db.Integer, default=1)
-    repeat_on = db.Column(Enum('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'))
+
+    repeat_on = db.Column(Enum('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday', name='week_days'),nullable=True)
+
     is_due = db.Column(db.Boolean, default=True)
     created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
     updated_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))

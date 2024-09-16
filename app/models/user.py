@@ -15,8 +15,8 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
-    first_name = db.Column(db.String(30), nullable=False)
-    last_name = db.Column(db.String(30), nullable=False)
+    first_name = db.Column(db.String(30), nullable=True)
+    last_name = db.Column(db.String(30), nullable=True)
     experience = db.Column(db.Integer, default=0)
     health = db.Column(db.Integer,default=100)
     level = db.Column(db.Integer,default=1)
@@ -31,9 +31,9 @@ class User(db.Model, UserMixin):
     items=db.relationship('Item',secondary=inventory,back_populates='users')
     # connects habits to users creating a one to many relationship
     habits=db.relationship('Habit',back_populates='user',cascade='all, delete-orphan')
-    # connects habits to users creating a one to many relationship
+    # connects todos to users creating a one to many relationship
     todos=db.relationship('Todo', back_populates='user', cascade='all, delete-orphan')
-    #dailies
+    # connects dailies to users creating a one to many relationship
     dailies=db.relationship('Daily', back_populates='user', cascade='all, delete-orphan')
     # creates one to one relationship to Avatar
     avatar= db.relationship('Avatar',back_populates='user',uselist=False,cascade="all,delete-orphan")
