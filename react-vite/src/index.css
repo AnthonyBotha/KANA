@@ -23,6 +23,10 @@
   background-color: #432874;
 }
 
+.almostBlack {
+  background-color: #131517;
+}
+
 .black {
   background-color: #0b0b0b;
 }
@@ -60,6 +64,10 @@
 /* font colors */
 .whiteFont {
   color: #F8F9FA;
+}
+
+.purpleFont {
+  color: #6F42C1;
 }
 
 /* font sizes */
@@ -285,6 +293,11 @@ button:hover {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+}
+
+/* temporary stylings */
+.itemDashboard {
+  width: 75%;
 }
 
 

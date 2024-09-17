@@ -43,9 +43,9 @@ function ProfileButton() {
 
   return (
     <>
-      <button className="mouseOver rightPageBorder xx-largeFont noPadding whiteFont noBackground noBorder" onClick={toggleMenu}>
+      <div className="mouseOver rightPageBorder xx-largeFont noPadding whiteFont noBackground noBorder" onClick={toggleMenu}>
         <FaUser />
-      </button>
+      </div>
       {showMenu && (
         <ul className="profile-dropdown lightGrey removeDecorations dropShadow" ref={ulRef}>
           {user ? (
