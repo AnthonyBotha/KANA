@@ -43,7 +43,7 @@ class Item(db.Model):
             'equipment':self.equipment,
             'cost':self.cost,
             'itemImg':self.item_img,
-            'users':[user.to_dict_items() for user in self.users],
+            'users':[user.to_user_info() for user in self.users],
         }
     def to_dict_user(self):
             return{

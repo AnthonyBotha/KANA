@@ -3,23 +3,23 @@ import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 
 function AvatarModal() {
-  const dispatch = useDispatch();
-  const { closeModal } = useModal();
-  const [errors, setErrors] = useState({});
+  // const dispatch = useDispatch();
+  // const { closeModal } = useModal();
+  // const [errors, setErrors] = useState({});
 
   // const handleSubmit = async (e) => {
   //   e.preventDefault();
 
 
-  const serverResponse = await dispatch(
-    // Search for server things
-  );
+  // const serverResponse = await dispatch(
+  //   // Search for server things
+  // );
 
-  if (serverResponse) {
-    setErrors(serverResponse);
-  } else {
-    closeModal();
-  }
+  // if (serverResponse) {
+  //   setErrors(serverResponse);
+  // } else {
+  //   closeModal();
+  // }
 
 
   return (
