@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required,current_user
-from app.models import db, Avatar
+from app.models import db, Avatar,User
 
 avatar_routes = Blueprint('avatars', __name__)
 
@@ -11,13 +11,13 @@ def avatar():
     """
     Query for all avatars and returns them in a list of avatar dictionaries
     """
-    user_avatar = Avatar.query.filter_by(current_user.id).first()
+    user_avatar = Avatar.query.filter_by(user_id=current_user.id).first()
 
     if user_avatar:
-        return {"avatar":user_avatar.to_dict()}
+        return {"avatar":user_avatar.to_dict_user()}
     else:
         return {"error":"Avatar Not Found"}, 404
-    
+
 @avatar_routes.route("/", methods=["POST"])
 @login_required
 def create_avatar():
@@ -35,33 +35,33 @@ def create_avatar():
     nose_id = data.get("nose_id")
     background_id = data.get("background_id")
 
-    new_avatar = {
-        "user_id": current_user.id,
-        "head_id": head_id,
-        "eye_id": eye_id,
-        "mouth_id": mouth_id,
-        "antenna_id": antenna_id,
-        "neck_id": neck_id,
-        "ear_id": ear_id,
-        "nose_id": nose_id,
-        "background_id": background_id
-    }
+    new_avatar = Avatar(
+        user_id=current_user.id,
+        head_id=head_id,
+        eye_id = eye_id,
+        mouth_id=mouth_id,
+        antenna_id=antenna_id,
+        neck_id=neck_id,
+        ear_id=ear_id,
+        nose_id=nose_id,
+        background_id=background_id
+    )
 
     db.session.add(new_avatar)
     db.session.commit()
 
-    return {"avatar":new_avatar.to_dict()}
+    return jsonify(new_avatar.to_dict_user()),201
 
 
-@avatar_routes.route("/<int:id>", methods=["PUT"])
+@avatar_routes.route("/", methods=["PUT"])
 @login_required
-def update_avatar(id):
+def update_avatar():
     """
     Update avatar for the current user by extracting fields from request body
     """
     data = request.json
-
-    avatar = Avatar.query.get(id)
+    user = User.query.filter_by(id=current_user.id).first()
+    avatar = user.avatar
 
     if not avatar:
         return {"error":"Avatar Not Found"}, 404
@@ -78,20 +78,21 @@ def update_avatar(id):
 
     db.session.commit()
 
-    return {"avatar":avatar.to_dict()},201
+    return jsonify(user.avatar.to_dict_user()),201
 
-@avatar_routes.route("/<int:id>", methods=["DELETE"])
+@avatar_routes.route("/", methods=["DELETE"])
 @login_required
-def delete_avatar(id):
+def delete_avatar():
     """
     Delete avatar by id
     """
 
-    avatar = Avatar.query.get(id)
+    user = User.query.filter_by(id=current_user.id).first()
+    avatar = user.avatar
 
     if not avatar:
         return {"error":"Avatar Not Found"}, 404
-    
+
     db.session.delete(avatar)
     db.session.commit()
 
