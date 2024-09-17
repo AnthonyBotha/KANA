@@ -27,21 +27,14 @@ def seed_tags():
     tags = [work,excercise,health, school, teams, chores, creativity]
     for tag in tags:
         db.session.add(tag)
-<<<<<<< HEAD
 
 
     habit1 = Habit.query.filter_by(id=1).first()
     habit1.tags.append(work)
 
-    
-    db.session.commit()
-
-=======
 
     db.session.commit()
 
-
->>>>>>> 63c791f6c65501043bb4a219da9ff4395f7eb227
 def undo_tags():
     if environment == "production":
         db.session.execute(f"TRUNCATE table {SCHEMA}.tasks_tags RESTART IDENTITY CASCADE;")
