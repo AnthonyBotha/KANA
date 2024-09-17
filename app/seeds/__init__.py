@@ -26,6 +26,7 @@ from .habits import seed_habits,undo_habits
 from .dailies import seed_dailies,undo_dailies
 from .todos import seed_todos,undo_todos
 from .tags import seed_tags, undo_tags
+from .checklists import seed_checklists, undo_checklists
 
 from app.models.db import db, environment, SCHEMA
 
@@ -42,6 +43,7 @@ def seed():
         # command, which will  truncate all tables prefixed with
         # the schema name (see comment in users.py undo_users function).
         # Make sure to add all your other model's undo functions below
+        undo_checklists()
         undo_tags()
         undo_rewards()
         undo_eggs()
@@ -97,12 +99,14 @@ def seed():
     seed_helmets()
     seed_rewards()
     seed_tags()
+    seed_checklists()
     # Add other seed functions here
 
 
 # Creates the `flask seed undo` command
 @seed_commands.command('undo')
 def undo():
+    undo_checklists()
     undo_tags()
     undo_rewards()
     undo_eggs()
