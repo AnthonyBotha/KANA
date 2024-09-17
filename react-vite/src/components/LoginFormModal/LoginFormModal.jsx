@@ -29,6 +29,14 @@ function LoginFormModal() {
     }
   };
 
+  const demoLogin = async () => {
+    await dispatch(thunkLogin({
+      email: "demo@aa.io", 
+      password: "password"
+    }))
+      .then(closeModal)
+  }
+
   return (
     <div className="displayFlex flexColumn alignCenter">
       <img className="logo bottomMargin" src={SmallLogo} />
@@ -55,7 +63,12 @@ function LoginFormModal() {
           />
         </label>
         {errors.password && <p>{errors.password}</p>}
-        <button type="submit">Log In</button>
+        <div className='displayFlex flexColumn'>
+          <button type="submit">Log In</button>
+          <button type="submit" 
+                  className="purpleFont black" 
+                  onClick={() => demoLogin()}>Demo Login</button>
+        </div>
       </form>
     </div>
   );

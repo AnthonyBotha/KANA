@@ -250,6 +250,10 @@
   justify-items: center;
 }
 
+.justifyContentCenter {
+  justify-content: center;
+}
+
 .justifyEnd {
   justify-items: end;
 }
