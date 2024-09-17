@@ -9,6 +9,7 @@ from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
 from .api.avatar_routes import avatar_routes
 from .api.parts_routes import parts_routes
+from .api.habit_routes import habit_routes
 from .seeds import seed_commands
 from .config import Config
 
@@ -32,6 +33,7 @@ app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(avatar_routes, url_prefix='/api/avatars')
 app.register_blueprint(parts_routes,url_prefix='/api/parts')
+app.register_blueprint(habit_routes,url_prefix='/api/habits')
 db.init_app(app)
 Migrate(app, db)
 
