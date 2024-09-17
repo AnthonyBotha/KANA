@@ -24,6 +24,7 @@ from .equipment.weapons import seed_weapons,undo_weapons
 from .rewards import seed_rewards,undo_rewards
 from .habits import seed_habits,undo_habits
 from .dailies import seed_dailies,undo_dailies
+from .todos import seed_todos,undo_todos
 from .tags import seed_tags, undo_tags
 
 from app.models.db import db, environment, SCHEMA
@@ -66,11 +67,13 @@ def seed():
         undo_potions()
         undo_dailies()
         undo_habits()
+        undo_todos()
         undo_users()
 
     seed_users()
     seed_habits()
     seed_dailies()
+    seed_todos()
     seed_bodies()
     seed_antennas()
     seed_ears()
@@ -125,5 +128,6 @@ def undo():
     undo_potions()
     undo_dailies()
     undo_habits()
+    undo_todos()
     undo_users()
     # Add other undo functions here
