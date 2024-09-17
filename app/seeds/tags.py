@@ -28,11 +28,13 @@ def seed_tags():
     for tag in tags:
         db.session.add(tag)
 
-
     habit1 = Habit.query.filter_by(id=1).first()
     habit1.tags.append(work)
 
-    
+    daily1 = Daily.query.filter_by(id=2).first()
+    daily1.tags.append(excercise)
+
+
     db.session.commit()
 
 def undo_tags():
