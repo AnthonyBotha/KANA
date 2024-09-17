@@ -41,5 +41,16 @@ class Reward(db.Model):
             'rewardImg':self.reward_img,
             'createdAt':self.created_at,
             'updatedAt':self.updated_at,
-            'users':self.users
+            'users':[user.to_dict_items() for user in self.users]
+        }
+    def to_dict_user(self):
+        return {
+            'id':self.id,
+            'title':self.title,
+            'notes':self.notes,
+            'cost':self.cost,
+            'custom':self.custom,
+            'rewardImg':self.reward_img,
+            'createdAt':self.created_at,
+            'updatedAt':self.updated_at,
         }

@@ -40,3 +40,16 @@ class Habit(db.Model):
             'updatedAt':self.updated_at,
             'user':self.user
         }
+
+    def to_dict_user(self):
+        return {
+            'id':self.id,
+            'userId':self.user_id,
+            'title':self.title,
+            'notes':self.notes,
+            'difficulty':self.difficulty,
+            'score':self.score,
+            'isPositive':self.is_positive,
+            'createdAt':self.created_at,
+            'updatedAt':self.updated_at,
+        }

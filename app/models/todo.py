@@ -41,5 +41,18 @@ class Todo(db.Model):
             'dueDate': self.due_date,
             'completed': self.completed,
             'createdAt':self.created_at,
-            'updatedAt':self.updated_at
+            'updatedAt':self.updated_at,
+            'user':self.user
+        }
+    def to_dict_user(self):
+        return{
+            'id': self.id,
+            'userId': self.user_id,
+            'title': self.title,
+            'notes': self.notes,
+            'difficulty': self.difficulty,
+            'dueDate': self.due_date,
+            'completed': self.completed,
+            'createdAt':self.created_at,
+            'updatedAt':self.updated_at,
         }
