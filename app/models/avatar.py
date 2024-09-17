@@ -55,3 +55,20 @@ class Avatar(db.Model):
             'updatedAt':self.updated_at,
             'user':self.user.to_dict()
         }
+
+    def to_dict_user(self):
+        return{
+            'id': self.id,
+            'userId': self.user_id,
+            # 'bodyId': self.body_id,
+            'headId': self.head_id,
+            'eyeId': self.eye_id,
+            'mouthId': self.mouth_id,
+            'antennaId': self.antenna_id,
+            'neckId': self.neck_id,
+            'earId': self.ear_id,
+            'noseId': self.nose_id,
+            'backgroundId': self.background_id,
+            'createdAt':self.created_at,
+            'updatedAt':self.updated_at,
+        }
