@@ -53,5 +53,5 @@ class Avatar(db.Model):
             'backgroundId': self.background_id,
             'createdAt':self.created_at,
             'updatedAt':self.updated_at,
-            'user':self.user
+            'user':self.user.to_dict()
         }
