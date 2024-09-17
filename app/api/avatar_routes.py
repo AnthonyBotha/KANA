@@ -50,7 +50,7 @@ def create_avatar():
     db.session.add(new_avatar)
     db.session.commit()
 
-    return jsonify(new_avatar.to_dict_user()),201
+    return jsonify({'avatar':new_avatar.to_dict_user()}),201
 
 
 @avatar_routes.route("/", methods=["PUT"])
@@ -78,7 +78,7 @@ def update_avatar():
 
     db.session.commit()
 
-    return jsonify(user.avatar.to_dict_user()),201
+    return jsonify({'avatar':user.avatar.to_dict_user()}),201
 
 @avatar_routes.route("/", methods=["DELETE"])
 @login_required
