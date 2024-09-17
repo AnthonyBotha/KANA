@@ -26,6 +26,7 @@ from .habits import seed_habits,undo_habits
 from .dailies import seed_dailies,undo_dailies
 from .todos import seed_todos,undo_todos
 from .tags import seed_tags, undo_tags
+from .avatars import seed_avatars,undo_avatars
 
 from app.models.db import db, environment, SCHEMA
 
@@ -68,6 +69,7 @@ def seed():
         undo_dailies()
         undo_habits()
         undo_todos()
+        undo_avatars()
         undo_users()
 
     seed_users()
@@ -96,6 +98,7 @@ def seed():
     seed_eyewear()
     seed_helmets()
     seed_rewards()
+    seed_avatars()
     seed_tags()
     # Add other seed functions here
 
@@ -129,5 +132,6 @@ def undo():
     undo_dailies()
     undo_habits()
     undo_todos()
+    undo_avatars()
     undo_users()
     # Add other undo functions here
