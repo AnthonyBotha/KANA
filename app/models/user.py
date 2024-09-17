@@ -62,9 +62,9 @@ class User(db.Model, UserMixin):
             'gold':self.gold,
             'createdAt':self.created_at,
             'updatedAt':self.updated_at,
-            'avatar':self.avatar,
-            'habits':self.habits,
-            'todos':self.todos,
-            'items':self.items,
-            'rewards':self.rewards
+            # 'avatar':self.avatar,
+            # 'habits':self.habits,
+            # 'todos':self.todos,
+            # 'items':self.items,
+            # 'rewards':self.rewards
         }

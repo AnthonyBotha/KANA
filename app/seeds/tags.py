@@ -28,6 +28,17 @@ def seed_tags():
     for tag in tags:
         db.session.add(tag)
 
+
+    habit1 = Habit.query.filter_by(id=1).first()
+    habit1.tags.append(work)
+    habit1.tags.append(chores)
+
+    daily1 = Daily.query.filter_by(id=2).first()
+    daily1.tags.append(excercise)
+
+    todo1 = Todo.query.filter_by(id=1).first()
+    todo1.tags.append(teams)
+
     db.session.commit()
 
 

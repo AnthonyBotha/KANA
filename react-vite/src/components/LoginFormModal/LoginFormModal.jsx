@@ -5,6 +5,7 @@ import { useModal } from "../../context/Modal";
 import "./LoginForm.css";
 import SmallLogo from '../../static/SmallLogoWhite.png';
 
+
 function LoginFormModal() {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
@@ -29,12 +30,22 @@ function LoginFormModal() {
     }
   };
 
-  const demoLogin = async () => {
-    await dispatch(thunkLogin({
-      email: "demo@aa.io", 
+
+
+
+  const demoLogin = async (e) => {
+    e.preventDefault();
+
+    const res = await dispatch(thunkLogin({
+      email: "demo@aa.io",
       password: "password"
     }))
-      .then(closeModal)
+
+    if (res) {
+      setErrors(res);
+    } else {
+      closeModal();
+    }
   }
 
   return (
@@ -65,8 +76,8 @@ function LoginFormModal() {
         {errors.password && <p>{errors.password}</p>}
         <div className='displayFlex flexColumn'>
           <button type="submit">Log In</button>
-          <button type="submit" 
-                  className="purpleFont black" 
+          <button type="submit"
+                  className="purpleFont black"
                   onClick={() => demoLogin()}>Demo Login</button>
         </div>
       </form>
