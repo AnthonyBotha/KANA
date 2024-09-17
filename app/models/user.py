@@ -73,17 +73,17 @@ class User(db.Model, UserMixin):
 
         return dict
 
-    def to_user_info(self):
-        return{
-            'id': self.id,
-            'username': self.username,
-            'email': self.email,
-            'firstName':self.first_name,
-            'lastName':self.last_name,
-            'experience':self.experience,
-            'level':self.level,
-            'health':self.health,
-            'gold':self.gold,
-            'createdAt':self.created_at,
-            'updatedAt':self.updated_at,
-        }
+    # def to_user_info(self):
+    #     return{
+    #         'id': self.id,
+    #         'username': self.username,
+    #         'email': self.email,
+    #         'firstName':self.first_name,
+    #         'lastName':self.last_name,
+    #         'experience':self.experience,
+    #         'level':self.level,
+    #         'health':self.health,
+    #         'gold':self.gold,
+    #         'createdAt':self.created_at,
+    #         'updatedAt':self.updated_at,
+    #     }
