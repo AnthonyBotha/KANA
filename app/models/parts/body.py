@@ -24,5 +24,5 @@ class Body(db.Model):
             'imgUrl':self.img_url,
             'createdAt':self.created_at,
             'updatedAt':self.updated_at,
-            'avatars':self.avatars
+            # 'avatars':self.avatars
         }
