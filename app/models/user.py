@@ -62,9 +62,24 @@ class User(db.Model, UserMixin):
             'gold':self.gold,
             'createdAt':self.created_at,
             'updatedAt':self.updated_at,
-            'avatar':self.avatar,
-            'habits':self.habits,
-            'todos':self.todos,
-            'items':self.items,
-            'rewards':self.rewards
+            'avatar':self.avatar.to_dict_user(),
+            'habits':[habit.to_dict_user() for habit in self.habits],
+            'todos':[todo.to_dict_user() for todo in self.todos],
+            'items':[item.to_dict_user() for item in self.items],
+            'rewards':[reward.to_dict_user() for reward in self.rewards]
+        }
+
+    def to_dict_items(self):
+        return{
+            'id': self.id,
+            'username': self.username,
+            'email': self.email,
+            'firstName':self.first_name,
+            'lastName':self.last_name,
+            'experience':self.experience,
+            'level':self.level,
+            'health':self.health,
+            'gold':self.gold,
+            'createdAt':self.created_at,
+            'updatedAt':self.updated_at,
         }
