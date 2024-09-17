@@ -9,7 +9,7 @@ avatar_routes = Blueprint('avatars', __name__)
 @login_required
 def avatar():
     """
-    Query for all avatars and returns them in a list of avatar dictionaries
+    Query for current users Avatar
     """
     user_avatar = Avatar.query.filter_by(user_id=current_user.id).first()
 

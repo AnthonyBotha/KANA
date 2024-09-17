@@ -47,3 +47,12 @@ class Tag(db.Model):
     habit_tags = db.relationship('Habit', secondary=tasks_tags, back_populates='tags')
     daily_tags = db.relationship('Daily', secondary=tasks_tags, back_populates='tags')
     todo_tags = db.relationship('Todo', secondary=tasks_tags, back_populates='tags')
+
+
+
+    def to_dict(self):
+        dic={
+            'tag_name':self.tag_name
+        }
+
+        return dic
