@@ -12,6 +12,7 @@ from .api.parts_routes import parts_routes
 from .api.habit_routes import habit_routes
 from .api.todos_routes import todos_routes
 from .api.inventory_routes import inventory_routes
+from .api.rewards_routes import rewards_routes
 from .seeds import seed_commands
 from .config import Config
 
@@ -38,6 +39,7 @@ app.register_blueprint(parts_routes,url_prefix='/api/parts')
 app.register_blueprint(habit_routes,url_prefix='/api/habits')
 app.register_blueprint(todos_routes,url_prefix='/api/todos')
 app.register_blueprint(inventory_routes,url_prefix='/api/inventory')
+app.register_blueprint(rewards_routes,url_prefix='/api/rewards')
 db.init_app(app)
 Migrate(app, db)
 
