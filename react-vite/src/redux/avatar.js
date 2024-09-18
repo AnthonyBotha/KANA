@@ -76,7 +76,7 @@ export const deleteExistingAvatar = (avatarId) => async (dispatch) => {
 }
 
 export const updateExistingAvatar = (avatarId, avatarBody) => async (dispatch) => {
-    const response = await csrfFetch(`/api/avatars/${avatarId}`, {
+    const response = await fetch(`/api/avatars/${avatarId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(avatarBody)
