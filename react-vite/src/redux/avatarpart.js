@@ -133,7 +133,7 @@ export const getAvatarNoses = () => async (dispatch) => {
 };
 
 export const getAvatarBackgrounds = () => async (dispatch) => {
-    const response = await fetch("/api/background");
+    const response = await fetch("/api/backgrounds");
 
     if (response.ok) {
         const backgrounds = await response.json();
@@ -159,49 +159,50 @@ const avatarPartsReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_AVATAR_HEADS: {
             const newState = { ...state, heads: {}};
-            const headsArr = Object.values(action.payload);
+            const headsArr = action.payload.heads;
             headsArr.forEach(head => newState.heads[head.id] = head);
             return newState;
         }
         case LOAD_AVATAR_EYES: {
             const newState = { ...state, eyes: {}};
-            const eyesArr = Object.values(action.payload);
+            const eyesArr = action.payload.eyes;
             eyesArr.forEach(eye => newState.eyes[eye.id] = eye);
             return newState;
         }
         case LOAD_AVATAR_MOUTHS: {
             const newState = { ...state, mouths: {}};
-            const mouthsArr = Object.values(action.payload);
+            const mouthsArr = action.payload.mouths;
             mouthsArr.forEach(mouth => newState.mouths[mouth.id] = mouth);
             return newState;
         }
         case LOAD_AVATAR_ANTENNAS: {
             const newState = { ...state, antennas: {}};
-            const antennasArr = Object.values(action.payload);
+            const antennasArr = action.payload.antennas;
             antennasArr.forEach(antenna => newState.antennas[antenna.id] = antenna);
+   
             return newState;
         }
         case LOAD_AVATAR_NECKS: {
             const newState = { ...state, necks: {}};
-            const necksArr = Object.values(action.payload);
+            const necksArr = action.payload.necks;
             necksArr.forEach(neck => newState.necks[neck.id] = neck);
             return newState;
         }
         case LOAD_AVATAR_EARS: {
             const newState = { ...state, ears: {}};
-            const earsArr = Object.values(action.payload);
+            const earsArr = action.payload.ears;
             earsArr.forEach(ear => newState.ears[ear.id] = ear);
             return newState;
         }
         case LOAD_AVATAR_NOSES: {
             const newState = { ...state, noses: {}};
-            const nosesArr = Object.values(action.payload);
+            const nosesArr = action.payload.noses;
             nosesArr.forEach(nose => newState.noses[nose.id] = nose);
             return newState;
         }
         case LOAD_AVATAR_BACKGROUNDS: {
             const newState = { ...state, backgrounds: {}};
-            const backgroundsArr = Object.values(action.payload);
+            const backgroundsArr = action.payload.backgrounds;
             backgroundsArr.forEach(background => newState.backgrounds[background.id] = background);
             return newState;
         }
