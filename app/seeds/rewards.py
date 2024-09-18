@@ -19,7 +19,8 @@ def seed_rewards():
             notes=item.description,
             cost=item.cost,
             custom=False,
-            reward_img=item.item_img
+            reward_img=item.item_img,
+            equipment=item.equipment
             )
             db.session.add(reward)
     db.session.commit()
