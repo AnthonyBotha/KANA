@@ -1,9 +1,10 @@
 // import { useModal } from '../../context/Modal';
 import { useDispatch, useSelector} from 'react-redux';
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 import { useEffect } from 'react';
 import { getAvatarAntennas, getAvatarBackgrounds, getAvatarEars, getAvatarEyes, getAvatarHeads, getAvatarMouths, getAvatarNecks, getAvatarNoses } from '../../redux/avatarpart';
 import "./AvatarModal.css"
+
 
 
 function AvatarModal() {
@@ -57,6 +58,8 @@ function AvatarModal() {
   //   closeModal();
   // }
 
+
+
   const generateAvatar = () => {
     setAvatarParts({
       background: getRandomElement(Object.values(backgrounds)).imgUrl,
@@ -70,9 +73,7 @@ function AvatarModal() {
     })
   }
 
-  useEffect(() => {
-      generateAvatar();
-  },[])
+
 
   return (
     <div className="modal">
