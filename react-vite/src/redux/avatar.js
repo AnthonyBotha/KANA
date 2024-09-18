@@ -133,7 +133,7 @@ const avatarReducer = (state = initialState, action) => {
                 created_at: avatar.created_at,
                 updated_at: avatar.updated_at
             }
-        
+
             newState[avatar.id] = updatedAvatar;
             return newState;
         }
