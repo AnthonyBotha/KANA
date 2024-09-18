@@ -30,7 +30,8 @@ function LoginFormModal() {
     }
   };
 
-  const demoLogin = async() => {
+  const demoLogin = async () => {
+
     await dispatch(thunkLogin({
       email: "demo@aa.io",
       password: "password"

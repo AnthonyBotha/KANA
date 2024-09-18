@@ -25,6 +25,7 @@ class Reward(db.Model):
     cost = db.Column(db.Integer, default=10, nullable=False)
     custom = db.Column(db.Boolean, nullable=False)
     reward_img = db.Column(db.String(255), nullable=True)
+    equipment=db.Column(db.Boolean,nullable=False,default=False)
     created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
     updated_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
 
