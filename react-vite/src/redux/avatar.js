@@ -12,7 +12,7 @@ const loadAvatar = (avatar) => {
     }
 };
 
-const createAvatar = () => {
+const createAvatar = (avatar) => {
     return {
         type: CREATE_AVATAR,
         payload: avatar
@@ -76,7 +76,7 @@ export const deleteExistingAvatar = (avatarId) => async (dispatch) => {
 }
 
 export const updateExistingAvatar = (avatarId, avatarBody) => async (dispatch) => {
-    const response = await csrfFetch(`/api/avatars/${avatarId}`, {
+    const response = await fetch(`/api/avatars/${avatarId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(avatarBody)
@@ -106,7 +106,7 @@ const avatarReducer = (state = initialState, action) => {
         }
         case CREATE_AVATAR: {
             const newState = { ...state };
-            avatar = action.payload.avatar;
+            let avatar = action.payload.avatar;
             newState[avatar.id] = action.payload;
             return newState;
         }
@@ -133,7 +133,7 @@ const avatarReducer = (state = initialState, action) => {
                 created_at: avatar.created_at,
                 updated_at: avatar.updated_at
             }
-        
+
             newState[avatar.id] = updatedAvatar;
             return newState;
         }

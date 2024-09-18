@@ -1,6 +1,6 @@
-import { useModal } from '../../context/Modal';
-import { useDispatch } from 'react-redux';
-import { useState } from 'react';
+// import { useModal } from '../../context/Modal';
+// import { useDispatch } from 'react-redux';
+// import { useState } from 'react';
 
 function AvatarModal() {
   // const dispatch = useDispatch();
@@ -24,7 +24,7 @@ function AvatarModal() {
 
   return (
     <>
-      <h1>Anthony's Avatars</h1>
+      <h1>Anthony&apos;s Avatars</h1>
     </>
   )
 }
