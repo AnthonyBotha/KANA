@@ -1,6 +1,8 @@
 import { useSelector } from "react-redux";
 import SmallWhiteLogo from '../../static/SmallLogoWhite.png';
 
+import ToDoList from "../ToDoList/ToDoList";
+
 function UserHomePage() {
   const sessionUser = useSelector(state => state.session.user)
 
@@ -18,9 +20,9 @@ function UserHomePage() {
           {/* User info and stats */}
           <div>
             <p className="font purpleFont xx-largeFont">{sessionUser.username}!</p>
-            <p className="font purpleFont mediumFont">Level Placeholder</p>
-            <p className="white">XP PLACEHOLDER</p>
-            <p className="white">ENERGY PLACEHOLDER</p>
+            <p className="font purpleFont mediumFont">Level: {sessionUser.level}</p>
+            <p className="white">experience: {sessionUser.experience}</p>
+            <p className="white">health: {sessionUser.health}</p>
           </div>
 
           {/* Items and equipment dashboard */}
@@ -49,7 +51,7 @@ function UserHomePage() {
 
           {/* To-Dos Table */}
           <div className="almostBlack">
-            <p className="whiteFont">IMPORT TO-DOs COMPONENT</p>
+            <ToDoList userId={sessionUser.id} />
           </div>
 
           {/* Rewards Table */}

@@ -8,11 +8,13 @@ import thunk from "redux-thunk";
 import sessionReducer from "./session";
 import avatarReducer from "./avatar";
 import avatarPartsReducer from "./avatarpart";
+import todoListReducer from "./todolist";
 
 const rootReducer = combineReducers({
   session: sessionReducer,
   avatar: avatarReducer,
-  avatarParts: avatarPartsReducer
+  avatarParts: avatarPartsReducer,
+  todoList: todoListReducer
 });
 
 let enhancer;

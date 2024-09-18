@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { thunkSignup } from "../../redux/session";
 import './SignupForm.css';
 import { useModal } from "../../context/Modal";
@@ -8,7 +8,6 @@ import AvatarModal from "../Avatar/AvatarModal";
 
 function SignupFormPage() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const sessionUser = useSelector((state) => state.session.user);
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
