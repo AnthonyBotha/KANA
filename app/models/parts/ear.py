@@ -24,5 +24,5 @@ class Ear(db.Model):
             'imgUrl':self.img_url,
             'createdAt':self.created_at,
             'updatedAt':self.updated_at,
-            'avatars':self.avatars
+            'avatars':[avatar.to_dict() for avatar in self.avatars]
         }

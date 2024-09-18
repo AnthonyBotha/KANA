@@ -43,5 +43,17 @@ class Item(db.Model):
             'equipment':self.equipment,
             'cost':self.cost,
             'itemImg':self.item_img,
-            'users':self.users
+            'users':[user.to_user_info() for user in self.users],
         }
+    def to_dict_user(self):
+            return{
+                'id': self.id,
+                'createdAt':self.created_at,
+                'updatedAt':self.updated_at,
+                'name':self.name,
+                'type':self.type,
+                'description':self.description,
+                'equipment':self.equipment,
+                'cost':self.cost,
+                'itemImg':self.item_img,
+            }
