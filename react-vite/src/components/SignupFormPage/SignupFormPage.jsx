@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
 import { thunkSignup } from "../../redux/session";
 import './SignupForm.css';
+import { useModal } from "../../context/Modal";
+import AvatarModal from "../Avatar/AvatarModal";
 
 function SignupFormPage() {
   const dispatch = useDispatch();
@@ -13,6 +15,7 @@ function SignupFormPage() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
+  const { setModalContent } = useModal();
 
   if (sessionUser) return <Navigate to="/home" replace={true} />;  
 
@@ -37,7 +40,7 @@ function SignupFormPage() {
     if (serverResponse) {
       setErrors(serverResponse);
     } else {
-      navigate("/home");
+      setModalContent(<AvatarModal/>)
     }
   };
 

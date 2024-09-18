@@ -140,12 +140,24 @@
   margin-bottom: 10px;
 }
 
+.largeBottomMargin {
+  margin-bottom: 25px;
+}
+
 .noPadding {
   padding: 0px;
 }
 
+.largeRightPadding {
+  padding-right: 35px;
+}
+
 .rightPadding {
   padding-right: 25px;
+}
+
+.littleMoreRightPadding {
+  padding-right: 15px;
 }
 
 .littleRightPadding {
@@ -177,7 +189,15 @@
   width: 100%;
 }
 
+.widthAuto {
+  width: auto;
+}
+
 /* misc items */
+.positionRelative {
+  position: relative;
+}
+
 .testBorder {
   border: 1px solid red;
 }
@@ -236,6 +256,14 @@
 
 .alignBottom {
   align-items: flex-end;
+}
+
+.displayBlock {
+  display: block;
+}
+
+.displayInline {
+  display: inline;
 }
 
 .textCenter {
