@@ -44,10 +44,9 @@ class Tag(db.Model):
     created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
     updated_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
 
-    habit_tags = db.relationship('Habit', secondary=tasks_tags, back_populates='tags')
-    daily_tags = db.relationship('Daily', secondary=tasks_tags, back_populates='tags')
-    todo_tags = db.relationship('Todo', secondary=tasks_tags, back_populates='tags')
-
+    habit_tags = db.relationship('Habit', secondary=tasks_tags, back_populates='tags', overlaps="daily_tags,todo_tags")
+    daily_tags = db.relationship('Daily', secondary=tasks_tags, back_populates='tags', overlaps="habit_tags,todo_tags")
+    todo_tags = db.relationship('Todo', secondary=tasks_tags, back_populates='tags', overlaps="habit_tags,daily_tags")
 
 
     def to_dict(self):

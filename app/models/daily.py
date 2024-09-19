@@ -45,5 +45,7 @@ class Daily(db.Model):
             'repeatOn': self.repeat_on,
             'isDue': self.is_due,
             'createdAt':self.created_at,
-            'updatedAt':self.updated_at
+            'updatedAt':self.updated_at,
+            'tags': [tag.tag_name for tag in self.tags] if self.tags else [],
+            'checklist': [check.to_dict() for check in self.checklist] if self.checklist else []
         }
