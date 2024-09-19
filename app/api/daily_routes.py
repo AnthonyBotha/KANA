@@ -139,7 +139,7 @@ def update_daily(daily_id):
     #check for removed tags
         for tag in current_tags:
             if tag not in request_tags:
-                #remove tag in current tag by removing the association in the db
+                #find the specific tag in the database
                 tag_to_remove = Tag.query.filter_by(tag_name=tag).first()
                 if tag_to_remove:
                     # Remove the association between the Daily instance and the Tag
@@ -166,3 +166,21 @@ def update_daily(daily_id):
 
 
     return jsonify(daily.to_dict())
+
+
+
+@daily_routes.route('/<int:daily_id>', methods=['DELETE'])
+@login_required
+def delete_daily(daily_id):
+    """
+    Delete daily by id
+    """
+    daily=Daily.query.get(daily_id)
+
+    if daily.user_id != current_user.id:
+        return {'errors': {'message': 'Unauthorized'}}, 401
+
+    db.session.delete(daily)
+    db.session.commit()
+
+    return {"message":"Successfully deleted"},200
