@@ -5,7 +5,6 @@
     align-items: center;
     justify-content: center;
     background-color: lightgray;
-
 }
 .avatar-container {
     position: relative;
@@ -80,19 +79,21 @@
     z-index: 1;
 }
 
+.auto-gen-button {
+    margin-bottom: 15px;
+}
 
 
 /* Selection Menu */
 .selection-menu {
     display: flex;
-    justify-content: center;
-    margin-top: 15px;
-    margin-bottom: 1px;
+    flex-direction: column;
+    align-items: center;
 }
 
-.parts-list {
+.menu {
     display: flex;
-    gap: 30px;
+    gap: 50px;
 }
 
 .selection-item {
@@ -100,14 +101,50 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 }
 
 .selection-item img {
-    width: 25px;
-    height: 25px;
+    width: 30px;
+    height: 30px;
 }
 
 .selection-item h2 {
     font-size: 8px;
     color: #333;
+}
+
+.selection-item.selected {
+    border-bottom: 4px solid purple;
+    font-weight: bold
+}
+
+.selection-item h2:hover {
+    text-decoration: underline;
+    color: purple;
+}
+
+.parts-list {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 15px;
+    padding: 10px;
+}
+
+.parts-list.two-rows {
+    flex-wrap: wrap;
+    max-height: 120px;
+    justify-content: start;
+}
+
+.part-item {
+    flex: 1 1 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.part-item img {
+    width: 45px;
+    height: auto;
 }

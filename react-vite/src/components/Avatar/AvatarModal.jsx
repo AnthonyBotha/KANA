@@ -10,6 +10,8 @@ import "./AvatarModal.css"
 function AvatarModal() {
   const dispatch = useDispatch();
   const [avatarParts, setAvatarParts] = useState({});
+  const [selectedPart, setSelectedPart] = useState("head");
+
   const headSelectionUrl = "https://res.cloudinary.com/dmg8yuivs/image/upload/v1726681230/robot_pzzvjx.png";
   const eyesSelectionUrl = "https://res.cloudinary.com/dmg8yuivs/image/upload/v1726681228/eyes_dfwlgi.png";
   const noseSelectionUrl = "https://res.cloudinary.com/dmg8yuivs/image/upload/v1726681229/nose_s6txb4.png";
@@ -82,6 +84,28 @@ function AvatarModal() {
     })
   }
 
+  const displayParts = () => {
+    switch (selectedPart) {
+      case "head":
+        return heads;
+      case "eyes":
+        return eyes;
+      case "nose":
+        return noses;
+      case "mouth":
+        return mouths;
+      case "ears":
+        return ears;
+      case "antenna":
+        return antennas;
+      case "neck":
+        return necks;
+      case "background":
+        return backgrounds;
+      default:
+        return [];
+    }
+  };
 
 
   return (
@@ -98,40 +122,49 @@ function AvatarModal() {
       </div>
       <button className="auto-gen-button" onClick={generateAvatar}>Generate New Avatar</button>
       <div className="selection-menu">
-        <div className="parts-list">
-          <div className="selection-item">
+        <div className="menu">
+          <div className={`selection-item ${selectedPart === "head" ? "selected":""}`} onClick={() => {setSelectedPart("head")}}>
             <img src={headSelectionUrl} className="menu-head" alt="Head" />
             <h2>Head</h2>
           </div>
-          <div className="selection-item">
+          <div className={`selection-item ${selectedPart === "eyes" ? "selected":""}`} onClick={() => setSelectedPart("eyes")}>
             <img src={eyesSelectionUrl} className="menu-eyes" alt="Eyes" />
             <h2>Eyes</h2>
           </div>
-          <div className="selection-item">
+          <div className={`selection-item ${selectedPart === "nose" ? "selected":""}`} onClick={() => setSelectedPart("nose")}>
             <img src={noseSelectionUrl} className="menu-nose" alt="Nose" />
             <h2>Nose</h2>
           </div>
-          <div className="selection-item">
+          <div className={`selection-item ${selectedPart === "mouth" ? "selected":""}`} onClick={() => setSelectedPart("mouth")}>
             <img src={mouthSelectionUrl} className="menu-mouth" alt="Mouth" />
             <h2>Mouth</h2>
           </div>
-          <div className="selection-item">
+          <div className={`selection-item ${selectedPart === "ears" ? "selected":""}`} onClick={() => setSelectedPart("ears")}>
             <img src={earsSelectionUrl} className="menu-ears" alt="Ears" />
             <h2>Ears</h2>
           </div>
-          <div className="selection-item">
+          <div className={`selection-item ${selectedPart === "antenna" ? "selected":""}`} onClick={() => setSelectedPart("antenna")}>
             <img src={antennaSelectionUrl} className="menu-antenna" alt="Antenna" />
             <h2>Antenna</h2>
           </div>
-          <div className="selection-item">
+          <div className={`selection-item ${selectedPart === "neck" ? "selected":""}`} onClick={() => setSelectedPart("neck")}>
             <img src={neckSelectionUrl} className="menu-neck" alt="Neck" />
             <h2>Neck</h2>
           </div>
-          <div className="selection-item">
+          <div className={`selection-item ${selectedPart === "background" ? "selected":""}`} onClick={() => setSelectedPart("background")}>
             <img src={backgroundSelectionUrl} className="menu-background" alt="Background" />
             <h2>Background</h2>
           </div>
         </div>
+        <div className="parts-list">
+          {Object.keys(displayParts()).map(part => (
+            <div key={part} className="part-item">
+              <img src={displayParts()[part]?.imgUrl} alt={part} />
+            </div>
+          ))}
+
+        </div>
+        
       </div>
       <button className="save-button">Save</button>
     </div>
