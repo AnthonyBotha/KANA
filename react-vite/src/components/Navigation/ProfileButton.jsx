@@ -55,7 +55,7 @@ function ProfileButton() {
             <>
               <li>{user.username}</li>
               <li>{user.email}</li>
-              <li onClick={() => setModalContent(<AvatarModal/>) }>Edit Avatar</li>
+              <li onClick={() => setModalContent(<AvatarModal/>) }>Customize Avatar</li>
               <li>
                 <button onClick={logout}>Log Out</button>
               </li>
