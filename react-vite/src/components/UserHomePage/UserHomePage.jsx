@@ -37,7 +37,7 @@ function UserHomePage() {
         </div>
 
         {/* Checklists and Rewards Tables */}
-        <div>
+        <div className="displayFlex spaceBetween">
 
           {/* Habits Table */}
           <div className="almostBlack">

@@ -24,37 +24,46 @@ function ToDoList(userId) {
 
   return (
     <>
-      <h1>ToDoList Componenet</h1>
+      <div className='displayFlex alignBottom spaceBetween'>
+        <h2 className='font purpleFont'>To-Dos</h2>
 
-      {console.log("todos", JSON.stringify(todos))}
-
-      <p>To-Dos</p>
-      <div className='displayFlex'>
-        {/* onclick filter the current task list */}
-        <p>Active</p>
-        <p>Scheduled</p>
-        <p>Completed</p>
+        {console.log("todos", JSON.stringify(todos))}
+        <div className='displayFlex littlePadding'>
+          {/* onclick filter the current task list */}
+          <p className='fontLight whiteFont smallFont littlePadding'>Active</p>
+          <p className='fontLight whiteFont smallFont littlePadding'>Scheduled</p>
+          <p className='fontLight whiteFont smallFont littlePadding'>Completed</p>
+        </div>
       </div>
 
       {/* individual tasks */}
-      <div className='displayFlex flexColumn'>
+      <div className='displayFlex flexColumn littlePadding littleMargin'>
         {todos?.map(({id, completed, title, difficulty, dueDate, notes}) => (
-          <div key={id} className='displayFlex'>
-            <label>
-              <input
-                type='checkbox'
-                value={id}
-                checked={selectedIds.includes(`${id}`)}
-                onClick={(e) => { handleCheckboxChange(e) }}
-              />
-              {completed}
-            </label>
-            {console.log(selectedIds)}
+          <div key={id} className='displayFlex flexColumn darkGrey littleMargin roundedCorners'>
+             
+             <div className='displayFlex spaceBetween alignCenter'> 
+              <label>
+                <input
+                  type='checkbox'
+                  value={id}
+                  className=''
+                  checked={selectedIds.includes(`${id}`)}
+                  onClick={(e) => { handleCheckboxChange(e) }}
+                />
+                {/* figure out how to update db dynamically */}
+                {completed = selectedIds.includes(`${id}`)}
+              </label>
 
-            <p>{title}</p>
-            <p>{difficulty}</p>
-            <p>{dueDate}</p>
-            <p>{notes}</p>
+              <p className='whiteFont font smallFont'>{title}</p>
+              <p className='whiteFont font smallFont'>DELETE</p>
+            </div>
+
+            <div className='displayFlex spaceBetween'>
+              <p className='lightGreyFont font smallFont'>{difficulty}</p>
+              <p className='lightGreyFont font smallFont'>{dueDate.slice(0, (dueDate.length - 13))}</p>
+              <p className='lightGreyFont font smallFont'>{notes}</p>
+            </div>
+
           </div>
         ))}
 

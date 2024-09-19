@@ -70,6 +70,10 @@
   color: #6F42C1;
 }
 
+.lightGreyFont {
+  color: #6C757D;
+}
+
 /* font sizes */
 .xx-largeFont {
   font-size: xx-large;
@@ -106,6 +110,14 @@
 
 .fullPadding {
   padding: 5%
+}
+
+.littlePadding {
+  padding: 5px;
+}
+
+.littleMargin {
+  margin: 5px;
 }
 
 .largeLeftMargin {
