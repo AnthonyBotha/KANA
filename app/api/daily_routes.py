@@ -164,6 +164,7 @@ def update_daily(daily_id):
     else:
         daily.tags = []
 
+    # db.session.commit() ? not necessary but leaving it here just in case we have a bug
 
     return jsonify(daily.to_dict())
 
