@@ -7,14 +7,19 @@ import { getTodoList } from '../../redux/todolist.js';
 function ToDoList(userId) {
   const dispatch = useDispatch();
   const todos = useSelector(state => state.todoList.todos)
-  const [checked, setChecked] = useState(false);
+  const [selectedIds, setSelectedIds] = useState([]);
   
   useEffect(() => {
     dispatch(getTodoList());
   }, [dispatch, userId])
 
-  const handleCheck = () => {
-    setChecked(!checked)
+  const handleCheckboxChange = (e) => {
+    const checkedId = e.target.value;
+    if(e.target.checked && !selectedIds.includes(checkedId)){
+      setSelectedIds([...selectedIds, checkedId])
+    } else {
+      setSelectedIds(selectedIds.filter(id => id !== checkedId))
+    }
   }
 
   return (
@@ -35,12 +40,17 @@ function ToDoList(userId) {
       <div className='displayFlex flexColumn'>
         {todos?.map(({id, completed, title, difficulty, dueDate, notes}) => (
           <div key={id} className='displayFlex'>
-            <input
-              type='checkbox'
-              checked={checked}
-              onClick={handleCheck}
-            />
-            <p>{completed}</p>
+            <label>
+              <input
+                type='checkbox'
+                value={id}
+                checked={selectedIds.includes(`${id}`)}
+                onClick={(e) => { handleCheckboxChange(e) }}
+              />
+              {completed}
+            </label>
+            {console.log(selectedIds)}
+
             <p>{title}</p>
             <p>{difficulty}</p>
             <p>{dueDate}</p>
