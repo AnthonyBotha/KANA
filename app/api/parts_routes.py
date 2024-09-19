@@ -22,7 +22,7 @@ def antennas():
     Query for antennas and there dictionaries in a list
     """
     antennas=Antenna.query.all()
-    return {'antennas': [antenna.to_dict() for antenna in antennas]}
+    return {'antennas': [antenna.no_avatar() for antenna in antennas]}
 
 
 @parts_routes.route('/backgrounds')
@@ -32,7 +32,7 @@ def backgrounds():
     Query for backgrounds and there dictionaries in a list
     """
     backgrounds=Background.query.all()
-    return {'backgrounds': [background.to_dict() for background in backgrounds]}
+    return {'backgrounds': [background.no_avatar() for background in backgrounds]}
 
 
 @parts_routes.route('/bodies')
@@ -42,7 +42,7 @@ def bodies():
     Query for bodies and there dictionaries in a list
     """
     bodies=Body.query.all()
-    return {'bodies': [body.to_dict() for body in bodies]}
+    return {'bodies': [body.no_avatar() for body in bodies]}
 
 
 @parts_routes.route('/ears')
@@ -52,7 +52,7 @@ def ears():
     Query for ears and there dictionaries in a list
     """
     ears=Ear.query.all()
-    return {'ears': [ear.to_dict() for ear in ears]}
+    return {'ears': [ear.no_avatar() for ear in ears]}
 
 
 @parts_routes.route('/eyes')
@@ -62,7 +62,7 @@ def eyes():
     Query for eyes and there dictionaries in a list
     """
     eyes=Eye.query.all()
-    return {'eyes': [eye.to_dict() for eye in eyes]}
+    return {'eyes': [eye.no_avatar() for eye in eyes]}
 
 
 
@@ -73,7 +73,7 @@ def heads():
     Query for heads and there dictionaries in a list
     """
     heads=Head.query.all()
-    return {'heads': [head.to_dict() for head in heads]}
+    return {'heads': [head.no_avatar() for head in heads]}
 
 
 @parts_routes.route('/mouths')
@@ -83,7 +83,7 @@ def mouths():
     Query for mouths and there dictionaries in a list
     """
     mouths=Mouth.query.all()
-    return {'mouths': [mouth.to_dict() for mouth in mouths]}
+    return {'mouths': [mouth.no_avatar() for mouth in mouths]}
 
 
 @parts_routes.route('/necks')
@@ -93,7 +93,7 @@ def necks():
     Query for necks and there dictionaries in a list
     """
     necks=Neck.query.all()
-    return {'necks': [neck.to_dict() for neck in necks]}
+    return {'necks': [neck.no_avatar() for neck in necks]}
 
 
 @parts_routes.route('/noses')
@@ -103,4 +103,4 @@ def noses():
     Query for noses and there dictionaries in a list
     """
     noses=Nose.query.all()
-    return {'noses': [nose.to_dict() for nose in noses]}
+    return {'noses': [nose.no_avatar() for nose in noses]}
