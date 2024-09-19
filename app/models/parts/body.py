@@ -26,3 +26,11 @@ class Body(db.Model):
             'updatedAt':self.updated_at,
             # 'avatars':self.avatars
         }
+    def no_avatar(self):
+        return{
+            'id':self.id,
+            'type':self.type,
+            'imgUrl':self.img_url,
+            'createdAt':self.created_at,
+            'updatedAt':self.updated_at,
+        }
