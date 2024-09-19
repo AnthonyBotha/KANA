@@ -11,7 +11,7 @@ function UserHomePage() {
       <div className="fullScreen black">
 
         {/* user dashboard */}
-        <div className="displayFlex leftPageBorder rightPageBorder">
+        <div className="displayFlex leftPageBorder rightPageBorder spaceBetween">
           {/* Avatar */}
           <div className="darkGrey">
             AVATAR PLACEHOLDER
@@ -32,30 +32,30 @@ function UserHomePage() {
         </div>
 
         {/* Add task button */}
-        <div>
+        <div className="rightPageBorder textRight littleBottomMargin littleTopMargin">
           <button>Add Task</button>
         </div>
 
         {/* Checklists and Rewards Tables */}
-        <div className="displayFlex spaceBetween">
+        <div className="displayFlex spaceBetween rightPageBorder leftPageBorder">
 
           {/* Habits Table */}
-          <div className="almostBlack">
+          <div className="almostBlack quarterScreen roundedCorners littleRightMargin">
             <p className="whiteFont">IMPORT HABITS COMPONENT</p>
           </div>
 
           {/* Dailies Table */}
-          <div className="almostBlack">
+          <div className="almostBlack quarterScreen roundedCorners littleRightMargin">
             <p className="whiteFont">IMPORT DAILIES COMPONENT</p>
           </div>
 
           {/* To-Dos Table */}
-          <div className="almostBlack">
+          <div className="almostBlack quarterScreen roundedCorners littleRightMargin">
             <ToDoList userId={sessionUser.id} />
           </div>
 
           {/* Rewards Table */}
-          <div className="almostBlack">
+          <div className="almostBlack quarterScreen roundedCorners">
             <p className="whiteFont">IMPORT REWARDS COMPONENT</p>
           </div>
         </div>

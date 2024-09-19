@@ -128,8 +128,16 @@
   margin-left: 25px;
 }
 
+.littleLeftMargin {
+  margin-left: 5px;
+}
+
 .leftPageBorder {
   margin-left: 50px;
+}
+
+.littleRightMargin {
+  margin-right: 5px;
 }
 
 .rightMargin {
@@ -195,6 +203,10 @@
 /* general sizing */
 .halfScreen {
   width: 50%;
+}
+
+.quarterScreen {
+  width: 25%;
 }
 
 .fullWidth {
