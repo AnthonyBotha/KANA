@@ -26,6 +26,7 @@ def create_avatar():
     """
     data = request.json
 
+
     head_id = data.get("head_id")
     eye_id = data.get("eye_id")
     mouth_id = data.get("mouth_id")
