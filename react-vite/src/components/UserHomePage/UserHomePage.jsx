@@ -11,14 +11,14 @@ function UserHomePage() {
       <div className="fullScreen black">
 
         {/* user dashboard */}
-        <div className="displayFlex leftPageBorder rightPageBorder spaceBetween">
+        <div className="displayFlex leftPageBorder rightPageBorder spaceBetween littleTopPadding">
           {/* Avatar */}
-          <div className="darkGrey">
+          <div className="darkGrey littleRightMargin">
             AVATAR PLACEHOLDER
           </div>
 
           {/* User info and stats */}
-          <div>
+          <div className="littleRightMargin">
             <p className="font purpleFont xx-largeFont">{sessionUser.username}!</p>
             <p className="font purpleFont mediumFont">Level: {sessionUser.level}</p>
             <p className="white">experience: {sessionUser.experience}</p>
