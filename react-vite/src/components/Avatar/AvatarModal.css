@@ -6,6 +6,23 @@
     justify-content: center;
     background-color: lightgray;
 }
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.delete-avatar {
+    color: darkred;
+    cursor: pointer;
+}
+
+.delete-avatar:hover {
+    text-decoration:underline;
+}
+
 .avatar-container {
     position: relative;
     width: 200px;
@@ -115,6 +132,7 @@
 }
 
 .selection-item.selected {
+    transform: scale(1.1);
     border-bottom: 4px solid purple;
     font-weight: bold
 }
@@ -142,9 +160,17 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 }
 
 .part-item img {
     width: 45px;
     height: auto;
+}
+
+/* Active part item styles */
+.part-item.active-part-item {
+    transform: scale(1.5);
+    font-weight: bold;
+    border-bottom: 2px solid purple;
 }

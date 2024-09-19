@@ -19,7 +19,7 @@ def avatar():
         return {"error":"Avatar Not Found"}, 404
 
 @avatar_routes.route("/", methods=["POST"])
-@login_required
+# @login_required
 def create_avatar():
     """
     Create new avatar for the current user by extracting fields from request body
@@ -27,11 +27,11 @@ def create_avatar():
     data = request.json
 
     head_id = data.get("head_id")
-    eye_id = data.get("eye_id")
+    eye_id = data.get("eyes_id")
     mouth_id = data.get("mouth_id")
     antenna_id = data.get("antenna_id")
     neck_id = data.get("neck_id")
-    ear_id = data.get("ear_id")
+    ear_id = data.get("ears_id")
     nose_id = data.get("nose_id")
     background_id = data.get("background_id")
 

@@ -3,14 +3,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { getAvatarAntennas, getAvatarBackgrounds, getAvatarEars, getAvatarEyes, getAvatarHeads, getAvatarMouths, getAvatarNecks, getAvatarNoses } from '../../redux/avatarpart';
+import { getAvatar, createNewAvatar, deleteExistingAvatar, updateExistingAvatar  } from '../../redux/avatar';
 import "./AvatarModal.css"
-
 
 
 function AvatarModal() {
   const dispatch = useDispatch();
   const [avatarParts, setAvatarParts] = useState({});
   const [selectedPart, setSelectedPart] = useState("head");
+  const [activePartItem, setActivePartItem] = useState(null);
+  
 
   const headSelectionUrl = "https://res.cloudinary.com/dmg8yuivs/image/upload/v1726681230/robot_pzzvjx.png";
   const eyesSelectionUrl = "https://res.cloudinary.com/dmg8yuivs/image/upload/v1726681228/eyes_dfwlgi.png";
@@ -31,7 +33,17 @@ function AvatarModal() {
     dispatch(getAvatarMouths());
     dispatch(getAvatarNecks());
     dispatch(getAvatarNoses());
+
+    dispatch(getAvatar());
   }, [dispatch]);
+
+  // useEffect(() => {
+  //   if (avatar) {
+  //     setAvatarParts({
+        
+  //     })
+  //   }
+  // })
 
 
   //helper function to get a random element from an array
@@ -53,7 +65,9 @@ function AvatarModal() {
 
   const noses = useSelector(state => state.avatarParts.noses);
 
+  const user = useSelector(state => state.session.user);
 
+  const avatar = useSelector(state => state.avatar)
 
   // const handleSubmit = async (e) => {
   //   e.preventDefault();
@@ -73,14 +87,14 @@ function AvatarModal() {
 
   const generateAvatar = () => {
     setAvatarParts({
-      background: getRandomElement(Object.values(backgrounds)).imgUrl,
-      antenna: getRandomElement(Object.values(antennas)).imgUrl,
-      head: getRandomElement(Object.values(heads)).imgUrl,
-      eyes: getRandomElement(Object.values(eyes)).imgUrl,
-      ears: getRandomElement(Object.values(ears)).imgUrl,
-      nose: getRandomElement(Object.values(noses)).imgUrl,
-      mouth: getRandomElement(Object.values(mouths)).imgUrl,
-      neck: getRandomElement(Object.values(necks)).imgUrl,
+      background_id: getRandomElement(Object.values(backgrounds)).id,
+      antenna_id: getRandomElement(Object.values(antennas)).id,
+      head_id: getRandomElement(Object.values(heads)).id,
+      eyes_id: getRandomElement(Object.values(eyes)).id,
+      ears_id: getRandomElement(Object.values(ears)).id,
+      nose_id: getRandomElement(Object.values(noses)).id,
+      mouth_id: getRandomElement(Object.values(mouths)).id,
+      neck_id: getRandomElement(Object.values(necks)).id,
     })
   }
 
@@ -107,18 +121,64 @@ function AvatarModal() {
     }
   };
 
+  const handlePartItemClick = (partItem) => {
+    setActivePartItem(partItem); //Set active part item
+    setAvatarParts(prev => ({
+      ...prev,
+      [`${selectedPart}_id`]: partItem.id
+    }));
+  };
+
+  const handleSaveAvatar = () => {
+    console.log("Avatar Parts:",avatarParts);
+    if (Object.values(avatar).length > 0) {
+      dispatch(updateExistingAvatar(avatar.id,avatarParts));
+    } else {
+      dispatch(createNewAvatar(avatarParts));
+    }
+  }
+
+  const handleDeleteAvatar = () => {
+    dispatch(deleteExistingAvatar(avatar.id));
+  };
+
+  // Mapping part IDs to image Urls for display
+  const getPartImageUrl = (partType, partId) => {
+    const parts = {
+      background: backgrounds,
+      antenna: antennas,
+      head: heads,
+      eyes: eyes,
+      ears: ears,
+      nose: noses,
+      mouth: mouths,
+      neck: necks
+    };
+
+    const partArray = Object.values(parts[partType] || {});
+    const part = partArray.find(part => part.id === partId);
+
+    //Return image Url if found, else return empty string
+    return part ? part.imgUrl : "";
+  }
 
   return (
     <div className="modal">
+      <div className="modal-header">
+        <h2 className="welcome-text">Welcome, {user.username}</h2>
+        {avatar && (
+          <h4 className="delete-avatar" onClick={handleDeleteAvatar}>Delete Avatar</h4>
+        )}
+      </div>
       <div className="avatar-container">
-        <img src={avatarParts.background} className="avatar-background" />
-        <img src={avatarParts.antenna} className="avatar-antenna" />
-        <img src={avatarParts.head} className="avatar-head" />
-        <img src={avatarParts.eyes} className="avatar-eyes" />
-        <img src={avatarParts.ears} className="avatar-ears" />
-        <img src={avatarParts.nose} className="avatar-nose" />
-        <img src={avatarParts.mouth} className="avatar-mouth" />
-        <img src={avatarParts.neck} className="avatar-neck" />
+        <img src={getPartImageUrl("background",avatarParts.background_id)} className="avatar-background" />
+        <img src={getPartImageUrl("antenna",avatarParts.antenna_id)} className="avatar-antenna" />
+        <img src={getPartImageUrl("head",avatarParts.head_id)} className="avatar-head" />
+        <img src={getPartImageUrl("eyes",avatarParts.eyes_id)} className="avatar-eyes" />
+        <img src={getPartImageUrl("ears",avatarParts.ears_id)} className="avatar-ears" />
+        <img src={getPartImageUrl("nose",avatarParts.nose_id)} className="avatar-nose" />
+        <img src={getPartImageUrl("mouth",avatarParts.mouth_id)} className="avatar-mouth" />
+        <img src={getPartImageUrl("neck",avatarParts.neck_id)} className="avatar-neck" />
       </div>
       <button className="auto-gen-button" onClick={generateAvatar}>Generate New Avatar</button>
       <div className="selection-menu">
@@ -158,7 +218,9 @@ function AvatarModal() {
         </div>
         <div className="parts-list">
           {Object.keys(displayParts()).map(part => (
-            <div key={part} className="part-item">
+            <div key={part}
+              className={`part-item ${activePartItem === displayParts()[part] ? "active-part-item" : ""}`}
+              onClick={() => handlePartItemClick(displayParts()[part])}>
               <img src={displayParts()[part]?.imgUrl} alt={part} />
             </div>
           ))}
@@ -166,7 +228,7 @@ function AvatarModal() {
         </div>
         
       </div>
-      <button className="save-button">Save</button>
+      <button className="save-button" onClick={handleSaveAvatar}>Save</button>
     </div>
   )
 }
