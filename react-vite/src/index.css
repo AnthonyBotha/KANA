@@ -56,6 +56,14 @@
   text-decoration: underline;
 }
 
+.activeLink {
+  font-family: "Varela Round", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  color: #432874;
+  text-decoration: underline;
+}
+
 /* font weight */
 .bold {
   font-weight: 600;
@@ -72,6 +80,10 @@
 
 .lightGreyFont {
   color: #6C757D;
+}
+
+.yellowFont {
+  color: #fbc328
 }
 
 /* font sizes */
@@ -142,6 +154,10 @@
 
 .rightMargin {
   margin-right: 25px;
+}
+
+.largeRightMargin {
+  margin-right: 40px;
 }
 
 .rightPageBorder {

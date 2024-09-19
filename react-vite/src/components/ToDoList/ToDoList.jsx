@@ -30,8 +30,11 @@ function ToDoList(userId) {
         {console.log("todos", JSON.stringify(todos))}
         <div className='displayFlex littlePadding'>
           {/* onclick filter the current task list */}
-          <p className='fontLight whiteFont smallFont littlePadding'>Active</p>
-          <p className='fontLight whiteFont smallFont littlePadding'>Scheduled</p>
+          <p 
+            className='fontLight whiteFont smallFont littlePadding'
+          >
+            Active
+          </p>
           <p className='fontLight whiteFont smallFont littlePadding'>Completed</p>
         </div>
       </div>
