@@ -40,6 +40,12 @@ def equip_item(item_id):
 
     if item is None:
         return {'errors': {'message': 'Item Not Found'}}, 404
+
+    # sends an error if equipment is false bcz only equipment can be equipped
+    if item.equipment is False:
+        return {'errors': {'message': 'Item can not be equipped'}}, 400
+
+
     inventory_of_item=db.session.query(inventory).filter_by(user_id=current_user.id,item_id=item.id).first()
 
     if inventory_of_item is None:
