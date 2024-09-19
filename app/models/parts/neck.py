@@ -26,3 +26,11 @@ class Neck(db.Model):
             'updatedAt':self.updated_at,
             'avatars':[avatar.to_dict() for avatar in self.avatars]
         }
+    def no_avatar(self):
+        return{
+            'id':self.id,
+            'type':self.type,
+            'imgUrl':self.img_url,
+            'createdAt':self.created_at,
+            'updatedAt':self.updated_at,
+        }
