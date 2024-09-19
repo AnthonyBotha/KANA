@@ -73,7 +73,7 @@ def heads():
     Query for heads and there dictionaries in a list
     """
     heads=Head.query.all()
-    return {'heads': [head.to_dict() for head in heads]}
+    return {'heads': [head.no_avatar() for head in heads]}
 
 
 @parts_routes.route('/mouths')
