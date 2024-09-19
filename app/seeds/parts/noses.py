@@ -5,43 +5,43 @@ from sqlalchemy.sql import text
 def seed_noses():
     gray_triangle= Nose(
         type='gray_triangle',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726368904/nose1_gcefav.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726714207/nose1_zbafyx.png'
     )
     gray_rectangle= Nose(
         type='gray_rectangle',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726368904/nose2_tzbd30.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726714208/nose2_yrkqbt.png'
     )
     horizontal_stripes= Nose(
         type='horizontal_stripes',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726368905/nose3_j1kjak.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726714209/nose3_s437lo.png'
     )
     green= Nose(
         type='green',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726368905/nose4_q46apf.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726714210/nose4_e22jor.png'
     )
     light_purple= Nose(
         type='light_purple',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726368906/nose5_opcwfo.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726714211/nose5_haecmn.png'
     )
     light_blue= Nose(
         type='light_blue',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726368906/nose6_keeypd.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726714212/nose6_szcdao.png'
     )
     vertical_stripes= Nose(
         type='vertical_stripes',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726368906/nose7_r8jkyl.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726714213/nose7_ohfxhx.png'
     )
     gray_pentagon= Nose(
         type='gray_pentagon',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726368907/nose8_p0fblh.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726714214/nose8_lzegw9.png'
     )
     light_red= Nose(
         type='light_red',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726368907/nose9_rtwfmz.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726714215/nose9_wxtege.png'
     )
     yellow= Nose(
         type='yellow',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726368908/nose10_svs1yu.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726714215/nose10_qrbqd1.png'
     )
 
     noses= [gray_triangle,gray_rectangle,horizontal_stripes,green,light_purple,light_blue,vertical_stripes,gray_pentagon,light_red,yellow]
