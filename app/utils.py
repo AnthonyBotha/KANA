@@ -14,10 +14,6 @@ def tags_update_manager(request_tags, current_tags, stored_tags, task_instance):
             if tag not in request_tags:
                 #find the specific tag in the database
                 tag_to_remove = Tag.query.filter_by(tag_name=tag).first()
-                print('---'*100)
-                print('TAG :', tag)
-                print('TAG TO REMOVE: ', tag_to_remove)
-                print('TASKINSTANCE.TAGS: ', task_instance.tags)
                 if tag_to_remove:
                     # Remove the association between the Daily instance and the Tag
                     task_instance.tags.remove(tag_to_remove)
