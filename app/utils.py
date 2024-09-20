@@ -126,9 +126,12 @@ def checklist_update_manager(data, task_instance):
 
 
             if checklist_item.get('id'):
-                print('---------------00 got Id: ', checklist_item.get('id'
-                                                                       ))
+                print('---------------00 got Id: ', checklist_item.get('id'))
+
                 db_checklist = Checklist.query.get(int(checklist_item['id']))
+
+                print('---------------: DID QUERY Checklist.query.get(int(checklist_item["id"])) WORK??????  ', db_checklist)
+
                 db_checklist.description = checklist_item['description'] or db_checklist.description
                 db_checklist.completed = str_to_bool(checklist_item.get('completed', db_checklist.completed))
 
