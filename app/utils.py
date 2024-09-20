@@ -130,15 +130,15 @@ def checklist_update_manager(data, task_instance):
                 checklists = Checklist.query.all()
                 print('all checklist', checklists)
 
-                db_checklist_filter = Checklist.query.filter_by(id=int(checklist_item.get('id')))
-                print('---------------:QUERYING WITH FILTER_BY:', {checklist.id:checklist for checklist in db_checklist_filter})
+                db_checklist_filter = Checklist.query.filter_by(id=int(checklist_item.get('id'))).first()
+                print('------QUERYING WITH FILTER_BY:', db_checklist_filter)
 
-                db_checklist = Checklist.query.get(int(checklist_item.get('id')))
+                db_checklist = Checklist.query.get(int(checklist_item['id']))
 
                 print('---------------: DID QUERY Checklist.query.get(int(checklist_item["id"])) WORK??????  ', db_checklist)
 
-                db_checklist_filter.description = checklist_item['description'] or db_checklist.description
-                db_checklist_filter.completed = str_to_bool(checklist_item.get('completed', db_checklist.completed))
+                db_checklist.description = checklist_item['description'] or db_checklist.description
+                db_checklist.completed = str_to_bool(checklist_item.get('completed', db_checklist.completed))
 
 
             else:
