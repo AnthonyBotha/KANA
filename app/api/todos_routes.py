@@ -1,7 +1,9 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required,current_user
+from sqlalchemy.orm import joinedload
 from app.models import Todo,db
 from datetime import date
+from app.utils import tags_post_manager, tags_update_manager, checklist_post_manager, checklist_update_manager
 
 todos_routes = Blueprint('todos',__name__)
 
@@ -11,7 +13,10 @@ def todos():
     """
     Query for all the users todos in a list of dictornaries
     """
-    user_todos = Todo.query.filter_by(user_id=current_user.id).all()
+    user_todos = Todo.query.filter_by(user_id=current_user.id).options(
+        joinedload(Todo.tags),
+        joinedload(Todo.checklist)
+    ).all()
 
     if len(user_todos) < 1:
         return {'todos':[]}
@@ -49,6 +54,11 @@ def create_todo():
     db.session.add(new_todo)
     db.session.commit()
 
+    #Checklist
+    checklist_post_manager(data, new_todo)
+    #Tags
+    tags_post_manager(data, new_todo) #helper function in app.utils
+
     return jsonify({'todo': new_todo.to_dict_user()}),201
 
 
@@ -78,6 +88,11 @@ def update_todo(todo_id):
             return {'error':{'message':'date needs to be formatted (YYYY-MM-DD)'}},400
 
         todo.due_date = date(int(due_date[0]),int(due_date[1]),int(due_date[2]))
+
+    #Checklist
+    checklist_update_manager(data, todo)
+    #Tags
+    tags_update_manager(data, todo)
 
     db.session.commit()
 

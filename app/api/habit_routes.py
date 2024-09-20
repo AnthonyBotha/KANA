@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, request
 from flask_login import login_required,current_user
 from app.models import Habit,db, Tag, tasks_tags
 from sqlalchemy.orm import joinedload
-from app.utils import str_to_bool, tags_update_manager
+from app.utils import str_to_bool, tags_update_manager, tags_post_manager
 
 habit_routes=Blueprint('habits', __name__)
 
@@ -50,28 +50,7 @@ def create_habit():
     db.session.commit()
 
     #tags
-    db_tags = Tag.query.all() #query for all tags in database
-    stored_tags = [tag.to_dict()['tag_name'] for tag in db_tags] # returns a list of the tags in the database in this format: ['Work', 'Excercise', 'Creativity', 'Chores', etc]
-    tags = data.get('tags') #return a list of strings representing the tags in the request (from frontend)
-    if tags:
-        for tag in tags:
-            if tag not in stored_tags:
-                # store new tag to get id
-                new_tag = Tag(tag_name = str(tag))
-                db.session.add(new_tag)
-                db.session.commit()
-            else:
-                #fetch the existing tag to get id
-                new_tag = Tag.query.filter_by(tag_name=tag).first()
-
-            #create association in joined table:
-            db.session.execute(
-                tasks_tags.insert().values(
-                    habit_id = new_habit.id,
-                    tag_id = new_tag.id
-                )
-            )
-        db.session.commit()
+    tags_post_manager(data, new_habit)
 
     return jsonify({'habit': new_habit.to_dict_user()}),201
 
@@ -93,12 +72,8 @@ def update_habit(habit_id):
     habit.difficulty=data.get('difficulty',habit.difficulty)
     habit.is_positive=str_to_bool(data.get('is_positive',habit.is_positive))
 
-    #tags
-    db_tags = Tag.query.all() #query for all tags in database
-    stored_tags = [tag.tag_name for tag in db_tags] # format db_tags to: ['Work', 'Excercise', 'Creativity', 'Chores', etc]
-    current_tags = [tag.tag_name for tag in habit.tags] #Tags the current Habit instance has.
-    request_tags = data.get('tags') #Tags incoming from request
-    tags_update_manager(request_tags, current_tags, stored_tags, habit)
+    #TAGS
+    tags_update_manager(data, habit)
 
     db.session.commit()
 
