@@ -38,7 +38,8 @@ class Habit(db.Model):
             'isPositive':self.is_positive,
             'createdAt':self.created_at,
             'updatedAt':self.updated_at,
-            'user':self.user.to_dict()
+            'user':self.user.to_dict(),
+            # 'tags': [tag.tag_name for tag in self.tags] if self.tags else [],
         }
         if self.tags is not None and len(self.tags) > 0:
             dic['tags']=[tag.to_dict() for tag in self.tags]
@@ -58,9 +59,10 @@ class Habit(db.Model):
             'isPositive':self.is_positive,
             'createdAt':self.created_at,
             'updatedAt':self.updated_at,
+            'tags': [tag.tag_name for tag in self.tags] if self.tags else []
         }
 
-        if self.tags is not None and len(self.tags) > 0:
-            dic['tags']=[tag.to_dict() for tag in self.tags]
+        # if self.tags is not None and len(self.tags) > 0:
+        #     dic['tags']=[tag.to_dict() for tag in self.tags]
 
         return dic

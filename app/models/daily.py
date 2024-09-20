@@ -28,7 +28,6 @@ class Daily(db.Model):
     user = db.relationship('User', back_populates='dailies')
     # Relationship with Checklists
     checklist = db.relationship('Checklist', back_populates='daily', cascade='all, delete-orphan')
-
     # Relationship with Tags through tasks_tags joint table
     tags = db.relationship('Tag', secondary=tasks_tags, back_populates='daily_tags')
 
