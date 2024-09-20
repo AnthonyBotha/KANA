@@ -103,16 +103,7 @@ def checklist_post_manager(data, task_instance):
 def checklist_update_manager(data, task_instance):
     checklist = data.get('checklist') # list of dictionaries (array of objects)
     print('-----'*200, 'TASK INSTANCE: ', task_instance)
-    #check for removed items by creating id sets and getting the difference:
-    current_checklist_ids = {check.id for check in task_instance.checklist} if task_instance.checklist else set()
-    request_checklist_ids = {check['id'] for check in checklist if check.get('id') is not None} if checklist else set()
-    removed_items = current_checklist_ids - request_checklist_ids
-    if removed_items:
-        for id in removed_items:
-            checklist_to_remove = Checklist.query.filter_by(id=id).first()
-            if checklist_to_remove:
-                db.session.delete(checklist_to_remove)
-        db.session.commit()
+
 
     #check for new ones and updates
     if checklist:
@@ -159,3 +150,18 @@ def checklist_update_manager(data, task_instance):
         db.session.commit()
     else:
         task_instance.checklist = []
+
+    #check for removed items by creating id sets and getting the difference:
+    current_checklist_ids = {check.id for check in task_instance.checklist} if task_instance.checklist else set()
+    request_checklist_ids = {check['id'] for check in checklist if check.get('id') is not None} if checklist else set()
+    print('----'*100, 'current_checklist_ids', current_checklist_ids)
+    print('----'*100, 'request_checklist_ids', request_checklist_ids)
+    removed_items = current_checklist_ids - request_checklist_ids
+    print('----'*100, 'removed_items', removed_items)
+    
+    if removed_items:
+        for id in removed_items:
+            checklist_to_remove = Checklist.query.filter_by(id=id).first()
+            if checklist_to_remove:
+                db.session.delete(checklist_to_remove)
+        db.session.commit()
