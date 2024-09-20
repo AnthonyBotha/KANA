@@ -96,7 +96,7 @@ def update_todo(todo_id):
 
     db.session.commit()
 
-    return jsonify(todo.to_dict_user())
+    return jsonify(todo.to_dict())
 
 
 @todos_routes.route('/<int:todo_id>', methods=['DELETE'])
