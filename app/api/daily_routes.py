@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, request
 from flask_login import login_required,current_user
 from app.models import Daily, db, Checklist, Tag, tasks_tags
 from sqlalchemy.orm import joinedload
-from app.utils import str_to_bool
+from app.utils import tags_post_manager, tags_update_manager, checklist_post_manager, checklist_update_manager
 
 daily_routes = Blueprint('dailies', __name__)
 
@@ -45,41 +45,10 @@ def create_daily():
     db.session.commit()
 
     #CHECKLIST
-    checklist = data.get('checklist') #return a list of dictionaries
-    if checklist:
-        for check in checklist:
-            new_check = Checklist(
-                daily_id = new_daily.id,
-                completed = str_to_bool(check.get('completed', False)),
-                description = check.get('description')
-            )
-            db.session.add(new_check)
-        db.session.commit()
+    checklist_post_manager(data, new_daily)
 
     #TAGS
-    db_tags = Tag.query.all() #query for all tags in database
-    stored_tags = [tag.to_dict()['tag_name'] for tag in db_tags] # returns a list of the tags in the database in this format: ['Work', 'Excercise', 'Creativity', 'Chores', etc]
-    tags = data.get('tags') #return a list of strings representing the tags in the request (from frontend)
-    if tags:
-        for tag in tags:
-            if tag not in stored_tags:
-                # store new tag to get id
-                new_tag = Tag(tag_name = str(tag))
-                db.session.add(new_tag)
-                db.session.commit()
-            else:
-                #fetch the existing tag to get id
-                new_tag = Tag.query.filter_by(tag_name=tag).first()
-
-            #create association in joined table:
-            db.session.execute(
-                tasks_tags.insert().values(
-                    daily_id = new_daily.id,
-                    tag_id = new_tag.id
-                )
-            )
-        db.session.commit()
-
+    tags_post_manager(data, new_daily) #helper function in app.utils
 
     return jsonify({'new_daily':new_daily.to_dict()})
 
@@ -107,62 +76,28 @@ def update_daily(daily_id):
     daily.repeat_on = data.get('repeatOn', daily.repeat_on)
 
     #Checklist
-    checklist = data.get('checklist') # list of dictionaries (array of objects)
-    if checklist:
-        for checklist_item in checklist:
-
-            if checklist_item['description'] is None:
-                return {"errors": "message: description can't be None"}
-
-            if checklist_item.get('id'):
-                db_checklist = Checklist.query.get(int(checklist_item['id']))
-                db_checklist.description = checklist_item['description'] or db_checklist.description
-                db_checklist.completed = str_to_bool(checklist_item.get('completed', False)) or db_checklist.completed
-
-            else:
-                new_check = Checklist(
-                    daily_id = daily_id,
-                    completed = str_to_bool(checklist_item.get('completed')),
-                    description = checklist_item['description']
-                )
-                db.session.add(new_check)
-
-        db.session.commit()
-
+    checklist_update_manager(data, daily)
     #tags
-    request_tags = data.get('tags') #Tag incoming from request
-    db_tags = Tag.query.all() #query for all tags in database
-    stored_tags = [tag.tag_name for tag in db_tags] # returns a list of the tags in the database in this format: ['Work', 'Excercise', 'Creativity', 'Chores', etc]
-    current_tags = [tag.tag_name for tag in daily.tags] #Tags the current Daily instance has.
+    tags_update_manager(data, daily)
 
-    if request_tags:
-    #check for removed tags
-        for tag in current_tags:
-            if tag not in request_tags:
-                #remove tag in current tag by removing the association in the db
-                tag_to_remove = Tag.query.filter_by(tag_name=tag).first()
-                if tag_to_remove:
-                    # Remove the association between the Daily instance and the Tag
-                    daily.tags.remove(tag_to_remove)
-    #check for new tags
-        for tag in request_tags:
-            if tag not in current_tags:
-                #check if its in the database already so that we don't have duplicates
-                if tag in stored_tags:
-                    new_tag = Tag.query.filter_by(tag_name=tag).first()
-                else:
-                    new_tag = Tag(tag_name=str(tag))
-                db.session.add(new_tag)
-                db.session.commit()
-                #add to db and make association on joined table
-                db.session.execute(
-                tasks_tags.insert().values(
-                    daily_id = daily.id,
-                    tag_id = new_tag.id
-                )
-            )
-    else:
-        daily.tags = []
-
+    # db.session.commit() ? not necessary but leaving it here just in case we have a bug
 
     return jsonify(daily.to_dict())
+
+
+
+@daily_routes.route('/<int:daily_id>', methods=['DELETE'])
+@login_required
+def delete_daily(daily_id):
+    """
+    Delete daily by id
+    """
+    daily=Daily.query.get(daily_id)
+
+    if daily.user_id != current_user.id:
+        return {'errors': {'message': 'Unauthorized'}}, 401
+
+    db.session.delete(daily)
+    db.session.commit()
+
+    return {"message":"Successfully deleted"},200

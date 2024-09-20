@@ -1,6 +1,8 @@
 import { useSelector } from "react-redux";
 import SmallWhiteLogo from '../../static/SmallLogoWhite.png';
 
+import ToDoList from "../ToDoList/ToDoList";
+
 function UserHomePage() {
   const sessionUser = useSelector(state => state.session.user)
 
@@ -9,18 +11,18 @@ function UserHomePage() {
       <div className="fullScreen black">
 
         {/* user dashboard */}
-        <div className="displayFlex leftPageBorder rightPageBorder">
+        <div className="displayFlex leftPageBorder rightPageBorder spaceBetween littleTopPadding">
           {/* Avatar */}
-          <div className="darkGrey">
+          <div className="darkGrey littleRightMargin">
             AVATAR PLACEHOLDER
           </div>
 
           {/* User info and stats */}
-          <div>
+          <div className="littleRightMargin">
             <p className="font purpleFont xx-largeFont">{sessionUser.username}!</p>
-            <p className="font purpleFont mediumFont">Level Placeholder</p>
-            <p className="white">XP PLACEHOLDER</p>
-            <p className="white">ENERGY PLACEHOLDER</p>
+            <p className="font purpleFont mediumFont">Level: {sessionUser.level}</p>
+            <p className="white">experience: {sessionUser.experience}</p>
+            <p className="white">health: {sessionUser.health}</p>
           </div>
 
           {/* Items and equipment dashboard */}
@@ -30,30 +32,30 @@ function UserHomePage() {
         </div>
 
         {/* Add task button */}
-        <div>
+        <div className="rightPageBorder textRight littleBottomMargin littleTopMargin">
           <button>Add Task</button>
         </div>
 
         {/* Checklists and Rewards Tables */}
-        <div>
+        <div className="displayFlex spaceBetween rightPageBorder leftPageBorder">
 
           {/* Habits Table */}
-          <div className="almostBlack">
+          <div className="almostBlack quarterScreen roundedCorners littleRightMargin">
             <p className="whiteFont">IMPORT HABITS COMPONENT</p>
           </div>
 
           {/* Dailies Table */}
-          <div className="almostBlack">
+          <div className="almostBlack quarterScreen roundedCorners littleRightMargin">
             <p className="whiteFont">IMPORT DAILIES COMPONENT</p>
           </div>
 
           {/* To-Dos Table */}
-          <div className="almostBlack">
-            <p className="whiteFont">IMPORT TO-DOs COMPONENT</p>
+          <div className="almostBlack quarterScreen roundedCorners littleRightMargin">
+            <ToDoList userId={sessionUser.id} />
           </div>
 
           {/* Rewards Table */}
-          <div className="almostBlack">
+          <div className="almostBlack quarterScreen roundedCorners">
             <p className="whiteFont">IMPORT REWARDS COMPONENT</p>
           </div>
         </div>
