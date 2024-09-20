@@ -26,23 +26,26 @@ def create_reward():
     title=data.get("title")
     notes=data.get('notes')
     cost=data.get('cost')
-
-    new_reward = Reward(
+    try:
+        new_reward = Reward(
         title=title,
         notes=notes,
         cost=cost,
         custom=True
-    )
+        )
 
-    db.session.add(new_reward)
-    db.session.commit()
-
-
-    user.rewards.append(new_reward)
-    db.session.commit()
+        db.session.add(new_reward)
+        db.session.commit()
 
 
-    return jsonify({'reward': new_reward.to_dict_user()}),201
+        user.rewards.append(new_reward)
+        db.session.commit()
+
+        return jsonify({'reward': new_reward.to_dict_user()}),201
+
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'error': "Title Required"}), 400
 
 
 @rewards_routes.route('/<int:reward_id>',methods=['PUT'])
@@ -63,13 +66,18 @@ def update_custom_reward(reward_id):
     if reward.custom is False:
         return {'errors': {'message': 'Reward can not be edited'}}, 400
 
-    reward.title=data.get('title',reward.title)
-    reward.notes = data.get('notes', reward.notes)
-    reward.cost = data.get('cost',reward.cost)
+    try:
+        reward.title=data.get('title',reward.title)
+        reward.notes = data.get('notes', reward.notes)
+        reward.cost = data.get('cost',reward.cost)
 
-    db.session.commit()
+        db.session.commit()
 
-    return {'reward': reward.to_dict_user()}
+        return {'reward': reward.to_dict_user()}
+
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'error': "Title can not be null"}), 400
 
 
 @rewards_routes.route('/<int:reward_id>',methods=['DELETE'])
@@ -86,8 +94,15 @@ def delete_reward(reward_id):
     if user_reward is None:
         return {'errors': {'message': 'Reward Not Found In User Rewards'}}, 404
 
-    user.rewards.remove(reward)
-    if reward.custom is True:
-        db.session.delete(reward)
-    db.session.commit()
-    return {"message":"Successfully deleted"},200
+
+    try:
+        user.rewards.remove(reward)
+        if reward.custom is True:
+            db.session.delete(reward)
+        db.session.commit()
+
+        return {"message":"Successfully deleted"},200
+
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'error': "Reward couldn't be Deleted"}), 400

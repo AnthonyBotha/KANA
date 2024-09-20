@@ -1,5 +1,5 @@
-from flask import Blueprint, request
-from app.models import User, db
+from flask import Blueprint, request,jsonify
+from app.models import User, db,Item,Reward
 from app.forms import LoginForm
 from app.forms import SignUpForm
 from flask_login import current_user, login_user, logout_user, login_required
@@ -59,8 +59,48 @@ def sign_up():
         )
         db.session.add(user)
         db.session.commit()
-        login_user(user)
-        return user.to_dict()
+
+        # giving defualt items to new user
+        egg=Item.query.filter_by(type='egg',item_img='https://res.cloudinary.com/dzsguqdmg/image/upload/v1726331213/Yellow_Egg_amwdrb.png').first()
+        food=Item.query.filter_by(type='food',item_img='https://res.cloudinary.com/dzsguqdmg/image/upload/v1726331254/Strawberry_yuwpqx.png').first()
+        potion=Item.query.filter_by(type='potion',item_img='https://res.cloudinary.com/dzsguqdmg/image/upload/v1726331310/Yellow_Potion_ltq2s8.png').first()
+        special=Item.query.filter_by(type='special',item_img='https://res.cloudinary.com/dzsguqdmg/image/upload/v1726331484/Yellow_Baby_Dragon_tbk3l1.png').first()
+        armor=Item.query.filter_by(type='armor',item_img='https://res.cloudinary.com/dzsguqdmg/image/upload/v1726331571/Tunic_ni2cut.png').first()
+        hat=Item.query.filter_by(type='hat',item_img='https://res.cloudinary.com/dzsguqdmg/image/upload/v1726331816/Sant_Hat_eh6jyy.png').first()
+        helmet=Item.query.filter_by(type='helmet',item_img='https://res.cloudinary.com/dzsguqdmg/image/upload/v1726331857/Hat_fngaa9.png').first()
+        sheild=Item.query.filter_by(type='off hands',item_img='https://res.cloudinary.com/dzsguqdmg/image/upload/v1726331934/Wooden_Shield_vrlqfc.png').first()
+        weapon=Item.query.filter_by(type='weapon',item_img='https://res.cloudinary.com/dzsguqdmg/image/upload/v1726331895/Dagger_lv3g4u.png').first()
+
+        try:
+            user.items.append(egg)
+            user.items.append(food)
+            user.items.append(potion)
+            user.items.append(special)
+            user.items.append(armor)
+            user.items.append(hat)
+            user.items.append(helmet)
+            user.items.append(sheild)
+            user.items.append(weapon)
+
+
+
+            db.session.commit()
+
+            # giving user default rewards
+            rewards=Reward.query.all()
+            for reward in rewards:
+                user.rewards.append(reward)
+            db.session.commit()
+
+            login_user(user)
+
+            return user.to_dict()
+
+        except Exception as e:
+            db.session.rollback()
+            return jsonify({'error': "Items and Rewards did not go through"}), 400
+
+
     return form.errors, 401
 
 

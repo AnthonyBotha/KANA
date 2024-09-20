@@ -100,19 +100,22 @@ def add_to_inventory():
     inventory_of_item=db.session.query(inventory).filter_by(user_id=current_user.id,item_id=item.id).first()
     if inventory_of_item:
         return {'errors': {'message': 'User has Item in Inventory'}}, 400
-
-    user.items.append(item)
-    db.session.commit()
+    try:
+        user.items.append(item)
+        db.session.commit()
     # updating for the inventory item to exist now
-    inventory_of_item=db.session.query(inventory).filter_by(user_id=current_user.id,item_id=item.id).first()
+        inventory_of_item=db.session.query(inventory).filter_by(user_id=current_user.id,item_id=item.id).first()
 
-    equipped = inventory_of_item.equiped
+        equipped = inventory_of_item.equiped
 
-    item_data = item.to_dict_user()
-    item_data['equipped'] = equipped
+        item_data = item.to_dict_user()
+        item_data['equipped'] = equipped
 
-    return  {'item': item_data},201
+        return  {'item': item_data},201
 
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'error': "Couldn't Add To inventory"}), 400
 
 @inventory_routes.route('/<int:item_id>',methods=['delete'])
 @login_required
@@ -126,7 +129,12 @@ def delete_from_inventory(item_id):
         return {'errors': {'message': "Item is not in User's inventory"}}, 404
 
     user = User.query.filter_by(id=current_user.id).first()
-    user.items.remove(item)
-    db.session.commit()
+    try:
+        user.items.remove(item)
+        db.session.commit()
 
-    return {"message":"Successfully deleted"},200
+        return {"message":"Successfully deleted"},200
+
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'error': "Couldn't delete from Inventory"}), 400
