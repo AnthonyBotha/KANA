@@ -121,7 +121,7 @@ def checklist_update_manager(data, task_instance):
             if checklist_item['description'] is None:
                 return {"errors": "message: description can't be None"}
 
-            print('---'*200, 'checklist ITEM ID', checklist_item.id)
+            print('---'*200, 'checklist ITEM ID', checklist_item['id'])
 
             if checklist_item['id']:
                 db_checklist = Checklist.query.get(int(checklist_item['id']))
