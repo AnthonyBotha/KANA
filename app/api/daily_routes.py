@@ -6,6 +6,14 @@ from app.utils import tags_post_manager, tags_update_manager, checklist_post_man
 
 daily_routes = Blueprint('dailies', __name__)
 
+
+#route to test checklists being properly created and assigned:
+@daily_routes.route('/check')
+def checklists():
+    checklists = Checklist.query.all()
+    checklists_dict= {check.to_dict() for check in checklists}
+    return checklists_dict
+
 @daily_routes.route('/current')
 @login_required
 def dailies():

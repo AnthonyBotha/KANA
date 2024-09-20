@@ -141,7 +141,7 @@ def checklist_update_manager(data, task_instance):
                 db_checklist.completed = str_to_bool(checklist_item.get('completed', db_checklist.completed))
 
 
-            else:
+            if not checklist_item.get('id'):
                 if isinstance(task_instance, Daily):
                     new_check = Checklist(
                         daily_id = task_instance.id,
