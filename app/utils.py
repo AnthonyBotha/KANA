@@ -102,7 +102,7 @@ def checklist_post_manager(data, task_instance):
 
 def checklist_update_manager(data, task_instance):
     checklist = data.get('checklist') # list of dictionaries (array of objects)
-
+    print('-----'*200, 'TASK INSTANCE: ', task_instance)
     #check for removed items by creating id sets and getting the difference:
     current_checklist_ids = {check.id for check in task_instance.checklist} if task_instance.checklist else set()
     request_checklist_ids = {check['id'] for check in checklist if check.get('id') is not None} if checklist else set()
@@ -123,7 +123,11 @@ def checklist_update_manager(data, task_instance):
 
             print('-----'*200, checklist_item)
 
+
+
             if checklist_item.get('id'):
+                print('---------------00 got Id: ', checklist_item.get('id'
+                                                                       ))
                 db_checklist = Checklist.query.get(int(checklist_item['id']))
                 db_checklist.description = checklist_item['description'] or db_checklist.description
                 db_checklist.completed = str_to_bool(checklist_item.get('completed', db_checklist.completed))
