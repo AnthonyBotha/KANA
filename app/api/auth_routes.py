@@ -98,7 +98,7 @@ def sign_up():
 
         except Exception as e:
             db.session.rollback()
-            return jsonify({'error': "Items did not go through"}), 400
+            return jsonify({'error': "Items and Rewards did not go through"}), 400
 
 
     return form.errors, 401
