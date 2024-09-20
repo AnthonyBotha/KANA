@@ -128,7 +128,7 @@ def checklist_update_manager(data, task_instance):
             if checklist_item.get('id'):
                 print('---------------00 got Id: ', checklist_item.get('id'))
 
-                db_checklist = Checklist.query.get(int(checklist_item['id']))
+                db_checklist = Checklist.query.get(int(checklist_item.get('id')))
 
                 print('---------------: DID QUERY Checklist.query.get(int(checklist_item["id"])) WORK??????  ', db_checklist)
 
