@@ -11,8 +11,8 @@ daily_routes = Blueprint('dailies', __name__)
 @daily_routes.route('/check')
 def checklists():
     checklists = Checklist.query.all()
-    checklists_dict= {check.to_dict() for check in checklists}
-    return checklists_dict
+    checklists_dict= [check.to_dict() for check in checklists]
+    return jsonify(checklists_dict)
 
 @daily_routes.route('/current')
 @login_required
