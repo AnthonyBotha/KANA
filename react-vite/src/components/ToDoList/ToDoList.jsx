@@ -8,7 +8,7 @@ function ToDoList(userId) {
   const dispatch = useDispatch();
   const todos = useSelector(state => state.todoList.todos)
   const [selectedIds, setSelectedIds] = useState([]);
-  
+
   useEffect(() => {
     dispatch(getTodoList());
   }, [dispatch, userId])
@@ -30,7 +30,7 @@ function ToDoList(userId) {
         {console.log("todos", JSON.stringify(todos))}
         <div className='displayFlex littlePadding'>
           {/* onclick filter the current task list */}
-          <p 
+          <p
             className='fontLight whiteFont smallFont littlePadding'
           >
             Active
@@ -43,14 +43,15 @@ function ToDoList(userId) {
       <div className='displayFlex flexColumn littlePadding littleMargin'>
         {todos?.map(({id, completed, title, difficulty, dueDate, notes}) => (
           <div key={id} className='displayFlex flexColumn darkGrey littleMargin roundedCorners'>
-             
-             <div className='displayFlex spaceBetween alignCenter'> 
+
+             <div className='displayFlex spaceBetween alignCenter'>
               <label>
                 <input
                   type='checkbox'
                   value={id}
                   className=''
-                  checked={selectedIds.includes(`${id}`)}
+                  // checked={selectedIds.includes(`${id}`)}
+                   checked={completed} //if completed = True then the checkbox is checked
                   onClick={(e) => { handleCheckboxChange(e) }}
                 />
                 {/* figure out how to update db dynamically */}
