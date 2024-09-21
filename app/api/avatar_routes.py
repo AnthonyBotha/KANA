@@ -100,12 +100,3 @@ def delete_avatar(id):
 
     return {"message":"Successfully deleted"},200
 
-
-# @avatar_routes.route('/<int:id>')
-# @login_required
-# def user(id):
-#     """
-#     Query for a user by id and returns that user in a dictionary
-#     """
-#     user = User.query.get(id)
-#     return user.to_dict()

@@ -6,15 +6,16 @@ import OpenModalMenuItem from "./OpenModalMenuItem";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
 import AvatarModal from "../Avatar/AvatarModal";
-import { redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 
 function ProfileButton() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
   const user = useSelector((store) => store.session.user);
   const ulRef = useRef();
-  const { setModalContent } = useModal()
+  const { setModalContent } = useModal();
 
   const toggleMenu = (e) => {
     e.stopPropagation(); // Keep from bubbling up to document and triggering closeMenu
@@ -39,8 +40,8 @@ function ProfileButton() {
 
   const logout = (e) => {
     e.preventDefault();
-    dispatch(thunkLogout());
-    redirect(window.location.href='/');
+    dispatch(thunkLogout())
+      .then(() => navigate('/'))
     closeMenu();
   };
 
@@ -50,12 +51,12 @@ function ProfileButton() {
         <FaUser />
       </div>
       {showMenu && (
-        <ul className="profile-dropdown lightGrey removeDecorations dropShadow" ref={ulRef}>
+        <ul className="profile-dropdown lightGrey removeDecorations dropShadow largeRightPadding littleTopPadding littleBottomPadding" ref={ulRef}>
           {user ? (
             <>
-              <li>{user.username}</li>
-              <li>{user.email}</li>
-              <li onClick={() => setModalContent(<AvatarModal/>) }>Customize Avatar</li>
+              <li className="font whiteFont littleBottomMargin littleTopMargin">{user.username}</li>
+              <li className="font whiteFont littleBottomMargin">{user.email}</li>
+              <li className="fontLight whiteFont largeBottomMargin" onClick={() => setModalContent(<AvatarModal/>) }>Customize Avatar</li>
               <li>
                 <button onClick={logout}>Log Out</button>
               </li>

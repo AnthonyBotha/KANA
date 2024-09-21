@@ -30,22 +30,13 @@ function LoginFormModal() {
     }
   };
 
+  const demoLogin = async () => {
 
-
-
-  const demoLogin = async (e) => {
-    e.preventDefault();
-
-    const res = await dispatch(thunkLogin({
+    await dispatch(thunkLogin({
       email: "demo@aa.io",
       password: "password"
     }))
-
-    if (res) {
-      setErrors(res);
-    } else {
-      closeModal();
-    }
+      .then(closeModal()) 
   }
 
   return (

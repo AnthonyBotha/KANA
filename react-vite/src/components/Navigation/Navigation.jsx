@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { BsCoin } from "react-icons/bs";
 import ProfileButton from "./ProfileButton";
 import LoginFormModal from "../LoginFormModal";
 import OpenModalButton from '../OpenModalButton';
@@ -13,13 +14,23 @@ function Navigation() {
     (
       <div className="displayFlex alignCenter spaceBetween">
         <div className="displayFlex largeLeftMargin">
-          <p className="fontLight largeFont whiteFont">Tasks</p>
-          <p className="fontLight largeFont whiteFont leftMargin">Inventory</p>
+          <NavLink to='/home' className="fontLight largeFont whiteFont">Tasks</NavLink>
+          <NavLink to='/inventory' className="fontLight largeFont whiteFont leftMargin">Inventory</NavLink>
         </div>
-        <div>
-          <li>
-            <ProfileButton user={sessionUser} />
-          </li>
+        <div className="displayFlex alignCenter">
+          <div className="displayFlex largeRightMargin">
+            <div className="displayFlex alignCenter">
+              <p className="x-largeFont noMargin noPadding textCenter littleRightMargin yellowFont">
+                <BsCoin /> 
+              </p>
+              <p className="font whiteFont">{sessionUser.gold}</p>
+            </div>
+          </div>
+          <div>
+            <li>
+              <ProfileButton user={sessionUser} />
+            </li>
+          </div>
         </div>
       </div>
     )
