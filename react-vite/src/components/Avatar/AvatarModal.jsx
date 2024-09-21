@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { getAvatarAntennas, getAvatarBackgrounds, getAvatarEars, getAvatarEyes, getAvatarHeads, getAvatarMouths, getAvatarNecks, getAvatarNoses } from '../../redux/avatarpart';
-import { getAvatar, createNewAvatar, deleteExistingAvatar, updateExistingAvatar  } from '../../redux/avatar';
+import { getAvatar, createNewAvatar, deleteExistingAvatar, updateExistingAvatar } from '../../redux/avatar';
 import "./AvatarModal.css"
 
 
@@ -12,8 +12,12 @@ function AvatarModal() {
   const [avatarParts, setAvatarParts] = useState({});
   const [selectedPart, setSelectedPart] = useState("head");
   const [activePartItem, setActivePartItem] = useState(null);
-  
+  const [errorFetchingAvatar, setErrorFetchingAvatar] = useState(false);
 
+  const user = useSelector(state => state.session.user);
+  const avatar = useSelector(state => state.avatar);
+
+  const avatarDefaultUrl = "https://res.cloudinary.com/dmg8yuivs/image/upload/v1726881553/user-avatar_clr2no.png";
   const headSelectionUrl = "https://res.cloudinary.com/dmg8yuivs/image/upload/v1726681230/robot_pzzvjx.png";
   const eyesSelectionUrl = "https://res.cloudinary.com/dmg8yuivs/image/upload/v1726681228/eyes_dfwlgi.png";
   const noseSelectionUrl = "https://res.cloudinary.com/dmg8yuivs/image/upload/v1726681229/nose_s6txb4.png";
@@ -25,6 +29,17 @@ function AvatarModal() {
   // const { closeModal } = useModal();
 
   useEffect(() => {
+    const fetchAvatar = async () => {
+      const response = await dispatch(getAvatar());
+
+      if (!response.ok){
+        setErrorFetchingAvatar(true);
+      }
+    }
+    fetchAvatar();
+  },[dispatch])
+
+  useEffect(() => {
     dispatch(getAvatarAntennas());
     dispatch(getAvatarBackgrounds());
     dispatch(getAvatarEars());
@@ -34,16 +49,15 @@ function AvatarModal() {
     dispatch(getAvatarNecks());
     dispatch(getAvatarNoses());
 
-    dispatch(getAvatar());
+    // dispatch(getAvatar());
   }, [dispatch]);
 
-  // useEffect(() => {
-  //   if (avatar) {
-  //     setAvatarParts({
-        
-  //     })
-  //   }
-  // })
+  useEffect(() => {
+    if (avatar && Object.keys(avatar).length > 0) {
+      setAvatarParts(Object.values(avatar)[0]);
+      setErrorFetchingAvatar(false);
+    }
+  }, [avatar])
 
 
   //helper function to get a random element from an array
@@ -65,9 +79,7 @@ function AvatarModal() {
 
   const noses = useSelector(state => state.avatarParts.noses);
 
-  const user = useSelector(state => state.session.user);
 
-  const avatar = useSelector(state => state.avatar)
 
   // const handleSubmit = async (e) => {
   //   e.preventDefault();
@@ -85,16 +97,18 @@ function AvatarModal() {
 
 
 
+
   const generateAvatar = () => {
+    setErrorFetchingAvatar(false);
     setAvatarParts({
-      background_id: getRandomElement(Object.values(backgrounds)).id,
-      antenna_id: getRandomElement(Object.values(antennas)).id,
-      head_id: getRandomElement(Object.values(heads)).id,
-      eyes_id: getRandomElement(Object.values(eyes)).id,
-      ears_id: getRandomElement(Object.values(ears)).id,
-      nose_id: getRandomElement(Object.values(noses)).id,
-      mouth_id: getRandomElement(Object.values(mouths)).id,
-      neck_id: getRandomElement(Object.values(necks)).id,
+      backgroundId: getRandomElement(Object.values(backgrounds)).id,
+      antennaId: getRandomElement(Object.values(antennas)).id,
+      headId: getRandomElement(Object.values(heads)).id,
+      eyeId: getRandomElement(Object.values(eyes)).id,
+      earId: getRandomElement(Object.values(ears)).id,
+      noseId: getRandomElement(Object.values(noses)).id,
+      mouthId: getRandomElement(Object.values(mouths)).id,
+      neckId: getRandomElement(Object.values(necks)).id,
     })
   }
 
@@ -102,13 +116,13 @@ function AvatarModal() {
     switch (selectedPart) {
       case "head":
         return heads;
-      case "eyes":
+      case "eye":
         return eyes;
       case "nose":
         return noses;
       case "mouth":
         return mouths;
-      case "ears":
+      case "ear":
         return ears;
       case "antenna":
         return antennas;
@@ -125,22 +139,25 @@ function AvatarModal() {
     setActivePartItem(partItem); //Set active part item
     setAvatarParts(prev => ({
       ...prev,
-      [`${selectedPart}_id`]: partItem.id
+      [`${selectedPart}Id`]: partItem.id
     }));
   };
 
   const handleSaveAvatar = () => {
-    console.log("Avatar Parts:",avatarParts);
     if (Object.values(avatar).length > 0) {
-      dispatch(updateExistingAvatar(avatar.id,avatarParts));
+      const [avatarId] = Object.keys(avatar)
+      dispatch(updateExistingAvatar(parseInt(avatarId), avatarParts))
     } else {
-      dispatch(createNewAvatar(avatarParts));
+      dispatch(createNewAvatar(avatarParts))
     }
   }
 
   const handleDeleteAvatar = () => {
-    dispatch(deleteExistingAvatar(avatar.id));
-  };
+    if (Object.values(avatar).length > 0) {
+      const [avatarId] = Object.keys(avatar)
+      dispatch(deleteExistingAvatar(parseInt(avatarId)));
+    }
+  }
 
   // Mapping part IDs to image Urls for display
   const getPartImageUrl = (partType, partId) => {
@@ -165,53 +182,64 @@ function AvatarModal() {
   return (
     <div className="modal">
       <div className="modal-header">
-        <h2 className="welcome-text">Welcome, {user.username}</h2>
-        {avatar && (
+        <div className="welcome-text">
+          <h2>Welcome, {user.username}</h2>
+          <h4>Level {user.level}</h4>
+        </div>
+        {Object.keys(avatar).length > 0 && (
           <h4 className="delete-avatar" onClick={handleDeleteAvatar}>Delete Avatar</h4>
         )}
       </div>
       <div className="avatar-container">
-        <img src={getPartImageUrl("background",avatarParts.background_id)} className="avatar-background" />
-        <img src={getPartImageUrl("antenna",avatarParts.antenna_id)} className="avatar-antenna" />
-        <img src={getPartImageUrl("head",avatarParts.head_id)} className="avatar-head" />
-        <img src={getPartImageUrl("eyes",avatarParts.eyes_id)} className="avatar-eyes" />
-        <img src={getPartImageUrl("ears",avatarParts.ears_id)} className="avatar-ears" />
-        <img src={getPartImageUrl("nose",avatarParts.nose_id)} className="avatar-nose" />
-        <img src={getPartImageUrl("mouth",avatarParts.mouth_id)} className="avatar-mouth" />
-        <img src={getPartImageUrl("neck",avatarParts.neck_id)} className="avatar-neck" />
+        {errorFetchingAvatar ? (
+          <>
+            <img src={avatarDefaultUrl} className="default-avatar" />
+          </>
+        ) : (
+          <>
+            <img src={getPartImageUrl("background", avatarParts.backgroundId)} className="avatar-background" />
+            <img src={getPartImageUrl("antenna", avatarParts.antennaId)} className="avatar-antenna" />
+            <img src={getPartImageUrl("head", avatarParts.headId)} className="avatar-head" />
+            <img src={getPartImageUrl("eyes", avatarParts.eyeId)} className="avatar-eyes" />
+            <img src={getPartImageUrl("ears", avatarParts.earId)} className="avatar-ears" />
+            <img src={getPartImageUrl("nose", avatarParts.noseId)} className="avatar-nose" />
+            <img src={getPartImageUrl("mouth", avatarParts.mouthId)} className="avatar-mouth" />
+            <img src={getPartImageUrl("neck", avatarParts.neckId)} className="avatar-neck" />
+          </>
+        )}
       </div>
       <button className="auto-gen-button" onClick={generateAvatar}>Generate New Avatar</button>
       <div className="selection-menu">
         <div className="menu">
-          <div className={`selection-item ${selectedPart === "head" ? "selected":""}`} onClick={() => {setSelectedPart("head")}}>
+          <div className={`selection-item ${selectedPart === "head" ? "selected" : ""}`} onClick={() => { setSelectedPart("head") }}>
             <img src={headSelectionUrl} className="menu-head" alt="Head" />
             <h2>Head</h2>
           </div>
-          <div className={`selection-item ${selectedPart === "eyes" ? "selected":""}`} onClick={() => setSelectedPart("eyes")}>
+          <div className={`selection-item ${selectedPart === "eye" ? "selected" : ""}`} onClick={() => setSelectedPart("eye")}>
             <img src={eyesSelectionUrl} className="menu-eyes" alt="Eyes" />
             <h2>Eyes</h2>
           </div>
-          <div className={`selection-item ${selectedPart === "nose" ? "selected":""}`} onClick={() => setSelectedPart("nose")}>
+          <div className={`selection-item ${selectedPart === "nose" ? "selected" : ""}`} onClick={() => setSelectedPart("nose")}>
             <img src={noseSelectionUrl} className="menu-nose" alt="Nose" />
             <h2>Nose</h2>
           </div>
-          <div className={`selection-item ${selectedPart === "mouth" ? "selected":""}`} onClick={() => setSelectedPart("mouth")}>
+          <div className={`selection-item ${selectedPart === "mouth" ? "selected" : ""}`} onClick={() => setSelectedPart("mouth")}>
             <img src={mouthSelectionUrl} className="menu-mouth" alt="Mouth" />
             <h2>Mouth</h2>
           </div>
-          <div className={`selection-item ${selectedPart === "ears" ? "selected":""}`} onClick={() => setSelectedPart("ears")}>
+          <div className={`selection-item ${selectedPart === "ear" ? "selected" : ""}`} onClick={() => setSelectedPart("ear")}>
             <img src={earsSelectionUrl} className="menu-ears" alt="Ears" />
             <h2>Ears</h2>
           </div>
-          <div className={`selection-item ${selectedPart === "antenna" ? "selected":""}`} onClick={() => setSelectedPart("antenna")}>
+          <div className={`selection-item ${selectedPart === "antenna" ? "selected" : ""}`} onClick={() => setSelectedPart("antenna")}>
             <img src={antennaSelectionUrl} className="menu-antenna" alt="Antenna" />
             <h2>Antenna</h2>
           </div>
-          <div className={`selection-item ${selectedPart === "neck" ? "selected":""}`} onClick={() => setSelectedPart("neck")}>
+          <div className={`selection-item ${selectedPart === "neck" ? "selected" : ""}`} onClick={() => setSelectedPart("neck")}>
             <img src={neckSelectionUrl} className="menu-neck" alt="Neck" />
             <h2>Neck</h2>
           </div>
-          <div className={`selection-item ${selectedPart === "background" ? "selected":""}`} onClick={() => setSelectedPart("background")}>
+          <div className={`selection-item ${selectedPart === "background" ? "selected" : ""}`} onClick={() => setSelectedPart("background")}>
             <img src={backgroundSelectionUrl} className="menu-background" alt="Background" />
             <h2>Background</h2>
           </div>
@@ -226,7 +254,7 @@ function AvatarModal() {
           ))}
 
         </div>
-        
+
       </div>
       <button className="save-button" onClick={handleSaveAvatar}>Save</button>
     </div>

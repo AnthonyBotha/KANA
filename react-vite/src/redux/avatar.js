@@ -1,3 +1,5 @@
+import { csrfFetch } from "./.csrf";
+
 //Action Types
 const LOAD_AVATAR = "avatars/LOAD_AVATAR";
 const CREATE_AVATAR = "avatars/CREATE AVATAR";
@@ -35,24 +37,30 @@ const updateAvatar = (avatar) => {
 
 //Thunks
 export const getAvatar = () => async (dispatch) => {
-    const response = await fetch("/api/avatars/current");
-
-    if (response.ok) {
-        const avatar = await response.json();
-        dispatch(loadAvatar(avatar));
+    try{
+        const response = await csrfFetch("/api/avatars/current");
+    
+        if (response.ok) {
+            const avatar = await response.json();
+            dispatch(loadAvatar(avatar));
+        } 
+        return {ok:true}
+    } catch(e){
+        return {ok:false}
     }
+
 };
 
-export const createNewAvatar = (avatar) => async dispatch => {
-    const response = await fetch("/api/avatars", {
+export const createNewAvatar = (avatar) => async (dispatch) => {
+    const response = await csrfFetch("/api/avatars/", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(avatar)
     });
 
     if (response.ok) {
         const data = await response.json();
         dispatch(createAvatar(data));
+        await dispatch(getAvatar());
     } else if (response.status < 500) {
         const errorMessages = await response.json();
         return errorMessages
@@ -62,7 +70,7 @@ export const createNewAvatar = (avatar) => async dispatch => {
 };
 
 export const deleteExistingAvatar = (avatarId) => async (dispatch) => {
-    const response = await fetch(`/api/avatars/${avatarId}`, {
+    const response = await csrfFetch(`/api/avatars/${avatarId}`, {
         method: "DELETE"
     });
 
@@ -76,15 +84,15 @@ export const deleteExistingAvatar = (avatarId) => async (dispatch) => {
 }
 
 export const updateExistingAvatar = (avatarId, avatarBody) => async (dispatch) => {
-    const response = await fetch(`/api/avatars/${avatarId}`, {
+    const response = await csrfFetch(`/api/avatars/${avatarId}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(avatarBody)
     });
 
     if (response.ok) {
         const data = await response.json();
         dispatch(updateAvatar(data));
+        await dispatch(getAvatar());
     } else if (response.status < 500) {
         const errorMessages = await response.json();
         return errorMessages
@@ -121,17 +129,16 @@ const avatarReducer = (state = initialState, action) => {
             const updatedAvatar = {
                 ...newState[avatar.id],
                 id: avatar.id,
-                user_id: avatar.user_id,
-                head_id: avatar.head_id,
-                eye_id: avatar.eye_id,
-                mouth_id: avatar.mouth_id,
-                antenna_id: avatar.antenna_id,
-                neck_id: avatar.neck_id,
-                ear_id: avatar.ear_id,
-                nose_id: avatar.nose_id,
-                background_id: avatar.background_id,
-                created_at: avatar.created_at,
-                updated_at: avatar.updated_at
+                headId: avatar.headId,
+                eyeId: avatar.eyeId,
+                mouthId: avatar.mouthId,
+                antennaId: avatar.antennaId,
+                neckId: avatar.neckId,
+                earId: avatar.earId,
+                noseId: avatar.noseId,
+                backgroundId: avatar.backgroundId,
+                createdAt: avatar.createdAt,
+                updatedAt: avatar.updatedAt
             }
         
             newState[avatar.id] = updatedAvatar;

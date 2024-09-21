@@ -14,13 +14,27 @@
     width: 100%;
 }
 
+.welcome-text {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.welcome-text h2 {
+    margin-bottom: 5px;
+}
+
+.welcome-text h4 {
+    margin-top: 0px;
+}
+
 .delete-avatar {
     color: darkred;
     cursor: pointer;
 }
 
 .delete-avatar:hover {
-    text-decoration:underline;
+    text-decoration: underline;
 }
 
 .avatar-container {
@@ -31,6 +45,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.default-avatar {
+    width: 200px;
+    height: 200px;
 }
 
 .avatar-background {
