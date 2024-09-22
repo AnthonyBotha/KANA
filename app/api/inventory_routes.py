@@ -10,26 +10,27 @@ inventory_routes = Blueprint('inventory', __name__)
 @inventory_routes.route('/current')
 @login_required
 def get_inventory():
-    user = User.query.filter_by(id=current_user.id).first()
 
-    if user.items is not None and len(user.items) > 0:
-        items_equip=[]
+    inventory = Item.query.all()
+    # user = User.query.filter_by(id=current_user.id).first()
 
-        for item in user.items:
-            inventory_of_item=db.session.query(inventory).filter_by(user_id=current_user.id,item_id=item.id).first()
-            equipped = inventory_of_item.equiped
+    # if user.items is not None and len(user.items) > 0:
+    #     items_equip=[]
 
-            item_data = item.to_dict_user()
-            item_data['equipped'] = equipped
+    #     for item in user.items:
+    #         inventory_of_item=db.session.query(inventory).filter_by(user_id=current_user.id,item_id=item.id).first()
+    #         equipped = inventory_of_item.equiped
 
-            items_equip.append(item_data)
+    #         item_data = item.to_dict_user()
+    #         item_data['equipped'] = equipped
 
+    #         items_equip.append(item_data)
 
-
-        return  {'items': items_equip}
+    if inventory:
+        return  {'inventory': inventory}
 
     else:
-        return {'items': []}
+        return {'inventory': []}
 
 
 
