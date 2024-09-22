@@ -50,7 +50,7 @@ class User(db.Model, UserMixin):
         return check_password_hash(self.password, password)
 
     def to_dict(self):
-        return {
+        dict={
             'id': self.id,
             'username': self.username,
             'email': self.email,
@@ -62,9 +62,28 @@ class User(db.Model, UserMixin):
             'gold':self.gold,
             'createdAt':self.created_at,
             'updatedAt':self.updated_at,
-            'avatar':self.avatar,
-            'habits':self.habits,
-            'todos':self.todos,
-            'items':self.items,
-            'rewards':self.rewards
         }
+
+        if self.avatar is not None:
+            dict['avatar']=self.avatar.to_dict_user()
+        if self.items is not None and len(self.items) > 0:
+            dict['items'] = [item.to_dict_user() for item in self.items]
+        if self.rewards is not None and len(self.rewards) > 0:
+            dict['rewards'] = [reward.to_dict_user() for reward in self.rewards]
+
+        return dict
+
+    # def to_user_info(self):
+    #     return{
+    #         'id': self.id,
+    #         'username': self.username,
+    #         'email': self.email,
+    #         'firstName':self.first_name,
+    #         'lastName':self.last_name,
+    #         'experience':self.experience,
+    #         'level':self.level,
+    #         'health':self.health,
+    #         'gold':self.gold,
+    #         'createdAt':self.created_at,
+    #         'updatedAt':self.updated_at,
+    #     }

@@ -25,7 +25,6 @@ class Todo(db.Model):
     user = db.relationship('User', back_populates='todos')
     # Relationship with Checklist
     checklist = db.relationship('Checklist', back_populates='todo')
-
     # Relationship with Tags throught tasks_tags joint table
     tags = db.relationship('Tag', secondary=tasks_tags, back_populates='todo_tags')
 
@@ -41,5 +40,22 @@ class Todo(db.Model):
             'dueDate': self.due_date,
             'completed': self.completed,
             'createdAt':self.created_at,
-            'updatedAt':self.updated_at
+            'updatedAt':self.updated_at,
+            'user':self.user,
+            'tags': [tag.tag_name for tag in self.tags] if self.tags else [],
+            'checklist': [check.to_dict() for check in self.checklist] if self.checklist else []
+        }
+    def to_dict_user(self):
+        return{
+            'id': self.id,
+            'userId': self.user_id,
+            'title': self.title,
+            'notes': self.notes,
+            'difficulty': self.difficulty,
+            'dueDate': self.due_date,
+            'completed': self.completed,
+            'createdAt':self.created_at,
+            'updatedAt':self.updated_at,
+            'tags': [tag.tag_name for tag in self.tags] if self.tags else [],
+            'checklist': [check.to_dict() for check in self.checklist] if self.checklist else []
         }

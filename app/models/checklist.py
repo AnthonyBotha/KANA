@@ -20,3 +20,15 @@ class Checklist(db.Model):
 
     todo = db.relationship('Todo', back_populates='checklist')
     daily = db.relationship('Daily', back_populates='checklist')
+
+    def to_dict(self):
+        dic = {
+            "id": self.id,
+            "todoId": self.todo_id,
+            "dailyId": self.daily_id,
+            "completed" : self.completed,
+            "description": self.description,
+            "createdAt": self.created_at,
+            "updatedAt": self.updated_at
+        }
+        return dic

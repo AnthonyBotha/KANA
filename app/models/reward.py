@@ -25,6 +25,7 @@ class Reward(db.Model):
     cost = db.Column(db.Integer, default=10, nullable=False)
     custom = db.Column(db.Boolean, nullable=False)
     reward_img = db.Column(db.String(255), nullable=True)
+    equipment=db.Column(db.Boolean,nullable=False,default=False)
     created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
     updated_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
 
@@ -41,5 +42,16 @@ class Reward(db.Model):
             'rewardImg':self.reward_img,
             'createdAt':self.created_at,
             'updatedAt':self.updated_at,
-            'users':self.users
+            'users':[user.to_user_info() for user in self.users]
+        }
+    def to_dict_user(self):
+        return {
+            'id':self.id,
+            'title':self.title,
+            'notes':self.notes,
+            'cost':self.cost,
+            'custom':self.custom,
+            'rewardImg':self.reward_img,
+            'createdAt':self.created_at,
+            'updatedAt':self.updated_at,
         }

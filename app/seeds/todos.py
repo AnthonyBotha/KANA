@@ -1,68 +1,70 @@
 from app.models import db, User,Todo, environment, SCHEMA
 from sqlalchemy.sql import text
+from datetime import date
 
 
 
-def seed_tods():
+def seed_todos():
     demo=User.query.filter_by(email='demo@aa.io').first()
     bobbie=User.query.filter_by(email='bobbie@aa.io').first()
     marnie=User.query.filter_by(email='marnie@aa.io').first()
 
-    demo_daily1 = Daily(
-        title="Most important task >> Worked on today's most important task",
-        notes='Tap to specify your most important task',
-        difficulty='Easy',
-        user_id=demo.id
-    )
-
-    demo_daily2= Daily(
-        title="Stretching >> Daily workout routine",
-        notes='Tap to choose your schedule and specify exercises!',
+    demo_todo1 = Todo(
+        title="Work project >> Complete work project",
+        notes='Tap to specify the name of your current project + set a due date!',
         difficulty='Easy',
         user_id=demo.id,
-        repeats='Daily'
+        due_date=date(2025,9,20)
     )
 
-
-    mar_daily1 = Daily(
-        title="Most important task >> Worked on today's most important task",
-        notes='Either a Habit, a Daily, or a To Do',
+    demo_todo2= Todo(
+        title="Set up workout schedule",
+        notes='Tap to add a checklist!',
         difficulty='Easy',
-        repeats='Monthly',
-        user_id=marnie.id
+        user_id=demo.id,
+        due_date=date(2025,10,11)
     )
 
-    mar_daily2= Daily(
-        title="Stretching >> Daily workout routine",
-        notes='Tap to choose your schedule and specify exercises!',
+
+    mar_todo1 = Todo(
+        title="Work project >> Complete work project",
+        notes='Tap to specify the name of your current project + set a due date!',
         difficulty='Easy',
-        repeats='Daily',
-        user_id=marnie.id
+        user_id=marnie.id,
+        due_date=date(2025,9,20)
     )
 
-
-
-    bob_daily1 = Daily(
-        title="Most important task >> Worked on today's most important task",
-        notes='Tap to specify your most important task',
+    mar_todo2= Todo(
+        title="Set up workout schedule",
+        notes='Tap to add a checklist!',
         difficulty='Easy',
-        user_id=bobbie.id
+        user_id=marnie.id,
+        due_date=date(2025,10,11)
     )
 
-    bob_daily2= Daily(
-        title="Stretching >> Daily workout routine",
-        notes='Tap to choose your schedule and specify exercises!',
+
+
+    bob_todo1 = Todo(
+        title="Work project >> Complete work project",
+        notes='Tap to specify the name of your current project + set a due date!',
         difficulty='Easy',
-        repeats='Yearly',
-        user_id=bobbie.id
+        user_id=bobbie.id,
+        due_date=date(2025,9,20)
+    )
+
+    bob_todo2= Todo(
+        title="Set up workout schedule",
+        notes='Tap to add a checklist!',
+        user_id=bobbie.id,
+        due_date=date(2025,10,11)
     )
 
 
-    dailies=[demo_daily1,demo_daily2,mar_daily1,mar_daily2,bob_daily1,bob_daily2]
+    todos=[demo_todo1,demo_todo2,mar_todo1,mar_todo2,bob_todo1,bob_todo2]
 
 
-    for daily in dailies:
-        db.session.add(daily)
+    for todo in todos:
+        db.session.add(todo)
     db.session.commit()
 
 

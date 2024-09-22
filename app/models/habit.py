@@ -28,7 +28,7 @@ class Habit(db.Model):
     tags = db.relationship('Tag',secondary=tasks_tags,back_populates='habit_tags')
 
     def to_dict(self):
-        return {
+        dic = {
             'id':self.id,
             'userId':self.user_id,
             'title':self.title,
@@ -38,5 +38,31 @@ class Habit(db.Model):
             'isPositive':self.is_positive,
             'createdAt':self.created_at,
             'updatedAt':self.updated_at,
-            'user':self.user
+            'user':self.user.to_dict(),
+            # 'tags': [tag.tag_name for tag in self.tags] if self.tags else [],
         }
+        if self.tags is not None and len(self.tags) > 0:
+            dic['tags']=[tag.to_dict() for tag in self.tags]
+
+        return dic
+
+
+
+    def to_dict_user(self):
+        dic = {
+            'id':self.id,
+            'userId':self.user_id,
+            'title':self.title,
+            'notes':self.notes,
+            'difficulty':self.difficulty,
+            'score':self.score,
+            'isPositive':self.is_positive,
+            'createdAt':self.created_at,
+            'updatedAt':self.updated_at,
+            'tags': [tag.tag_name for tag in self.tags] if self.tags else []
+        }
+
+        # if self.tags is not None and len(self.tags) > 0:
+        #     dic['tags']=[tag.to_dict() for tag in self.tags]
+
+        return dic

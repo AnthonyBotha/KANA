@@ -23,6 +23,10 @@
   background-color: #432874;
 }
 
+.almostBlack {
+  background-color: #131517;
+}
+
 .black {
   background-color: #0b0b0b;
 }
@@ -52,6 +56,14 @@
   text-decoration: underline;
 }
 
+.activeLink {
+  font-family: "Varela Round", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  color: #432874;
+  text-decoration: underline;
+}
+
 /* font weight */
 .bold {
   font-weight: 600;
@@ -60,6 +72,18 @@
 /* font colors */
 .whiteFont {
   color: #F8F9FA;
+}
+
+.purpleFont {
+  color: #6F42C1;
+}
+
+.lightGreyFont {
+  color: #6C757D;
+}
+
+.yellowFont {
+  color: #fbc328
 }
 
 /* font sizes */
@@ -100,6 +124,14 @@
   padding: 5%
 }
 
+.littlePadding {
+  padding: 5px;
+}
+
+.littleMargin {
+  margin: 5px;
+}
+
 .largeLeftMargin {
   margin-left: 40px;
 }
@@ -108,12 +140,24 @@
   margin-left: 25px;
 }
 
+.littleLeftMargin {
+  margin-left: 5px;
+}
+
 .leftPageBorder {
   margin-left: 50px;
 }
 
+.littleRightMargin {
+  margin-right: 5px;
+}
+
 .rightMargin {
   margin-right: 25px;
+}
+
+.largeRightMargin {
+  margin-right: 40px;
 }
 
 .rightPageBorder {
@@ -132,12 +176,24 @@
   margin-bottom: 10px;
 }
 
+.largeBottomMargin {
+  margin-bottom: 25px;
+}
+
 .noPadding {
   padding: 0px;
 }
 
+.largeRightPadding {
+  padding-right: 35px;
+}
+
 .rightPadding {
   padding-right: 25px;
+}
+
+.littleMoreRightPadding {
+  padding-right: 15px;
 }
 
 .littleRightPadding {
@@ -165,11 +221,23 @@
   width: 50%;
 }
 
+.quarterScreen {
+  width: 25%;
+}
+
 .fullWidth {
   width: 100%;
 }
 
+.widthAuto {
+  width: auto;
+}
+
 /* misc items */
+.positionRelative {
+  position: relative;
+}
+
 .testBorder {
   border: 1px solid red;
 }
@@ -230,6 +298,14 @@
   align-items: flex-end;
 }
 
+.displayBlock {
+  display: block;
+}
+
+.displayInline {
+  display: inline;
+}
+
 .textCenter {
   text-align: center;
 }
@@ -240,6 +316,10 @@
 
 .justifyCenter {
   justify-items: center;
+}
+
+.justifyContentCenter {
+  justify-content: center;
 }
 
 .justifyEnd {
@@ -285,6 +365,11 @@ button:hover {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+}
+
+/* temporary stylings */
+.itemDashboard {
+  width: 75%;
 }
 
 

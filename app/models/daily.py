@@ -27,8 +27,7 @@ class Daily(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     user = db.relationship('User', back_populates='dailies')
     # Relationship with Checklists
-    checklist = db.relationship('Checklist', back_populates='daily')
-
+    checklist = db.relationship('Checklist', back_populates='daily', cascade='all, delete-orphan')
     # Relationship with Tags through tasks_tags joint table
     tags = db.relationship('Tag', secondary=tasks_tags, back_populates='daily_tags')
 
@@ -45,5 +44,7 @@ class Daily(db.Model):
             'repeatOn': self.repeat_on,
             'isDue': self.is_due,
             'createdAt':self.created_at,
-            'updatedAt':self.updated_at
+            'updatedAt':self.updated_at,
+            'tags': [tag.tag_name for tag in self.tags] if self.tags else [],
+            'checklist': [check.to_dict() for check in self.checklist] if self.checklist else []
         }

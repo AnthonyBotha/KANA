@@ -3,6 +3,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime,timezone
 
 
+
 class Antenna(db.Model):
     __tablename__ = 'antennas'
 
@@ -25,5 +26,14 @@ class Antenna(db.Model):
             'imgUrl':self.img_url,
             'createdAt':self.created_at,
             'updatedAt':self.updated_at,
-            'avatars':self.avatars
+            'avatars':[avatar.to_dict() for avatar in self.avatars]
+        }
+
+    def no_avatar(self):
+        return{
+            'id':self.id,
+            'type':self.type,
+            'imgUrl':self.img_url,
+            'createdAt':self.created_at,
+            'updatedAt':self.updated_at,
         }
