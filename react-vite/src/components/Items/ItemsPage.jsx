@@ -16,7 +16,7 @@ function ItemsPage() {
     1: {
       'id': 1,
       'name': "yellow dragon",
-      'type': "special",
+      'type': "potion",
       'description': "It's a special friend and pet. It's a Dragon!!! Everyone wants a dragon thats yellow.",
       'equipment': false,
       'cost': 30,
@@ -25,7 +25,7 @@ function ItemsPage() {
     2: {
       'id': 1,
       'name': "yellow dragon",
-      'type': "egg",
+      'type': "special",
       'description': "It's a special friend and pet. It's a Dragon!!! Everyone wants a dragon thats yellow.",
       'equipment': false,
       'cost': 30,
@@ -34,7 +34,7 @@ function ItemsPage() {
     3: {
       'id': 1,
       'name': "yellow dragon",
-      'type': "potion",
+      'type': "egg",
       'description': "It's a special friend and pet. It's a Dragon!!! Everyone wants a dragon thats yellow.",
       'equipment': false,
       'cost': 30,
@@ -44,6 +44,69 @@ function ItemsPage() {
       'id': 1,
       'name': "yellow dragon",
       'type': "food",
+      'description': "It's a special friend and pet. It's a Dragon!!! Everyone wants a dragon thats yellow.",
+      'equipment': false,
+      'cost': 30,
+      'itemImg': "https://res.cloudinary.com/dzsguqdmg/image/upload/v1726331484/Yellow_Baby_Dragon_tbk3l1.png"
+    },
+    5: {
+      'id': 1,
+      'name': "yellow dragon",
+      'type': "potion",
+      'description': "It's a special friend and pet. It's a Dragon!!! Everyone wants a dragon thats yellow.",
+      'equipment': false,
+      'cost': 30,
+      'itemImg': "https://res.cloudinary.com/dzsguqdmg/image/upload/v1726331484/Yellow_Baby_Dragon_tbk3l1.png"
+    },
+    6: {
+      'id': 1,
+      'name': "yellow dragon",
+      'type': "potion",
+      'description': "It's a special friend and pet. It's a Dragon!!! Everyone wants a dragon thats yellow.",
+      'equipment': false,
+      'cost': 30,
+      'itemImg': "https://res.cloudinary.com/dzsguqdmg/image/upload/v1726331484/Yellow_Baby_Dragon_tbk3l1.png"
+    },
+    7: {
+      'id': 1,
+      'name': "yellow dragon",
+      'type': "potion",
+      'description': "It's a special friend and pet. It's a Dragon!!! Everyone wants a dragon thats yellow.",
+      'equipment': false,
+      'cost': 30,
+      'itemImg': "https://res.cloudinary.com/dzsguqdmg/image/upload/v1726331484/Yellow_Baby_Dragon_tbk3l1.png"
+    },
+    8: {
+      'id': 1,
+      'name': "yellow dragon",
+      'type': "potion",
+      'description': "It's a special friend and pet. It's a Dragon!!! Everyone wants a dragon thats yellow.",
+      'equipment': false,
+      'cost': 30,
+      'itemImg': "https://res.cloudinary.com/dzsguqdmg/image/upload/v1726331484/Yellow_Baby_Dragon_tbk3l1.png"
+    },
+    9: {
+      'id': 1,
+      'name': "yellow dragon",
+      'type': "potion",
+      'description': "It's a special friend and pet. It's a Dragon!!! Everyone wants a dragon thats yellow.",
+      'equipment': false,
+      'cost': 30,
+      'itemImg': "https://res.cloudinary.com/dzsguqdmg/image/upload/v1726331484/Yellow_Baby_Dragon_tbk3l1.png"
+    },
+    10: {
+      'id': 1,
+      'name': "yellow dragon",
+      'type': "potion",
+      'description': "It's a special friend and pet. It's a Dragon!!! Everyone wants a dragon thats yellow.",
+      'equipment': false,
+      'cost': 30,
+      'itemImg': "https://res.cloudinary.com/dzsguqdmg/image/upload/v1726331484/Yellow_Baby_Dragon_tbk3l1.png"
+    },
+    11: {
+      'id': 1,
+      'name': "yellow dragon",
+      'type': "potion",
       'description': "It's a special friend and pet. It's a Dragon!!! Everyone wants a dragon thats yellow.",
       'equipment': false,
       'cost': 30,
@@ -71,17 +134,17 @@ function ItemsPage() {
     return eggsArr.slice(currentBatchEggs * batchSize, (currentBatchEggs + 1) * batchSize);
   }, [eggsArr, currentBatchEggs, batchSize]);
 
-  // const visiblePotion = useMemo(() => {
-  //   return potionArr.slice(currentBatchPotion * batchSize, (currentBatchPotion + 1) * batchSize);
-  // }, [potionArr, currentBatchPotion, batchSize]);
+  const visiblePotion = useMemo(() => {
+    return potionArr.slice(currentBatchPotion * batchSize, (currentBatchPotion + 1) * batchSize);
+  }, [potionArr, currentBatchPotion, batchSize]);
 
-  // const visibleFood = useMemo(() => {
-  //   return foodArr.slice(currentBatchFood * batchSize, (currentBatchFood + 1) * batchSize);
-  // }, [foodArr, currentBatchFood, batchSize]);
+  const visibleFood = useMemo(() => {
+    return foodArr.slice(currentBatchFood * batchSize, (currentBatchFood + 1) * batchSize);
+  }, [foodArr, currentBatchFood, batchSize]);
 
-  // const visibleSpecial = useMemo(() => {
-  //   return specialArr.slice(currentBatchSpecial * batchSize, (currentBatchSpecial + 1) * batchSize);
-  // }, [specialArr, currentBatchSpecial, batchSize]);
+  const visibleSpecial = useMemo(() => {
+    return specialArr.slice(currentBatchSpecial * batchSize, (currentBatchSpecial + 1) * batchSize);
+  }, [specialArr, currentBatchSpecial, batchSize]);
 
   useEffect(() => {
     let isMounted = true;
@@ -95,11 +158,11 @@ function ItemsPage() {
       const screenWidth = window.innerWidth;
 
       if (screenWidth >= 1200) {
-        setBatchSize(5);
+        setBatchSize(12);
       } else if (screenWidth >= 900) {
-        setBatchSize(4);
+        setBatchSize(8);
       } else if (screenWidth >= 600) {
-        setBatchSize(3);
+        setBatchSize(4);
       } else {
         setBatchSize(2);
       }
@@ -207,8 +270,113 @@ function ItemsPage() {
                 </button>
               </div>
             ) : (<p className="no-items">You dont own any of these.</p>)}
-          </div>
+            {/* Potions Carousel */}
+          <h4 className="font whiteFont item-title">Potions</h4>
+            {potionArr.length > 0 ? (
+              <div className="carousel-container">
+                <button
+                  className="carousel-arrow left"
+                  onClick={() => loadNextBatchPotion("left")}
+                  disabled={currentBatchPotion === 0}
+                >
+                  &lt;
+                </button>
+                <div className="inventory-carousel">
+                  {visiblePotion.map(item => (
+                    <div key={item.id} className="inventory-card">
+                        <div 
+                          className="inventory-card-content"
+                          onClick={() => setModalContent(<ManageItemModal itemId={item.id} itemName={item.name} itemImage={item.itemImg} itemDescription={item.description} itemValue={item.cost} />)} 
+                        >
+                          <img src={item.itemImg} alt={item.name} className="inventory-image" />
+                          <h5 className="inventory-name">{item.name}</h5>
+                        </div>
 
+
+                    </div>
+                  ))}
+                </div>
+                <button
+                  className="carousel-arrow right"
+                  onClick={() => loadNextBatchPotion("right")}
+                  disabled={(currentBatchPotion + 1) * batchSize >= potionArr.length}
+                >
+                  &gt;
+                </button>
+              </div>
+            ) : (<p className="no-items">You dont own any of these.</p>)}
+            {/* Food Carousel */}
+          <h4 className="font whiteFont item-title">Food</h4>
+            {foodArr.length > 0 ? (
+              <div className="carousel-container">
+                <button
+                  className="carousel-arrow left"
+                  onClick={() => loadNextBatchFood("left")}
+                  disabled={currentBatchFood === 0}
+                >
+                  &lt;
+                </button>
+                <div className="inventory-carousel">
+                  {visibleFood.map(item => (
+                    <div key={item.id} className="inventory-card">
+                        <div 
+                          className="inventory-card-content"
+                          onClick={() => setModalContent(<ManageItemModal itemId={item.id} itemName={item.name} itemImage={item.itemImg} itemDescription={item.description} itemValue={item.cost} />)} 
+                        >
+                          <img src={item.itemImg} alt={item.name} className="inventory-image" />
+                          <h5 className="inventory-name">{item.name}</h5>
+                        </div>
+
+
+                    </div>
+                  ))}
+                </div>
+                <button
+                  className="carousel-arrow right"
+                  onClick={() => loadNextBatchFood("right")}
+                  disabled={(currentBatchFood + 1) * batchSize >= foodArr.length}
+                >
+                  &gt;
+                </button>
+              </div>
+            ) : (<p className="no-items">You dont own any of these.</p>)}
+            {/* Special Carousel */}
+          <h4 className="font whiteFont item-title">Special</h4>
+            {specialArr.length > 0 ? (
+              <div className="carousel-container">
+                <button
+                  className="carousel-arrow left"
+                  onClick={() => loadNextBatchSpecial("left")}
+                  disabled={currentBatchSpecial === 0}
+                >
+                  &lt;
+                </button>
+                <div className="inventory-carousel">
+                  {visibleSpecial.map(item => (
+                    <div key={item.id} className="inventory-card">
+                        <div 
+                          className="inventory-card-content"
+                          onClick={() => setModalContent(<ManageItemModal itemId={item.id} itemName={item.name} itemImage={item.itemImg} itemDescription={item.description} itemValue={item.cost} />)} 
+                        >
+                          <img src={item.itemImg} alt={item.name} className="inventory-image" />
+                          <h5 className="inventory-name">{item.name}</h5>
+                        </div>
+
+
+                    </div>
+                  ))}
+                </div>
+                <button
+                  className="carousel-arrow right"
+                  onClick={() => loadNextBatchSpecial("right")}
+                  disabled={(currentBatchSpecial + 1) * batchSize >= specialArr.length}
+                >
+                  &gt;
+                </button>
+              </div>
+            ) : (<p className="no-items">You dont own any of these.</p>)}
+          </div>
+          
         </div>
 
     </>
