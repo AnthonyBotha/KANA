@@ -2,6 +2,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 
 import { getTodoList } from '../../redux/todolist.js';
+import { deleteTodoItem } from '../../redux/todolist.js';
 
 
 function ToDoList(userId) {
@@ -22,10 +23,14 @@ function ToDoList(userId) {
     }
   }
 
+  const deleteItem = async (todoId) => {
+    await dispatch(deleteTodoItem(todoId))
+  }
+
   return (
     <>
       <div className='displayFlex alignBottom spaceBetween'>
-        <h2 className='font purpleFont'>To-Dos</h2>
+        <h2 className='font purpleFont littleLeftMargin'>To-Dos</h2>
 
         {console.log("todos", JSON.stringify(todos))}
         <div className='displayFlex littlePadding'>
@@ -58,7 +63,10 @@ function ToDoList(userId) {
               </label>
 
               <p className='whiteFont font smallFont'>{title}</p>
-              <p className='whiteFont font smallFont'>DELETE</p>
+              <p 
+                className='whiteFont font smallFont'
+                onClick={() => deleteItem(id)}
+              >DELETE</p>
             </div>
 
             <div className='displayFlex spaceBetween'>
