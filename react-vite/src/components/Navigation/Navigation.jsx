@@ -4,8 +4,10 @@ import { BsCoin } from "react-icons/bs";
 import ProfileButton from "./ProfileButton";
 import LoginFormModal from "../LoginFormModal";
 import OpenModalButton from '../OpenModalButton';
+import InventorySelectionButton from "./InventorySelection";
 import logo from '../../static/KANA.png'
 import "./Navigation.css";
+
 
 function Navigation() {
   const sessionUser = useSelector(state => state.session.user)
@@ -15,7 +17,8 @@ function Navigation() {
       <div className="displayFlex alignCenter spaceBetween">
         <div className="displayFlex largeLeftMargin">
           <NavLink to='/home' className="fontLight largeFont whiteFont">Tasks</NavLink>
-          <NavLink to='/inventory' className="fontLight largeFont whiteFont leftMargin">Inventory</NavLink>
+          <InventorySelectionButton />
+          {/* <NavLink to='/inventory' className="fontLight largeFont whiteFont leftMargin">Inventory</NavLink> */}
         </div>
         <div className="displayFlex alignCenter">
           <div className="displayFlex largeRightMargin">
