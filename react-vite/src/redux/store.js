@@ -9,12 +9,14 @@ import sessionReducer from "./session";
 import avatarReducer from "./avatar";
 import avatarPartsReducer from "./avatarpart";
 import todoListReducer from "./todolist";
+import inventoryReducer from "./inventory";
 
 const rootReducer = combineReducers({
   session: sessionReducer,
   avatar: avatarReducer,
   avatarParts: avatarPartsReducer,
-  todoList: todoListReducer
+  todoList: todoListReducer,
+  inventory: inventoryReducer
 });
 
 let enhancer;
