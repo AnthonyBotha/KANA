@@ -5,43 +5,43 @@ from sqlalchemy.sql import text
 def seed_heads():
     turquoise= Head(
         type='turquoise',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726714106/head1_bsadil.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726368881/head1_pghhub.png'
     )
     purple= Head(
         type='purple',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726714107/head2_a51jim.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726368881/head2_sevtx7.png'
     )
     light_green= Head(
         type='light_green',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726714108/head3_beazf2.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726368882/head3_vkeorn.png'
     )
     red= Head(
         type='red',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726714109/head4_qfdwql.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726368882/head4_yquyzq.png'
     )
     gold= Head(
         type='gold',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726714110/head5_ui8z2e.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726368883/head5_oxvskz.png'
     )
     navy_blue= Head(
         type='navy_blue',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726714111/head6_yb1gg8.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726368893/head6_ftrp68.png'
     )
     dark_green= Head(
         type='dark_green',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726714111/head7_ukkylr.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726368893/head7_etbfrs.png'
     )
     orange= Head(
         type='orange',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726714112/head8_aq5cie.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726368893/head8_cmobvm.png'
     )
     blue= Head(
         type='blue',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726714113/head9_nchibj.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726368894/head9_sm24ee.png'
     )
     gray= Head(
         type='gray',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726714114/head10_gt4nhm.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726368894/head10_hhjdxg.png'
     )
 
     heads= [turquoise,purple,light_green,red,gold,navy_blue,dark_green,orange,blue,gray]

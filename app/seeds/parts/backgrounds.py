@@ -5,75 +5,75 @@ from sqlalchemy.sql import text
 def seed_backgrounds():
     blue= Background(
         type='blue',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726716915/Blue_nwrh4b.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726416988/Blue_v7pmmv.png'
     )
     brown= Background(
         type='brown',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726716916/Brown_zu1y20.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726416988/Brown_cnfgxf.png'
     )
     gray= Background(
         type='gray',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726716917/Gray_uztfr1.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726416988/Gray_li1dnm.png'
     )
     green= Background(
         type='green',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726716919/Green_ywnbwv.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726416988/Green_zkpdax.png'
     )
     light_blue= Background(
         type='light_blue',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726716920/Light_Blue_hphisa.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726416988/Light_Blue_nl6iwg.png'
     )
     light_brown= Background(
         type='light_brown',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726716922/Light_Brown_bwqlt6.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726416989/Light_Brown_hcofri.png'
     )
     light_gray= Background(
         type='light_gray',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726716923/Light_Gray_hrsvug.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726416989/Light_Gray_fexxsg.png'
     )
     light_green= Background(
         type='light_green',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726716924/Light_Green_ttvar8.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726416990/Light_Green_vf7gnm.png'
     )
     light_orange= Background(
         type='light_orange',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726716926/Light_Orange_fn4fif.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726416990/Light_Orange_u3unut.png'
     )
     light_pink= Background(
         type='light_pink',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726716927/Light_Pink_vaxmys.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726416990/Light_Pink_elcw5s.png'
     )
     light_purple= Background(
         type='light_purple',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726716929/Light_Purple_zyeidh.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726416991/Light_Purple_t82jpv.png'
     )
     light_red= Background(
         type='light_red',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726716930/Light_Red_uwfjvc.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726416991/Light_Red_issgrq.png'
     )
     light_yellow= Background(
         type='light_yellow',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726716932/Light_Yellow_lfmqtl.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726416992/Light_Yellow_tn63ry.png'
     )
     orange= Background(
         type='orange',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726716947/Orange_idforz.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726416992/Orange_tzy8sr.png'
     )
     pink= Background(
         type='pink',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726716948/Pink_aunfwq.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726416993/Pink_obcihb.png'
     )
     purple= Background(
         type='purple',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726716950/Purple_qbhmz0.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726416993/Purple_zboc6x.png'
     )
     red= Background(
         type='red',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726716952/Red_tywltm.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726416994/Red_cmoew2.png'
     )
     yellow= Background(
         type='yellow',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726716953/Yellow_wp18j4.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726416994/Yellow_plfh18.png'
     )
 
 
