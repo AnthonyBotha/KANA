@@ -29,7 +29,7 @@ class Daily(db.Model):
     # Relationship with Checklists
     checklist = db.relationship('Checklist', back_populates='daily', cascade='all, delete-orphan')
     # Relationship with Tags through tasks_tags joint table
-    tags = db.relationship('Tag', secondary=tasks_tags, back_populates='daily_tags')
+    tags = db.relationship('Tag', secondary=tasks_tags, back_populates='daily_tags', overlaps="habit_tags,todo_tags")
 
     def to_dict(self):
         return {
