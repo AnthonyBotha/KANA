@@ -5,43 +5,43 @@ from sqlalchemy.sql import text
 def seed_necks():
     gray= Neck(
         type='gray',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726368899/neck1_dso3ln.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726714198/neck1_nwbclf.png'
     )
     light_blue= Neck(
         type='light_blue',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726368900/neck2_ohuuin.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726714199/neck2_y7ugeo.png'
     )
     light_gold= Neck(
         type='light_gold',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726368900/neck3_fzbquv.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726714200/neck3_gxeu63.png'
     )
     blue= Neck(
         type='blue',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726368901/neck4_lz15bs.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726714201/neck4_qe3mwo.png'
     )
     gold= Neck(
         type='gold',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726368901/neck5_togu8y.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726714202/neck5_gfa8xy.png'
     )
     green= Neck(
         type='green',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726368902/neck6_ljwym3.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726714203/neck6_urwmrg.png'
     )
     turquoise= Neck(
         type='turquoise',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726368902/neck7_l3obun.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726714204/neck7_kfx4cu.png'
     )
     light_red= Neck(
         type='light_red',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726368903/neck8_uudp45.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726714205/neck8_p52szo.png'
     )
     orange= Neck(
         type='orange',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726368903/neck9_e2caeg.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726714205/neck9_duuofa.png'
     )
     dark_green= Neck(
         type='dark_green',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726368903/neck10_zkqurj.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726714206/neck10_lkcgnw.png'
     )
 
     necks= [gray,light_blue,light_gold,blue,gold,green,turquoise,light_red,orange,dark_green]

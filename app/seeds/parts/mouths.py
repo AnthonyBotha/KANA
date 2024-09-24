@@ -5,43 +5,43 @@ from sqlalchemy.sql import text
 def seed_mouths():
     gray_zipper= Mouth(
         type='gray_zipper',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726368895/mouth1_ik5qin.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726714115/mouth1_o1mfeb.png'
     )
     gray= Mouth(
         type='gray',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726368895/mouth2_zloniv.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726714116/mouth2_x9gzlz.png'
     )
     green_trapezoid= Mouth(
         type='green_trapezoid',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726368896/mouth3_wqnysu.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726714131/mouth3_ncytsv.png'
     )
     dark_green= Mouth(
         type='dark_green',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726368896/mouth4_oi6kvw.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726714192/mouth4_nmypux.png'
     )
     purple= Mouth(
         type='purple',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726368897/mouth5_p05e9q.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726714192/mouth5_z9unal.png'
     )
     orange= Mouth(
         type='orange',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726368897/mouth6_tfbja0.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726714194/mouth6_vmpws0.png'
     )
     gold= Mouth(
         type='gold',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726368898/mouth7_ydzntu.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726714194/mouth7_vvnu9k.png'
     )
     red= Mouth(
         type='red',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726368898/mouth8_fl8njv.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726714196/mouth8_imklqj.png'
     )
     blue= Mouth(
         type='blue',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726368898/mouth9_bknsqb.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726714196/mouth9_hkfqax.png'
     )
     light_green= Mouth(
         type='light_green',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726368899/mouth10_nhdgos.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726714197/mouth10_f7snod.png'
     )
 
     mouths= [gray_zipper,gray,green_trapezoid,dark_green,purple,orange,gold,red,blue,light_green]

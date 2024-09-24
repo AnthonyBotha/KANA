@@ -5,43 +5,43 @@ from sqlalchemy.sql import text
 def seed_eyes():
     pink= Eye(
         type='pink',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726368877/eyes1_ifqpad.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726714097/eyes1_he7ugr.png'
     )
     yellow= Eye(
         type='yellow',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726368877/eyes2_pufxlw.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726714098/eyes2_axnwpm.png'
     )
     light_green= Eye(
         type='light_green',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726368877/eyes3_dfzqwt.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726714099/eyes3_bdqweu.png'
     )
     dark_green= Eye(
         type='dark_green',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726368878/eyes4_jz0yqn.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726714100/eyes4_zd65pg.png'
     )
     turquoise= Eye(
         type='turquoise',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726368878/eyes5_zrr7fr.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726714101/eyes5_gcr4cs.png'
     )
     square_green= Eye(
         type='square_green',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726368879/eyes6_zzyhre.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726714102/eyes6_olnkyr.png'
     )
     purple= Eye(
         type='purple',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726368879/eyes7_ptbceh.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726714102/eyes7_w9upq1.png'
     )
     light_turquoise= Eye(
         type='light_turquoise',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726368880/eyes8_hizhr8.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726714104/eyes8_pj1ggg.png'
     )
     brown= Eye(
         type='brown',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726368880/eyes9_kq3boz.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726714104/eyes9_yulsrb.png'
     )
     round_red= Eye(
         type='round_red',
-        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726368880/eyes10_solcup.png'
+        img_url='https://res.cloudinary.com/dmg8yuivs/image/upload/v1726714105/eyes10_poaovy.png'
     )
 
     eyes_list= [pink,yellow,light_green,dark_green,turquoise,square_green,purple,light_turquoise,brown,round_red]
