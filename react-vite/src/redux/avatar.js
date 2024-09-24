@@ -78,6 +78,7 @@ export const deleteExistingAvatar = (avatarId) => async (dispatch) => {
         const deleteConfirmation = await response.json();
         if (deleteConfirmation.message === "Successfully deleted") {
             dispatch(deleteAvatar(avatarId));
+            await dispatch(getAvatar());
             return deleteConfirmation;
         }
     }
