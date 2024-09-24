@@ -156,6 +156,9 @@ function AvatarModal() {
     if (Object.values(avatar).length > 0) {
       const [avatarId] = Object.keys(avatar)
       dispatch(deleteExistingAvatar(parseInt(avatarId)));
+      
+      setErrorFetchingAvatar(true);
+      
     }
   }
 
