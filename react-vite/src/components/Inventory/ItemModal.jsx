@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 // import { deleteExisingBooking } from "../../store/booking";
 import { useModal } from "../../context/Modal";
+import { deleteItem,equipItem } from "../../redux/inventory";
 import "./ItemModal.css"
 
 const ManageItemModal = ({ itemId, itemName, itemImage, itemDescription, itemValue }) => {
@@ -14,6 +15,7 @@ const ManageItemModal = ({ itemId, itemName, itemImage, itemDescription, itemVal
         const result = true
 
         if (result) {
+            dispatch(deleteItem(itemId))
             setMessage(`${itemName} Sold Successfully.`);
 
             setTimeout(() => {
@@ -26,6 +28,7 @@ const ManageItemModal = ({ itemId, itemName, itemImage, itemDescription, itemVal
         const result = true
 
         if (result) {
+            dispatch(equipItem(itemId))
             setMessage(`${itemName} Equiped Sucessfully.`);
 
             setTimeout(() => {
