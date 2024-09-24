@@ -1,0 +1,127 @@
+.item-title {
+    margin-bottom: 0px;
+}
+
+.inventory-carousel {
+    display: flex;
+    gap: 15px;
+    overflow: hidden;
+    padding: 20px 0px;
+}
+
+.carousel-container {
+    position: relative;
+}
+
+.carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: white;
+    color: #555;
+    border-color: #555;
+    padding: 8px;
+    cursor: pointer;
+    z-index: 2;
+    opacity: 0.7;
+    transition: opacity 0.3s;
+}
+
+.carousel-arrow.left {
+    left: -25px;
+}
+
+.carousel-arrow.right {
+    right: 10px;
+}
+
+.inventory-card {
+    flex: 0 0 auto;
+    width: 50px;
+    height: 65px;
+    background-color: lightgray;
+    border-radius: 8px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+    overflow: visible; /* Allows the tooltip to be visible outside the card */
+    text-align: center;
+    display: flex;
+    flex-direction: column; /* Stack image and text */
+    padding: 10px;
+    position: relative; /* For tooltip positioning */
+    transition: transform 0.3s;
+}
+
+.inventory-card:hover {
+    transform: scale(1.05);
+}
+
+.inventory-name {
+    margin-top:0px;
+    margin-bottom: 10px;
+    font-size: xx-small;
+    /* white-space: nowrap; */
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.inventory-image {
+    width: 100%;
+    height: 50px;
+    object-fit:cover;
+    margin-bottom: 0px;
+}
+
+.inventory-info {
+    display: none; /* Hide by default */
+}
+
+.inventory-card:hover .inventory-info {
+    display: block; /* No longer directly visible; replaced by tooltip */
+}
+
+/* .tooltip {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    top: 40%; /* Adjusts the tooltip position below the card */
+    /* left: 150%;
+    transform: translateX(-50%);
+    background-color: gray;
+    color: black;
+    font-style: italic;
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 0.8em;
+    width: 150px;
+    text-align: center;
+    z-index: 10; /* Increase z-Index for better visibility */
+    /* pointer-events: none; /* Ensures the tooltip doesn't block the cursor */
+    /* transition: opacity 0.3s;
+}  */
+/*
+.inventory-card:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+} */
+.inventory-info h3 {
+    font-size: 0.9em;
+    margin-bottom: 4px;
+    margin-top: 2px;
+}
+
+.inventory-info p {
+    font-size: 0.8em;
+    color: #555;
+    margin: 5px;
+}
+
+.small-button {
+    padding: 4px 8px;
+    font-size: 0.8em;
+
+}
+
+.no-items {
+    color: whitesmoke;
+    font-style: italic;
+}
