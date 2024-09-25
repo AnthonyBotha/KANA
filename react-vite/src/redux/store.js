@@ -12,6 +12,7 @@ import todoListReducer from "./todolist";
 import dailiesReducer from "./dailies";
 import tagsReducer from "./tags";
 import inventoryReducer from "./inventory";
+import rewardsReducer from "./rewards";
 
 const rootReducer = combineReducers({
   session: sessionReducer,
@@ -20,7 +21,8 @@ const rootReducer = combineReducers({
   todoList: todoListReducer,
   inventory: inventoryReducer,
   userDailies: dailiesReducer,
-  tags: tagsReducer
+  tags: tagsReducer,
+  rewards: rewardsReducer
 });
 
 let enhancer;
