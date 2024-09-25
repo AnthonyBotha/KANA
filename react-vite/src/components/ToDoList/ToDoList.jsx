@@ -27,7 +27,6 @@ function ToDoList(userId) {
       <div className='displayFlex alignBottom spaceBetween'>
         <h2 className='font purpleFont'>To-Dos</h2>
 
-        {console.log("todos", JSON.stringify(todos))}
         <div className='displayFlex littlePadding'>
           {/* onclick filter the current task list */}
           <p
