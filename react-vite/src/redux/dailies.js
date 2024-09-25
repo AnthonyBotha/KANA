@@ -1,3 +1,5 @@
+import { csrfFetch } from "./.csrf";
+
 const LOAD_USERS_DAILIES = 'dailies/loadUsersDailies'
 
 const loadUsersDailies = (dailies) => ({
@@ -20,6 +22,9 @@ export const thunkDailies = () => async dispatch => {
     }
 }
 
+// export const thunkUpdateChecklist = () => async dispatch => {
+//     const response = await csrfFetch("/api/")
+// }
 
 //////////////////////////////////////////////////////////////
 //REDUCERS

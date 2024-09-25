@@ -56,152 +56,167 @@ function TaskEditModal({ taskType, task }) {
         //dispatch a thunk to update the checklist in db and state for the specific task
     }
 
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        const formData = new FormData(e.target)
+        const payload = Object.fromEntries(formData)
+        console.log(payload)
+        console.log(selectedTags)
+        console.log(repeatOn)
+        // console.log(formData.getAll)
+        //switch case
+        //gather all elements
+    }
+
     return (
-        <div className="lightPurple task-edit-modal">
-            <div className="orange-header">
+        <form onSubmit={handleSubmit}>
 
-                <div className="heading">
-                    <h3>Edit {taskType}</h3>
-                    <div className="action-buttons">
-                        <button onClick={closeModal}>Cancel</button>
-                        <button>Save</button>
-                    </div>
-                </div>
+            <div className="lightPurple task-edit-modal">
+                <div className="orange-header">
 
-                <div className="title">
-                    <p>Title*</p>
-                    <input type="text" onChange={(e) => setTitle(e.target.value)} value={title} />
-                </div>
-
-                <div className="notes">
-                    <p>Notes</p>
-                    <input type="text" onChange={(e) => setNotes(e.target.value)} value={notes} />
-                </div>
-
-            </div>
-
-            {/* Checklist */}
-            {(taskType == 'Daily' || taskType == 'Todo') &&
-
-                <div className="checklist">
-                    <p>Checklist</p>
-                    {/* Adding checklist from database */}
-                    {task.checklist.length > 0 && task.checklist.map(el => (
-                        <div key={el.id}>
-                            <input type='checkbox' defaultChecked={el.completed} />
-                            <input type='text' value={el.description} />
-                            <button onClick={deleteChecklistItem}>Delete</button>
-                        </div>
-                    ))}
-                    {/* New checklist item input */}
-                    <div>
-                        <input type='checkbox' defaultChecked={false} />
-                        <input
-                            id="new-checklist-item-input"
-                            type='text'
-                            placeholder="New checklist item"
-                            onChange={(e) => setNewItem(e.target.value)}
-                            // value={newItem}
-                            onKeyDown={(e) => {
-                                if (e.key === 'Enter') {
-                                    addChecklistItem(newItem);
-                                    setNewItem('');
-                                }
-                            }}
-                        />
-                    </div>
-                </div>
-            }
-            {/* ONLY FOR HABIT */}
-            {/* Positive Negative */}
-            {taskType === 'Habit' &&
-                <div>
-                    <CiCircleMinus /><p>Negative</p>
-                    <CiCirclePlus /><p>Positive</p>
-
-                </div>
-            }
-            {/* Difficulty */}
-            <label htmlFor="difficulty">
-                <p>Difficulty</p>
-                <select name='difficulty' defaultValue="Easy">
-                    <option value="Trivial">Trivial</option>
-                    <option value="Easy">Easy</option>
-                    <option value="Medium">Medium</option>
-                    <option value="Hard">Hard</option>
-                </select>
-            </label>
-
-            {/* ONLY FOR TODO */}
-            {/* Due Date */}
-            {taskType === 'Todo' &&
-                <div>
-                    <p>Due Date</p>
-                    <input type="date"/>
-                </div>
-            }
-
-            {/* ONLY FOR DAILY */}
-            {/* repeats */}
-            {taskType === 'Daily' &&
-                <>
-                    <div>
-                        <p>Start Date</p>
-                        <input type="date" />
-                    </div>
-                    <div>
-                        <p>Repeats</p>
-                        <RepeatsSelector
-                            selectedRepeats={selectedRepeats}
-                            setSelectedRepeats={setSelectedRepeats}
-                        />
-                    </div>
-                    <div>
-                        <p>Repeat Every</p>
+                    <div className="heading">
+                        <h3>Edit {taskType}</h3>
                         <div>
+                            <button onClick={closeModal}>Cancel</button>
+                            <button type='submit'>Save</button>
+                        </div>
+                    </div>
+
+                    <div className="title">
+                        <p>Title*</p>
+                        <input type="text" name='title' onChange={(e) => setTitle(e.target.value)} value={title} />
+                    </div>
+
+                    <div className="notes">
+                        <p>Notes</p>
+                        <input type="text" name='notes' onChange={(e) => setNotes(e.target.value)} value={notes} />
+                    </div>
+
+                </div>
+
+                {/* Checklist ONLY FOR DAILY AND TODO*/}
+                {(taskType == 'Daily' || taskType == 'Todo') &&
+
+                    <div className="checklist">
+                        <p>Checklist</p>
+                        {/* Adding checklist from database */}
+                        {task.checklist.length > 0 && task.checklist.map(el => (
+                            <div key={el.id}>
+                                <input type='checkbox' defaultChecked={el.completed} />
+                                <input type='text' value={el.description} />
+                                <button onClick={deleteChecklistItem}>Delete</button>
+                            </div>
+                        ))}
+                        {/* New checklist item input */}
+                        <div>
+                            <input type='checkbox' defaultChecked={false} />
                             <input
-                                type="number"
-                                value={repeatEvery}
-                                onChange={(e) => setRepeatEvery(parseInt(e.target.value))}
+                                type='text'
+                                placeholder="New checklist item"
+                                onChange={(e) => setNewItem(e.target.value)}
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter') {
+                                        e.preventDefault()
+                                        addChecklistItem(newItem);
+                                        setNewItem('');
+                                    }
+                                }}
                             />
-                            <p>{when(selectedRepeats)}</p>
                         </div>
                     </div>
+                }
 
-                    {selectedRepeats.value === 'Weekly' &&
+                {/* ONLY FOR HABIT */}
+                {/* Positive Negative */}
+                {taskType === 'Habit' &&
+                    <div>
+                        <CiCircleMinus /><p>Negative</p>
+                        <CiCirclePlus /><p>Positive</p>
+                    </div>
+                }
+
+                {/* Difficulty */}
+                <label htmlFor="difficulty">
+                    <p>Difficulty</p>
+                    <select name='difficulty' defaultValue="Easy">
+                        <option value="Trivial">Trivial</option>
+                        <option value="Easy">Easy</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Hard">Hard</option>
+                    </select>
+                </label>
+
+                {/* ONLY FOR TODO */}
+                {/* Due Date */}
+                {taskType === 'Todo' &&
+                    <div>
+                        <p>Due Date</p>
+                        <input name="due_date" type="date" />
+                    </div>
+                }
+
+                {/* ONLY FOR DAILY */}
+                {/* repeats */}
+                {taskType === 'Daily' &&
+                    <>
                         <div>
-                            <span id='day-box' value="Sunday" onClick={(e) => handleDayClick(e)}>Su</span>
-                            <span id='day-box' value="Monday" onClick={(e) => handleDayClick(e)}>Mo</span>
-                            <span id='day-box' value="Tuesday" onClick={(e) => handleDayClick(e)}>Tu</span>
-                            <span id='day-box' value="Wednesday" onClick={(e) => handleDayClick(e)}>We</span>
-                            <span id='day-box' value="Thursday" onClick={(e) => handleDayClick(e)}>Th</span>
-                            <span id='day-box' value="Friday" onClick={(e) => handleDayClick(e)}>Fr</span>
-                            <span id='day-box' value="Saturday" onClick={(e) => handleDayClick(e)}>Sa</span>
+                            <p>Start Date</p>
+                            <input name="start_date" type="date" />
                         </div>
-                    }
+                        <div>
+                            <p>Repeats</p>
+                            <RepeatsSelector
+                                selectedRepeats={selectedRepeats}
+                                setSelectedRepeats={setSelectedRepeats}
+                            />
+                        </div>
+                        <div>
+                            <p>Repeat Every</p>
+                            <div>
+                                <input
+                                    type="number"
+                                    name="repeat_every"
+                                    value={repeatEvery}
+                                    onChange={(e) => setRepeatEvery(parseInt(e.target.value))}
+                                />
+                                <p>{when(selectedRepeats)}</p>
+                            </div>
+                        </div>
 
-                </>
-            }
+                        {selectedRepeats.value === 'Weekly' &&
+                            <div>
+                                <span id='day-box' value="Sunday" onClick={(e) => handleDayClick(e)}>Su</span>
+                                <span id='day-box' value="Monday" onClick={(e) => handleDayClick(e)}>Mo</span>
+                                <span id='day-box' value="Tuesday" onClick={(e) => handleDayClick(e)}>Tu</span>
+                                <span id='day-box' value="Wednesday" onClick={(e) => handleDayClick(e)}>We</span>
+                                <span id='day-box' value="Thursday" onClick={(e) => handleDayClick(e)}>Th</span>
+                                <span id='day-box' value="Friday" onClick={(e) => handleDayClick(e)}>Fr</span>
+                                <span id='day-box' value="Saturday" onClick={(e) => handleDayClick(e)}>Sa</span>
+                            </div>
+                        }
+
+                    </>
+                }
 
 
-            {/* Tags */}
-            <label htmlFor="tags">
-                <p>Tags</p>
-                <TagSelector
-                    selectedTags={selectedTags}
-                    setSelectedTags={setSelectedTags}
-                />
-            </label>
+                {/* Tags */}
+                <label htmlFor="tags">
+                    <p>Tags</p>
+                    <TagSelector
+                        selectedTags={selectedTags}
+                        setSelectedTags={setSelectedTags}
+                    />
+                </label>
 
 
-            {/* Delete this TaskType */}
-            <div id="delete-task-button">
-                <p onClick={handleDelete}><FaRegTrashAlt />Delete this {taskType}</p>
+                {/* Delete this TaskType */}
+                <div id="delete-task-button">
+                    <p onClick={handleDelete}><FaRegTrashAlt />Delete this {taskType}</p>
+                </div>
+
+
             </div>
-
-
-        </div>
-
+        </form>
     )
 }
 
@@ -243,7 +258,6 @@ function TagSelector({ selectedTags, setSelectedTags }) {
     //component
     return <Select
         isMulti
-        name="tags"
         options={options}
         value={selectedTags}
         disabled placeholder="Add tags..."
