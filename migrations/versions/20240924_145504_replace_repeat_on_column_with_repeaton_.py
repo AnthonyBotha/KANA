@@ -37,7 +37,11 @@
 
 
 #     if environment == "production":
+<<<<<<< HEAD
 #         op.execute(f"ALTER TABLE repeat_on SET SCHEMA {SCHEMA};")
+=======
+#             op.execute(f"ALTER TABLE repeat_on SET SCHEMA {SCHEMA};")
+>>>>>>> 17eac072dbc1046e57baf3841c450d384a539c35
 
 #     # ### end Alembic commands ###
 
@@ -51,7 +55,10 @@
 #     # ### end Alembic commands ###
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 17eac072dbc1046e57baf3841c450d384a539c35
 """Replace repeat_on column with RepeatOn table
 Revision ID: f3d69799abeb
 Revises: a68e0cfaa4e8
@@ -67,7 +74,10 @@ revision = 'f3d69799abeb'
 down_revision = 'a68e0cfaa4e8'
 branch_labels = None
 depends_on = None
+<<<<<<< HEAD
 
+=======
+>>>>>>> 17eac072dbc1046e57baf3841c450d384a539c35
 def upgrade():
 # Create the RepeatOn table
     op.create_table(
@@ -77,6 +87,7 @@ def upgrade():
     sa.Column('day', sa.String(), nullable=False),
     sa.PrimaryKeyConstraint('id'),
     sa.ForeignKeyConstraint(['daily_id'], ['dailies.id'], name='fk_repeat_on_daily_id')
+<<<<<<< HEAD
     )
 # Alter the dailies table to drop the repeat_on column
     with op.batch_alter_table('dailies') as batch_op:
@@ -86,4 +97,15 @@ def downgrade():
     with op.batch_alter_table('dailies') as batch_op:
         batch_op.add_column(sa.Column('repeat_on', sa.VARCHAR(length=9), nullable=True))
 # Drop the RepeatOn table
+=======
+)
+# Alter the dailies table to drop the repeat_on column
+    with op.batch_alter_table('dailies') as batch_op:
+     batch_op.drop_column('repeat_on')
+def downgrade():
+# Re-add the repeat_on column to the dailies table
+    with op.batch_alter_table('dailies') as batch_op:
+      batch_op.add_column(sa.Column('repeat_on', sa.VARCHAR(length=9), nullable=True))
+    # Drop the RepeatOn table
+>>>>>>> 17eac072dbc1046e57baf3841c450d384a539c35
     op.drop_table('repeat_on')

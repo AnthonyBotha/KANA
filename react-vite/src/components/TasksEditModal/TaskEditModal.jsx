@@ -1,7 +1,7 @@
 import { useModal } from "../../context/Modal"
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import Select from 'react-select'
+// import Select from 'react-select'
 import './TaskEditModal.css'
 
 import { FaRegTrashAlt } from "react-icons/fa";
