@@ -9,6 +9,8 @@ import sessionReducer from "./session";
 import avatarReducer from "./avatar";
 import avatarPartsReducer from "./avatarpart";
 import todoListReducer from "./todolist";
+import dailiesReducer from "./dailies";
+import tagsReducer from "./tags";
 import inventoryReducer from "./inventory";
 
 const rootReducer = combineReducers({
@@ -16,7 +18,9 @@ const rootReducer = combineReducers({
   avatar: avatarReducer,
   avatarParts: avatarPartsReducer,
   todoList: todoListReducer,
-  inventory: inventoryReducer
+  inventory: inventoryReducer,
+  userDailies: dailiesReducer,
+  tags: tagsReducer
 });
 
 let enhancer;

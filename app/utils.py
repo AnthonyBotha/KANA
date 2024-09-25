@@ -1,4 +1,5 @@
-from .models import db, Tag, tasks_tags, Daily, Habit, Todo, Checklist
+from .models import db, Tag, tasks_tags, Daily, Habit, Todo, Checklist, User
+from flask_login import current_user
 #HELPER FUNCTIONS
 
 def str_to_bool(value):
@@ -8,14 +9,15 @@ def str_to_bool(value):
 # TAGS MANAGERS:
 
 def tags_post_manager(data, task_instance):
-    db_tags = Tag.query.all() #query for all tags in database
+    user = User.query.get(current_user.id)
+    db_tags = user.tags #query for all tags in database
     stored_tags = [tag.to_dict()['tag_name'] for tag in db_tags] # returns a list of the tags in the database in this format: ['Work', 'Excercise', 'Creativity', 'Chores', etc]
     tags = data.get('tags') #return a list of strings representing the tags in the request (from frontend)
     if tags:
         for tag in tags:
             if tag not in stored_tags:
                 # store new tag to get id
-                new_tag = Tag(tag_name = str(tag))
+                new_tag = Tag(tag_name = str(tag), user_id = current_user.id)
                 db.session.add(new_tag)
                 db.session.commit()
             else:
@@ -28,9 +30,10 @@ def tags_post_manager(data, task_instance):
 
 def tags_update_manager(data, task_instance):
     request_tags = data.get('tags') #Tag incoming from request
-    db_tags = Tag.query.all() #query for all tags in database
+    user = User.query.get(current_user.id)
+    db_tags = user.tags #query for all tags in database
     stored_tags = [tag.tag_name for tag in db_tags] # returns a list of the tags in the database in this format: ['Work', 'Excercise', 'Creativity', 'Chores', etc]
-    current_tags = [tag.tag_name for tag in task_instance.tags] #Tags the current Daily instance has.
+    current_tags = [tag.tag_name for tag in task_instance.tags] #Tags the current Daily/Todo/Habit instance has.
     if request_tags:
     #check for removed tags
         for tag in current_tags:
@@ -38,7 +41,7 @@ def tags_update_manager(data, task_instance):
                 #find the specific tag in the database
                 tag_to_remove = Tag.query.filter_by(tag_name=tag).first()
                 if tag_to_remove:
-                    # Remove the association between the Daily instance and the Tag
+                    # Remove the association between the Daily/Todo/Habit instance and the Tag
                     task_instance.tags.remove(tag_to_remove)
     #check for new tags
         for tag in request_tags:
@@ -47,7 +50,7 @@ def tags_update_manager(data, task_instance):
                 if tag in stored_tags:
                     new_tag = Tag.query.filter_by(tag_name=tag).first()
                 else:
-                    new_tag = Tag(tag_name=str(tag))
+                    new_tag = Tag(tag_name=str(tag), user_id=current_user.id)
                 db.session.add(new_tag)
                 db.session.commit()
                 #add to db and make association on joined table
