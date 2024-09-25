@@ -5,6 +5,7 @@ import WelcomePage from '../components/WelcomePage';
 import UserHomePage from '../components/UserHomePage';
 import Layout from './Layout';
 import ItemsPage from '../components/Inventory';
+import EquipmentPage from '../components/Inventory/Equipment/equipment';
 
 export const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ export const router = createBrowserRouter([
         element: <ItemsPage />,
       },
       {
+        path: '/inventory/equipment',
+        element: <EquipmentPage />,
+      },
+      {
         path: "login",
         element: <LoginFormPage />,
       },
@@ -30,6 +35,7 @@ export const router = createBrowserRouter([
         path: "signup",
         element: <SignupFormPage />,
       },
+
     ],
   },
 ]);

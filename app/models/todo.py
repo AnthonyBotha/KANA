@@ -26,7 +26,7 @@ class Todo(db.Model):
     # Relationship with Checklist
     checklist = db.relationship('Checklist', back_populates='todo')
     # Relationship with Tags throught tasks_tags joint table
-    tags = db.relationship('Tag', secondary=tasks_tags, back_populates='todo_tags')
+    tags = db.relationship('Tag', secondary=tasks_tags, back_populates='todo_tags', overlaps="habit_tags,daily_tags")
 
 
 

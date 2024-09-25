@@ -3,25 +3,32 @@ from sqlalchemy.sql import text
 
 def seed_tags():
     work = Tag(
-        tag_name='Work'
+        tag_name='Work',
+        user_id=1
     )
     excercise = Tag(
-        tag_name='Excercise'
+        tag_name='Excercise',
+        user_id=1
     )
     health = Tag(
-        tag_name='Health'
+        tag_name='Health',
+        user_id=1
     )
     school = Tag(
-        tag_name='School'
+        tag_name='School',
+        user_id=1
     )
     teams = Tag(
-        tag_name='Teams'
+        tag_name='Teams',
+        user_id=1
     )
     chores = Tag(
-        tag_name='Chores'
+        tag_name='Chores',
+        user_id=1
     )
     creativity = Tag(
-        tag_name='Creativity'
+        tag_name='Creativity',
+        user_id=1
     )
 
     tags = [work,excercise,health, school, teams, chores, creativity]

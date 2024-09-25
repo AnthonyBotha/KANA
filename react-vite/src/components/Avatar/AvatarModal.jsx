@@ -1,7 +1,7 @@
 // import { useModal } from '../../context/Modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { useState } from 'react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { useModal } from '../../context/Modal';
 import { getAvatarAntennas, getAvatarBackgrounds, getAvatarEars, getAvatarEyes, getAvatarHeads, getAvatarMouths, getAvatarNecks, getAvatarNoses } from '../../redux/avatarpart';
 import { getAvatar, createNewAvatar, deleteExistingAvatar, updateExistingAvatar } from '../../redux/avatar';
 import "./AvatarModal.css"
@@ -26,7 +26,7 @@ function AvatarModal() {
   const antennaSelectionUrl = "https://res.cloudinary.com/dmg8yuivs/image/upload/v1726681227/antenna_sexrkd.png";
   const neckSelectionUrl = "https://res.cloudinary.com/dmg8yuivs/image/upload/v1726681229/neck_srubta.png";
   const backgroundSelectionUrl = "https://res.cloudinary.com/dmg8yuivs/image/upload/v1726681228/background_kf7kq5.png";
-  // const { closeModal } = useModal();
+  const { closeModal } = useModal();
 
   useEffect(() => {
     const fetchAvatar = async () => {
@@ -147,8 +147,11 @@ function AvatarModal() {
     if (Object.values(avatar).length > 0) {
       const [avatarId] = Object.keys(avatar)
       dispatch(updateExistingAvatar(parseInt(avatarId), avatarParts))
+      closeModal();
+      
     } else {
       dispatch(createNewAvatar(avatarParts))
+      closeModal();
     }
   }
 
@@ -158,6 +161,7 @@ function AvatarModal() {
       dispatch(deleteExistingAvatar(parseInt(avatarId)));
       
       setErrorFetchingAvatar(true);
+      closeModal();
       
     }
   }

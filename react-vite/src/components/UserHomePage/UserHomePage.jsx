@@ -1,11 +1,21 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import SmallWhiteLogo from '../../static/SmallLogoWhite.png';
 
 import ToDoList from "../ToDoList/ToDoList";
+import Dailies from "../Dailies";
+import { useEffect } from "react";
+import { thunkTags } from "../../redux/tags";
 import UserDashboard from "../UserDashboard/UserDashboard";
 
 function UserHomePage() {
+  const dispatch = useDispatch()
   const sessionUser = useSelector(state => state.session.user)
+
+
+  useEffect(()=> {
+    dispatch(thunkTags())
+  },[dispatch, sessionUser])
+
 
   return (
     <>
@@ -28,7 +38,7 @@ function UserHomePage() {
 
           {/* Dailies Table */}
           <div className="almostBlack quarterScreen roundedCorners littleRightMargin">
-            <p className="whiteFont">IMPORT DAILIES COMPONENT</p>
+            <p className="whiteFont"><Dailies userId={sessionUser.id}/></p>
           </div>
 
           {/* To-Dos Table */}

@@ -16,6 +16,34 @@ def get_user_rewards():
     return {'rewards': [reward.to_dict_user() for reward in user.rewards]}
 
 
+@rewards_routes.route('/user_rewards',methods=['POST'])
+@login_required
+def insert_reward():
+    data=request.json
+    user = User.query.filter_by(id=current_user.id).first()
+
+
+    item_img=data.get('item_img')
+    reward=Reward.query.filter_by(reward_img=item_img).first()
+    # looking if reward exists
+    if reward is None:
+        return {'errors': {'message': 'reward can not be added to user rewards'}}, 400
+    # looks if user has reward already
+    user_reward=db.session.query(user_rewards).filter_by(user_id=current_user.id,reward_id=reward.id).first()
+    if user_reward:
+        return {'errors': {'message': 'User has Reward in user rewards'}}, 400
+
+    # adds reward to user rewards
+    try:
+        user.rewards.append(reward)
+        db.session.commit()
+
+        return  {'reward': reward.to_dict_user()},201
+
+    # if anything goes wrong
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'error': "Couldn't Add To User Rewards"}), 400
 
 @rewards_routes.route('/',methods=['POST'])
 @login_required
