@@ -4,6 +4,7 @@ import { useModal } from "../../../context/Modal";
 import { getItems } from "../../../redux/inventory";
 import ManageItemModal from "../ItemModal";
 import UserDashboard from "../../UserDashboard/UserDashboard";
+import SmallWhiteLogo from '../../../static/SmallLogoWhite.png';
 import '../ItemsPage.css'
 
 
@@ -173,7 +174,7 @@ function EquipmentPage() {
 
   return (
     <>
-      <div className="fullScreen black">
+      <div className="blackBackground">
 
       <UserDashboard />
 
@@ -451,6 +452,13 @@ function EquipmentPage() {
               </button>
             </div>
           ) : (<p className="no-items">You dont own any of these.</p>)}
+        </div>
+
+        {/* footer */}
+        <div className="black displayFlex alignBottom spaceBetween littleBottomPadding">
+          <p className='leftPageBorder font whiteFont smallFont noMargin'>© 2024 KANA. All rights reserved.</p>
+          <img className="smallLogo" src={SmallWhiteLogo} />
+          <a className="rightPageBorder fontLight whiteFont smallFont" href='https://github.com/AnthonyBotha/KANA/wiki'>GitHub</a>
         </div>
 
       </div>
