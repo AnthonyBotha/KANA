@@ -46,7 +46,7 @@ class Daily(db.Model):
             'startDate': self.start_date,
             'repeats': self.repeats,
             'repeatEvery': self.repeat_every,
-            'repeatOn': self.repeat_on_days,
+            'repeatOn': [repeat_on.day for repeat_on in self.repeat_on_days] if self.repeat_on_days else [],
             'isDue': self.is_due,
             'createdAt': self.created_at,
             'updatedAt': self.updated_at,
