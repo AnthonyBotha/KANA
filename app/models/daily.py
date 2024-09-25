@@ -57,6 +57,9 @@ class Daily(db.Model):
 class RepeatOn(db.Model):
     __tablename__ = 'repeat_on'
 
+    if environment == 'production':
+        __table_args__ = {'schema': SCHEMA}
+
     id = db.Column(db.Integer, primary_key=True)
     daily_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('dailies.id')), nullable=False)
     day = db.Column(db.String, nullable=False)
