@@ -7,6 +7,9 @@ import { restoreCSRF, csrfFetch } from "./redux/.csrf";
 import { router } from "./router";
 import * as sessionActions from "./redux/session";
 import * as todoListActions from './redux/todolist';
+import * as dailiesActions from './redux/dailies'
+import * as tagActions from './redux/tags'
+
 import "./index.css";
 
 const store = configureStore();
@@ -17,6 +20,8 @@ if (import.meta.env.MODE !== "production") {
   window.store = store;
   window.sessionActions = sessionActions;
   window.todoListActions = todoListActions;
+  window.dailiesActions = dailiesActions
+  window.tagActions = tagActions
 }
 
 ReactDOM.createRoot(document.getElementById("root")).render(

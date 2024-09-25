@@ -37,6 +37,9 @@ class User(db.Model, UserMixin):
     dailies=db.relationship('Daily', back_populates='user', cascade='all, delete-orphan')
     # creates one to one relationship to Avatar
     avatar= db.relationship('Avatar',back_populates='user',uselist=False,cascade="all,delete-orphan")
+    # creates one to one relationship to Tag
+    tags= db.relationship('Tag', back_populates='user', cascade='all, delete-orphan')
+
 
     @property
     def password(self):

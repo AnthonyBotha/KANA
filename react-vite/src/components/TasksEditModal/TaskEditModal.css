@@ -1,0 +1,51 @@
+#new-checklist-item-input::placeholder {
+    color: gray;
+    font: inherit
+}
+
+#day-box {
+    background-color: #6133b4;
+    height: 32px;
+    width: 57px;
+    padding: 1px 6px;
+    font-size: 14px;
+    font: inherit;
+}
+
+#day-box:hover,
+#delete-task-button:hover {
+    cursor: pointer;
+}
+
+.selected-day {
+    background-color: white !important;
+}
+
+#modal-content {
+    padding: 0;
+    max-height: 80vh !important;
+}
+
+.task-edit-modal {
+    width: 30vw;
+}
+
+#modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed; /* Fix modal relative to viewport */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    overflow: scroll;
+}
+
+
+#delete-task-button {
+   color:red;
+   text-decoration: underline;
+}

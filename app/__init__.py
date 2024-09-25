@@ -14,6 +14,7 @@ from .api.todos_routes import todos_routes
 from .api.daily_routes import daily_routes
 from .api.inventory_routes import inventory_routes
 from .api.rewards_routes import rewards_routes
+from .api.tag_routes import tag_routes
 from .seeds import seed_commands
 from .config import Config
 
@@ -44,6 +45,7 @@ app.register_blueprint(todos_routes,url_prefix='/api/todos')
 app.register_blueprint(daily_routes, url_prefix='/api/dailies')
 app.register_blueprint(inventory_routes,url_prefix='/api/inventory')
 app.register_blueprint(rewards_routes,url_prefix='/api/rewards')
+app.register_blueprint(tag_routes, url_prefix="/api/tags")
 
 db.init_app(app)
 Migrate(app, db)

@@ -1,6 +1,7 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from datetime import datetime, timezone
 from sqlalchemy import Enum
+
 from .tag import tasks_tags
 
 class Daily(db.Model):
@@ -17,7 +18,7 @@ class Daily(db.Model):
     repeats = db.Column(Enum('Daily', 'Weekly', 'Monthly', 'Yearly', name='repeat_timeframe'), default='Weekly')
     repeat_every = db.Column(db.Integer, default=1)
 
-    repeat_on = db.Column(Enum('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday', name='week_days'),nullable=True)
+    # repeat_on = db.Column(Enum('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday', name='week_days'),nullable=True)
 
     is_due = db.Column(db.Boolean, default=True)
     created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
@@ -30,6 +31,8 @@ class Daily(db.Model):
     checklist = db.relationship('Checklist', back_populates='daily', cascade='all, delete-orphan')
     # Relationship with Tags through tasks_tags joint table
     tags = db.relationship('Tag', secondary=tasks_tags, back_populates='daily_tags', overlaps="habit_tags,todo_tags")
+    #Relationship with repeat_on
+    repeat_on_days = db.relationship('RepeatOn', back_populates='daily', cascade='all, delete-orphan')
 
     def to_dict(self):
         return {
@@ -41,10 +44,20 @@ class Daily(db.Model):
             'startDate': self.start_date,
             'repeats': self.repeats,
             'repeatEvery': self.repeat_every,
-            'repeatOn': self.repeat_on,
+            'repeatOn': self.repeat_on_days,
             'isDue': self.is_due,
             'createdAt':self.created_at,
             'updatedAt':self.updated_at,
             'tags': [tag.tag_name for tag in self.tags] if self.tags else [],
             'checklist': [check.to_dict() for check in self.checklist] if self.checklist else []
         }
+
+
+class RepeatOn(db.Model):
+    __tablename__= 'repeat_on'
+
+    id = db.Column(db.Integer, primary_key=True)
+    daily_id = db.Column(db.Integer, db.ForeignKey('dailies.id'), nullable=False)
+    day = db.Column(db.String, nullable=False)
+
+    daily = db.relationship('Daily', back_populates='repeat_on_days')
