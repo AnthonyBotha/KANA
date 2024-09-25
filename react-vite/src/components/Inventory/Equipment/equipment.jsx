@@ -3,13 +3,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { useModal } from "../../../context/Modal";
 import { getItems } from "../../../redux/inventory";
 import ManageItemModal from "../ItemModal";
+import UserDashboard from "../../UserDashboard/UserDashboard";
 import '../ItemsPage.css'
 
 
 function EquipmentPage() {
   const dispatch = useDispatch();
   const { setModalContent } = useModal();
-  const sessionUser = useSelector(state => state.session.user);
+  // const sessionUser = useSelector(state => state.session.user);
 
   const inventory = useSelector(state => state.inventory);
 
@@ -174,26 +175,8 @@ function EquipmentPage() {
     <>
       <div className="fullScreen black">
 
-        {/* user dashboard */}
-        <div className="displayFlex leftPageBorder rightPageBorder spaceBetween littleTopPadding">
-          {/* Avatar */}
-          <div className="darkGrey littleRightMargin">
-            AVATAR PLACEHOLDER
-          </div>
+      <UserDashboard />
 
-          {/* User info and stats */}
-          <div className="littleRightMargin">
-            <p className="font purpleFont xx-largeFont">{sessionUser.username}!</p>
-            <p className="font purpleFont mediumFont">Level: {sessionUser.level}</p>
-            <p className="white">experience: {sessionUser.experience}</p>
-            <p className="white">health: {sessionUser.health}</p>
-          </div>
-
-          {/* Items and equipment dashboard */}
-          <div className="almostBlack itemDashboard">
-            <p className="whiteFont">IMPORT ITEMS & EQUIPMENT COMPONENT</p>
-          </div>
-        </div>
         <div className="leftPageBorder items-container">
           <h2 className="font purpleFont">Equipment</h2>
           {/* Armor Carousel */}
