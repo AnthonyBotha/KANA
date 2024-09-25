@@ -1,6 +1,7 @@
 import { csrfFetch } from "./.csrf";
 
 const LOAD_USERS_DAILIES = 'dailies/loadUsersDailies'
+const UPDATE_DAILY_CHECKLIST = 'dailies/updateDailyChecklist'
 
 const loadUsersDailies = (dailies) => ({
     type: LOAD_USERS_DAILIES,
@@ -22,9 +23,16 @@ export const thunkDailies = () => async dispatch => {
     }
 }
 
-// export const thunkUpdateChecklist = () => async dispatch => {
-//     const response = await csrfFetch("/api/")
-// }
+export const thunkUpdateChecklist = (dailyId, dailyChecklist) => async dispatch => {
+    const response = await csrfFetch(`/api/dailies/${dailyId}`, {
+        method: "PUT",
+        body: dailyChecklist
+    })
+    if (response.ok) {
+        const data = await response.json()
+        dispatch(updateDailyChecklist(data))
+    }
+}
 
 //////////////////////////////////////////////////////////////
 //REDUCERS
@@ -40,6 +48,9 @@ function dailiesReducer(state = initialState, action) {
                 objDailies[el.id] = el
             ))
             return { arrDailies, objDailies }
+        }
+        case UPDATE_DAILY_CHECKLIST: {
+            let updatedChecklist = action.payload
         }
         default:
             return state
