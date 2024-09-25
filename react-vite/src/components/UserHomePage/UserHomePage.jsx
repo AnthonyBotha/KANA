@@ -6,6 +6,7 @@ import Dailies from "../Dailies";
 import { useEffect } from "react";
 import { thunkTags } from "../../redux/tags";
 import UserDashboard from "../UserDashboard/UserDashboard";
+import UserRewards from "../Rewards";
 
 function UserHomePage() {
   const dispatch = useDispatch()
@@ -48,7 +49,7 @@ function UserHomePage() {
 
           {/* Rewards Table */}
           <div className="almostBlack quarterScreen roundedCorners">
-            <p className="whiteFont">IMPORT REWARDS COMPONENT</p>
+            <p className="whiteFont"><UserRewards sessionUser={sessionUser}/></p>
           </div>
         </div>
 
