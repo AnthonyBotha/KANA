@@ -46,4 +46,3 @@ def downgrade():
 
     op.drop_table('repeat_on')
     # ### end Alembic commands ###
-
