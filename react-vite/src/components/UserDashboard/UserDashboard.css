@@ -9,6 +9,11 @@
   border-radius: 5px;
 }
 
+.default-avatar {
+  width: 180px;
+  height: 180px;
+}
+
 .avatar-background {
   position: absolute;
   width: 100%;

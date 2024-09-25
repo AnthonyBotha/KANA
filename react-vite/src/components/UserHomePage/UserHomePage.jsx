@@ -14,7 +14,7 @@ function UserHomePage() {
 
   useEffect(()=> {
     dispatch(thunkTags())
-  },[sessionUser])
+  },[dispatch, sessionUser])
 
 
   return (

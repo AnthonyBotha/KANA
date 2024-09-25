@@ -3,6 +3,8 @@ import { useEffect,useState ,useMemo} from "react";
 import { getItems } from "../../redux/inventory";
 import { useModal } from "../../context/Modal";
 import ManageItemModal from "./ItemModal";
+import UserDashboard from "../UserDashboard/UserDashboard";
+import SmallWhiteLogo from '../../static/SmallLogoWhite.png';
 import "./ItemsPage.css"
 
 function ItemsPage() {
@@ -114,28 +116,8 @@ function ItemsPage() {
 
   return (
     <>
-      <div className="fullScreen black">
-
-        {/* user dashboard */}
-        <div className="displayFlex leftPageBorder rightPageBorder spaceBetween littleTopPadding">
-          {/* Avatar */}
-          <div className="darkGrey littleRightMargin">
-            AVATAR PLACEHOLDER
-          </div>
-
-          {/* User info and stats */}
-          <div className="littleRightMargin">
-            <p className="font purpleFont xx-largeFont">{sessionUser.username}!</p>
-            <p className="font purpleFont mediumFont">Level: {sessionUser.level}</p>
-            <p className="white">experience: {sessionUser.experience}</p>
-            <p className="white">health: {sessionUser.health}</p>
-          </div>
-
-          {/* Items and equipment dashboard */}
-          <div className="almostBlack itemDashboard">
-            <p className="whiteFont">IMPORT ITEMS & EQUIPMENT COMPONENT</p>
-          </div>
-        </div>
+      <div className="blackBackground">
+        <UserDashboard />
         <div className="leftPageBorder items-container">
           <h2 className="font purpleFont">Items</h2>
           {/* Eggs Carousel */}
@@ -279,6 +261,13 @@ function ItemsPage() {
               </div>
             ) : (<p className="no-items">You dont own any of these.</p>)}
           </div>
+
+          {/* footer */}
+        <div className="black displayFlex alignBottom spaceBetween littleBottomPadding">
+          <p className='leftPageBorder font whiteFont smallFont noMargin'>© 2024 KANA. All rights reserved.</p>
+          <img className="smallLogo" src={SmallWhiteLogo} />
+          <a className="rightPageBorder fontLight whiteFont smallFont" href='https://github.com/AnthonyBotha/KANA/wiki'>GitHub</a>
+        </div>
 
         </div>
 
