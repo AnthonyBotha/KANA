@@ -15,7 +15,7 @@ const ManageItemModal = ({ itemId, itemName, itemImage, itemDescription, itemVal
         const result = true
 
         if (result) {
-            dispatch(deleteItem(itemId))
+            dispatch(deleteItem(itemId,itemImage))
             setMessage(`${itemName} Sold Successfully.`);
 
             setTimeout(() => {
