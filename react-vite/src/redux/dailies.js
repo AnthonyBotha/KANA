@@ -51,6 +51,7 @@ function dailiesReducer(state = initialState, action) {
         }
         case UPDATE_DAILY_CHECKLIST: {
             let updatedChecklist = action.payload
+            
         }
         default:
             return state

@@ -24,11 +24,12 @@ function TaskEditModal({ taskType, task }) {
     const { closeModal } = useModal();
     const [title, setTitle] = useState(task.title)
     const [notes, setNotes] = useState(task.notes)
-    const [newItem, setNewItem] = useState()
     const [selectedTags, setSelectedTags] = useState([])
     const [selectedRepeats, setSelectedRepeats] = useState({ value: 'Weekly', label: 'Weekly' })
     const [repeatEvery, setRepeatEvery] = useState(1)
     const [repeatOn, setRepeatOn] = useState([])
+    const [checklist, setChecklist] = useState(task.checklist)
+    const [newChecklistItem, setNewChecklistItem] = useState()
 
     const handleDayClick = (e) => {
         e.target.className = e.target.className === '' ? 'selected-day' : ''
@@ -49,7 +50,9 @@ function TaskEditModal({ taskType, task }) {
         }
     }
 
-    const addChecklistItem = () => {
+    const addChecklistItem = (newChecklistItem) => {
+        setChecklist((prev) => [...prev, {description: newChecklistItem, completed: false}])
+        console.log(checklist)
         //dispatch a thunk to update the checklist in db and state for the specific task
     }
     const deleteChecklistItem = () => {
@@ -100,9 +103,9 @@ function TaskEditModal({ taskType, task }) {
                     <div className="checklist">
                         <p>Checklist</p>
                         {/* Adding checklist from database */}
-                        {task.checklist.length > 0 && task.checklist.map(el => (
+                        {checklist.length > 0 && checklist.map(el => (
                             <div key={el.id}>
-                                <input type='checkbox' defaultChecked={el.completed} />
+                                <input type='checkbox' defaultChecked={el.completed}/>
                                 <input type='text' value={el.description} />
                                 <button onClick={deleteChecklistItem}>Delete</button>
                             </div>
@@ -113,12 +116,13 @@ function TaskEditModal({ taskType, task }) {
                             <input
                                 type='text'
                                 placeholder="New checklist item"
-                                onChange={(e) => setNewItem(e.target.value)}
+                                value={newChecklistItem}
+                                onChange={(e) => setNewChecklistItem(e.target.value)}
                                 onKeyDown={(e) => {
                                     if (e.key === 'Enter') {
                                         e.preventDefault()
-                                        addChecklistItem(newItem);
-                                        setNewItem('');
+                                        addChecklistItem(newChecklistItem);
+                                        setNewChecklistItem('');
                                     }
                                 }}
                             />

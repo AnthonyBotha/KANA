@@ -23,7 +23,6 @@ function UserRewards({sessionUser}){
         rewardArr.forEach((reward)=> newRewardsArr.push(reward))
     }
 
-    console.log(newRewardsArr)
     useEffect(() => {
         dispatch(getRewards())
     },[dispatch,sessionUser.id])

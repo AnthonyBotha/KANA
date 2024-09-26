@@ -51,7 +51,7 @@ function ToDoList(userId) {
                   className=''
                   // checked={selectedIds.includes(`${id}`)}
                    checked={completed} //if completed = True then the checkbox is checked
-                  onClick={(e) => { handleCheckboxChange(e) }}
+                  onChange={(e) => { handleCheckboxChange(e) }}
                 />
                 {/* figure out how to update db dynamically */}
                 {completed = selectedIds.includes(`${id}`)}
