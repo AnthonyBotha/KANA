@@ -29,7 +29,7 @@ function TaskEditModal({ taskType, task }) {
     const [repeatEvery, setRepeatEvery] = useState(1)
     const [repeatOn, setRepeatOn] = useState([])
     const [checklist, setChecklist] = useState(task.checklist)
-    const [newChecklistItem, setNewChecklistItem] = useState()
+    const [newChecklistItem, setNewChecklistItem] = useState('')
 
     const handleDayClick = (e) => {
         e.target.className = e.target.className === '' ? 'selected-day' : ''
@@ -52,20 +52,47 @@ function TaskEditModal({ taskType, task }) {
 
     const addChecklistItem = (newChecklistItem) => {
         setChecklist((prev) => [...prev, {description: newChecklistItem, completed: false}])
-        console.log(checklist)
         //dispatch a thunk to update the checklist in db and state for the specific task
     }
-    const deleteChecklistItem = () => {
-        //dispatch a thunk to update the checklist in db and state for the specific task
+
+    const updateChecklistCheckbox = (index, e) => {
+        const updatedChecklist = checklist.map((el, i) => {
+            if(i === index) {
+                return {...el, completed: e.target.checked}
+            }
+            return el
+        })
+        setChecklist(updatedChecklist)
+        console.log(e.target.checked)
+        console.log(e)
+        console.log(checklist)
+    }
+
+    const updateChecklistDescription = (index, e) => {
+        e.preventDefault()
+        const updatedChecklist = checklist.map((el, i) => {
+            if(i === index) {
+                return {...el, description: e.target.value}
+            }
+            return el
+        })
+        setChecklist(updatedChecklist)
+    }
+
+    const deleteChecklistItem = (index, e) => {
+        e.preventDefault()
+        const updatedChecklist = checklist.filter((_, i)=> i !== index)
+        setChecklist(updatedChecklist)
     }
 
     const handleSubmit = (e) => {
         e.preventDefault()
         const formData = new FormData(e.target)
         const payload = Object.fromEntries(formData)
-        console.log(payload)
-        console.log(selectedTags)
-        console.log(repeatOn)
+        // console.log(payload)
+        // console.log(selectedTags)
+        // console.log(repeatOn)
+        console.log('CHECKLIST', checklist)
         // console.log(formData.getAll)
         //switch case
         //gather all elements
@@ -103,17 +130,18 @@ function TaskEditModal({ taskType, task }) {
                     <div className="checklist">
                         <p>Checklist</p>
                         {/* Adding checklist from database */}
-                        {checklist.length > 0 && checklist.map(el => (
+                        {checklist.length > 0 && checklist.map((el, index) => (
                             <div key={el.id}>
-                                <input type='checkbox' defaultChecked={el.completed}/>
-                                <input type='text' value={el.description} />
-                                <button onClick={deleteChecklistItem}>Delete</button>
+                                <input type='checkbox' checked={el.completed} onChange={(e)=> updateChecklistCheckbox(index, e)}/>
+                                <input type='text' value={el.description} onChange={(e)=> updateChecklistDescription(index,e)} onKeyDown={(e)=> {if(e.key === 'Enter') e.preventDefault()}}/>
+                                <button onClick={(e)=> deleteChecklistItem(index, e)}>Delete</button>
                             </div>
                         ))}
                         {/* New checklist item input */}
                         <div>
-                            <input type='checkbox' defaultChecked={false} />
+                            <input type='checkbox' defaultChecked={false} onChange={(e)=> updateChecklistCheckbox(checklist.length, e)}/>
                             <input
+                                id="new-checklist-item-input"
                                 type='text'
                                 placeholder="New checklist item"
                                 value={newChecklistItem}
@@ -202,7 +230,6 @@ function TaskEditModal({ taskType, task }) {
                     </>
                 }
 
-
                 {/* Tags */}
                 <label htmlFor="tags">
                     <p>Tags</p>
@@ -224,13 +251,10 @@ function TaskEditModal({ taskType, task }) {
     )
 }
 
-
 export default TaskEditModal
 
 
 // HELPER COMPONENTS & functions
-
-
 
 const when = (selectedRepeats) => {
     switch (selectedRepeats.value) {
@@ -268,7 +292,6 @@ function TagSelector({ selectedTags, setSelectedTags }) {
         onChange={handleSelect}
     />
 }
-
 
 function RepeatsSelector({ selectedRepeats, setSelectedRepeats }) {
     const options = [

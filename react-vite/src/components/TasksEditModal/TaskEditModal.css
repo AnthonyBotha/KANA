@@ -1,6 +1,7 @@
 #new-checklist-item-input::placeholder {
     color: gray;
-    font: inherit
+    font: inherit;
+    opacity: 1;
 }
 
 #day-box {
@@ -11,15 +12,16 @@
     font-size: 14px;
     font: inherit;
 }
+.selected-day {
+    background-color: white !important;
+}
 
 #day-box:hover,
 #delete-task-button:hover {
     cursor: pointer;
 }
 
-.selected-day {
-    background-color: white !important;
-}
+
 
 #modal-content {
     padding: 0;
