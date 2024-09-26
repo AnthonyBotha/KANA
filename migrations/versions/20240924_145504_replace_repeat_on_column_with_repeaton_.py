@@ -7,6 +7,8 @@ Create Date: 2024-09-24 14:55:04.150131
 """
 from alembic import op
 import sqlalchemy as sa
+
+
 import os
 
 environment = os.getenv("FLASK_ENV")

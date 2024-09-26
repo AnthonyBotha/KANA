@@ -12,6 +12,8 @@ function InventorySelectionButton() {
         setShowMenu(!showMenu)
     };
 
+    const closeMenu = () => setShowMenu(false);
+
     useEffect(() => {
         if (!showMenu) return;
 
@@ -38,8 +40,20 @@ function InventorySelectionButton() {
             {showMenu && (
                 <ul className="inventory-dropdown lightGrey removeDecorations dropShadow largeRightPadding littleTopPadding littleBottomPadding" ref={ulRef}>
                     <>
-                        <NavLink to="/inventory/items" className="inventory-navlink font whiteFont littleBottomMargin littleTopMargin">Items</NavLink>
-                        <NavLink to="/inventory/equipment" className="inventory-navlink font whiteFont littleBottomMargin">Equipment</NavLink>
+                        <NavLink 
+                            to="/inventory/items"
+                            className="inventory-navlink font whiteFont littleBottomMargin littleTopMargin"
+                            onClick={closeMenu}
+                        >
+                            Items
+                        </NavLink>
+                        <NavLink 
+                            to="/inventory/equipment"
+                            className="inventory-navlink font whiteFont littleBottomMargin"
+                            onClick={closeMenu}
+                        >
+                            Equipment
+                        </NavLink>
                     </>
                 </ul>
 

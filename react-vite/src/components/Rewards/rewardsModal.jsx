@@ -2,10 +2,11 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 // import { deleteExisingBooking } from "../../store/booking";
 import { useModal } from "../../context/Modal";
-import { deleteItem,equipItem } from "../../redux/inventory";
-import "./ItemModal.css"
+import { buyReward } from "../../redux/rewards";
+// import { deleteItem,equipItem } from "../../redux/inventory";
 
-const ManageItemModal = ({ itemId, itemName, itemImage, itemDescription, itemValue }) => {
+
+const ManageRewardModal = ({reward}) => {
     const dispatch = useDispatch();
     const { closeModal } = useModal();
     const [message, setMessage] = useState("");
@@ -15,7 +16,7 @@ const ManageItemModal = ({ itemId, itemName, itemImage, itemDescription, itemVal
         const result = true
 
         if (result) {
-            dispatch(deleteItem(itemId,itemImage))
+            dispatch(deleteItem(itemId))
             setMessage(`${itemName} Sold Successfully.`);
 
             setTimeout(() => {
@@ -24,12 +25,12 @@ const ManageItemModal = ({ itemId, itemName, itemImage, itemDescription, itemVal
         }
     };
 
-    const handleEquip = async () => {
+    const handleBuy = async () => {
         const result = true
 
         if (result) {
-            dispatch(equipItem(itemId))
-            setMessage(`${itemName} Equiped Sucessfully.`);
+            dispatch(buyReward(reward))
+            setMessage(`${reward.title} Bought Sucessfully.`);
 
             setTimeout(() => {
                 closeModal();
@@ -43,14 +44,15 @@ const ManageItemModal = ({ itemId, itemName, itemImage, itemDescription, itemVal
             {!message ? (
                 <>
                     <div className="inventory-card-content" >
-                        <img src={itemImage} alt={itemName} className="inventory-image-modal" />
-                        <h3 className="font whiteFont inventory-name-modal">{itemName}</h3>
-                        <p className="font whiteFont description">{itemDescription}</p>
-                        <p className="font whiteFont value">Value:{itemValue}</p>
+                        <img src={reward.rewardImg} alt={reward.title} className="inventory-image-modal" />
+                        <h3 className="font whiteFont inventory-name-modal">{reward.title}</h3>
+                        <p className="font whiteFont description">{reward.notes}</p>
+                        <p className="font whiteFont value">Value:{reward.cost}</p>
                     </div>
                     <div className="item-action-buttons">
-                        <span><button className="small-button" onClick={handleEquip}>Mount</button></span>
-                        <span><button className="small-button" onClick={handleSell}>Sell</button></span>
+                        <span><button className="small-button" onClick={handleBuy}>Buy</button></span>
+
+                        {reward.custom == true && (<span><button className="small-button" onClick={handleSell}>Delete</button></span>)}
                     </div>
 
                 </>
@@ -62,4 +64,4 @@ const ManageItemModal = ({ itemId, itemName, itemImage, itemDescription, itemVal
     );
 }
 
-export default ManageItemModal;
+export default ManageRewardModal;
