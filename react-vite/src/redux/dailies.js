@@ -56,7 +56,20 @@ function dailiesReducer(state = initialState, action) {
         }
         case UPDATE_DAILY: {
             let updatedDaily = action.payload
-
+            let newState = {...state}
+            let newDailyArray = newState.arrDailies.map(daily => {
+                if(daily.id === updatedDaily.id) return updatedDaily
+                return daily
+            })
+            delete newState.arrDailies
+            delete newState.objDailies
+            newState.arrDailies = newDailyArray
+            let objDailies = {}
+            newDailyArray.forEach(el => (
+                objDailies[el.id] = el
+            ))
+            newState.objDailies = objDailies
+            return newState
         }
         default:
             return state
