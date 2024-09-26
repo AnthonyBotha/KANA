@@ -90,7 +90,7 @@ def add_to_inventory():
 
 
     # this is to see if the reward is elgible to be part of inventory
-    reward_img=data.get('reward_img')
+    reward_img=data.get('rewardImg')
 
     item=Item.query.filter_by(item_img=reward_img).first()
     if item is None:

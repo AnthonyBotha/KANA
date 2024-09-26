@@ -10,7 +10,7 @@ function UserRewards({sessionUser}){
     const rewards= useSelector(state => state.rewards)
     const rewardArr= Object.values(rewards).filter(reward => reward.custom == false)
     const {setModalContent} = useModal();
-
+    console.log(rewardArr)
 
     let newRewardsArr = []
 
@@ -23,7 +23,7 @@ function UserRewards({sessionUser}){
         rewardArr.forEach((reward)=> newRewardsArr.push(reward))
     }
 
-    console.log(newRewardsArr)
+
     useEffect(() => {
         dispatch(getRewards())
     },[dispatch,sessionUser.id])
@@ -45,7 +45,7 @@ function UserRewards({sessionUser}){
             <div className="rewards-carousel">
             {newRewardsArr.map(reward => (
                 <div key={reward.id} className="rewards-card">
-                    <div onClick={() => setModalContent(<ManageRewardModal/>)}>
+                    <div onClick={() => setModalContent(<ManageRewardModal reward={reward}/>)}>
                         <img src={reward.rewardImg} alt={reward.name} className="reward-image" />
                         <h5 className="reward-name">{reward.title}</h5>
                         <div className="reward-name"><BsCoin className="yellowFont" />{reward.cost}</div>
