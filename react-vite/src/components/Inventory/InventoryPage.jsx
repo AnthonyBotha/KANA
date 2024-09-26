@@ -14,7 +14,7 @@ function ItemsPage() {
   const sessionUser = useSelector(state => state.session.user);
   const  { setModalContent } = useModal();
 
-
+  console.log(itemsArray)
 
   const eggsArr = itemsArray.filter(item => item.type === "egg");
 
