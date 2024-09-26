@@ -1,11 +1,41 @@
 import { csrfFetch } from "./.csrf";
 
 const LOAD_REWARDS = "rewards/LOAD_REWARDS"
+const BUY_REWARDS = "rewards/BUY_REWARDS"
 
 const loadRewards = (rewards) => {
     return{
         type:LOAD_REWARDS,
         payload:rewards
+    }
+}
+
+const removeReward = (rewardId) => {
+    return {
+        type:BUY_REWARDS,
+        payload:rewardId
+    }
+}
+
+
+export const buyReward = (reward) => async (dispatch) => {
+    console.log(reward)
+    const res = await csrfFetch("/api/inventory/",{
+        method:"POST",
+        body: JSON.stringify(reward)
+    })
+
+    if(res.ok){
+        const data = await res.json()
+        const deletedReward = await csrfFetch(`/api/rewards/${reward.id}`,{
+            method:"DELETE"
+        })
+
+        if(deletedReward.ok){
+            const message = deletedReward.json()
+            await dispatch(removeReward(reward.id))
+            return message
+        }
     }
 }
 
@@ -29,6 +59,11 @@ const rewardsReducer = (state=initialState,action) => {
             const rewards = action.payload.rewards
             rewards.forEach((reward) => newState[reward.id] = reward)
             return newState;
+        }
+        case BUY_REWARDS:{
+            const newState = {...state};
+            delete newState[action.payload];
+            return newState
         }
         default:
             return state

@@ -2,65 +2,66 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 // import { deleteExisingBooking } from "../../store/booking";
 import { useModal } from "../../context/Modal";
-import { deleteItem,equipItem } from "../../redux/inventory";
+import { buyReward } from "../../redux/rewards";
+// import { deleteItem,equipItem } from "../../redux/inventory";
 
 
-const ManageRewardModal = () => {
-    return <h1>Hi</h1>
-    // const dispatch = useDispatch();
-    // const { closeModal } = useModal();
-    // const [message, setMessage] = useState("");
+const ManageRewardModal = ({reward}) => {
+    const dispatch = useDispatch();
+    const { closeModal } = useModal();
+    const [message, setMessage] = useState("");
 
 
-    // const handleSell = async () => {
-    //     const result = true
+    const handleSell = async () => {
+        const result = true
 
-    //     if (result) {
-    //         dispatch(deleteItem(itemId))
-    //         setMessage(`${itemName} Sold Successfully.`);
+        if (result) {
+            dispatch(deleteItem(itemId))
+            setMessage(`${itemName} Sold Successfully.`);
 
-    //         setTimeout(() => {
-    //             closeModal();
-    //         }, 2000);
-    //     }
-    // };
+            setTimeout(() => {
+                closeModal();
+            }, 2000);
+        }
+    };
 
-    // const handleEquip = async () => {
-    //     const result = true
+    const handleBuy = async () => {
+        const result = true
 
-    //     if (result) {
-    //         dispatch(equipItem(itemId))
-    //         setMessage(`${itemName} Equiped Sucessfully.`);
+        if (result) {
+            dispatch(buyReward(reward))
+            setMessage(`${reward.title} Bought Sucessfully.`);
 
-    //         setTimeout(() => {
-    //             closeModal();
-    //         }, 2000);
-    //     }
-    // };
+            setTimeout(() => {
+                closeModal();
+            }, 2000);
+        }
+    };
 
 
-    // return (
-    //     <div className="modal-container">
-    //         {!message ? (
-    //             <>
-    //                 <div className="inventory-card-content" >
-    //                     <img src={itemImage} alt={itemName} className="inventory-image-modal" />
-    //                     <h3 className="font whiteFont inventory-name-modal">{itemName}</h3>
-    //                     <p className="font whiteFont description">{itemDescription}</p>
-    //                     <p className="font whiteFont value">Value:{itemValue}</p>
-    //                 </div>
-    //                 <div className="item-action-buttons">
-    //                     <span><button className="small-button" onClick={handleEquip}>Mount</button></span>
-    //                     <span><button className="small-button" onClick={handleSell}>Sell</button></span>
-    //                 </div>
+    return (
+        <div className="modal-container">
+            {!message ? (
+                <>
+                    <div className="inventory-card-content" >
+                        <img src={reward.rewardImg} alt={reward.title} className="inventory-image-modal" />
+                        <h3 className="font whiteFont inventory-name-modal">{reward.title}</h3>
+                        <p className="font whiteFont description">{reward.notes}</p>
+                        <p className="font whiteFont value">Value:{reward.cost}</p>
+                    </div>
+                    <div className="item-action-buttons">
+                        <span><button className="small-button" onClick={handleBuy}>Buy</button></span>
 
-    //             </>
-    //         ) : (
-    //             <h3 className="inventory-action-confirmation">{message}</h3>
-    //         )
-    //         }
-    //     </div >
-    // );
+                        {reward.custom == true && (<span><button className="small-button" onClick={handleSell}>Delete</button></span>)}
+                    </div>
+
+                </>
+            ) : (
+                <h3 className="inventory-action-confirmation">{message}</h3>
+            )
+            }
+        </div >
+    );
 }
 
 export default ManageRewardModal;
