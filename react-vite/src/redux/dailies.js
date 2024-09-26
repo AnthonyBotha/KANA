@@ -1,11 +1,16 @@
 import { csrfFetch } from "./.csrf";
 
 const LOAD_USERS_DAILIES = 'dailies/loadUsersDailies'
-const UPDATE_DAILY_CHECKLIST = 'dailies/updateDailyChecklist'
+const UPDATE_DAILY = 'dailies/updateDaily'
 
 const loadUsersDailies = (dailies) => ({
     type: LOAD_USERS_DAILIES,
     payload: dailies
+})
+
+const updateDaily = (daily) => ({
+    type: UPDATE_DAILY,
+    payload: daily
 })
 
 ////////////////////////////////////////////////////////////////
@@ -23,14 +28,14 @@ export const thunkDailies = () => async dispatch => {
     }
 }
 
-export const thunkUpdateChecklist = (dailyId, dailyChecklist) => async dispatch => {
+export const thunkUpdateDaily = (dailyId, daily) => async dispatch => {
     const response = await csrfFetch(`/api/dailies/${dailyId}`, {
         method: "PUT",
-        body: dailyChecklist
+        body: JSON.stringify(daily)
     })
     if (response.ok) {
         const data = await response.json()
-        dispatch(updateDailyChecklist(data))
+        dispatch(updateDaily(data))
     }
 }
 
@@ -49,9 +54,9 @@ function dailiesReducer(state = initialState, action) {
             ))
             return { arrDailies, objDailies }
         }
-        case UPDATE_DAILY_CHECKLIST: {
-            let updatedChecklist = action.payload
-            
+        case UPDATE_DAILY: {
+            let updatedDaily = action.payload
+
         }
         default:
             return state

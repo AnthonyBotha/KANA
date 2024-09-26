@@ -1,7 +1,9 @@
+import { useSelector, useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal"
 import { useState } from "react";
-import { useSelector } from "react-redux";
 import Select from 'react-select'
+import CreatebleSelect from 'react-select/creatable'
+import * as dailyActions from '../../redux/dailies'
 import './TaskEditModal.css'
 
 import { FaRegTrashAlt } from "react-icons/fa";
@@ -21,26 +23,39 @@ import { CiCircleMinus } from "react-icons/ci";
 // }
 
 function TaskEditModal({ taskType, task }) {
+    const dispatch = useDispatch()
     const { closeModal } = useModal();
     const [title, setTitle] = useState(task.title)
     const [notes, setNotes] = useState(task.notes)
-    const [selectedTags, setSelectedTags] = useState([])
-    const [selectedRepeats, setSelectedRepeats] = useState({ value: 'Weekly', label: 'Weekly' })
-    const [repeatEvery, setRepeatEvery] = useState(1)
-    const [repeatOn, setRepeatOn] = useState([])
+    const [selectedTags, setSelectedTags] = useState(reactSelectParser(task.tags))
+    const [selectedRepeats, setSelectedRepeats] = useState(reactSelectParser(task.repeats))
+    const [repeatEvery, setRepeatEvery] = useState(task.repeatEvery)
+    const [repeatOn, setRepeatOn] = useState(task.repeatOn)
     const [checklist, setChecklist] = useState(task.checklist)
     const [newChecklistItem, setNewChecklistItem] = useState('')
+    const [startDate, setStartDate] = useState(task.startDate)
+    const [difficulty, setDifficulty] = useState(reactSelectParser(task.difficulty))
 
-    const handleDayClick = (e) => {
-        e.target.className = e.target.className === '' ? 'selected-day' : ''
-        let clickedDay = e.target.attributes.value.nodeValue
-        let newArray
-        if (repeatOn.includes(clickedDay)) {
-            newArray = repeatOn.filter(day => day !== clickedDay);
-        } else {
-            newArray = [...repeatOn, clickedDay]
+
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        const tags = selectedTags.map(tag => (tag.value));
+        const formData = new FormData(e.target)
+        const payload = Object.fromEntries(formData)
+        const updatedDaily = {
+            ...payload,
+            checklist,
+            tags,
+            repeatOn
         }
-        setRepeatOn(newArray)
+        dispatch(dailyActions.thunkUpdateDaily(task.id, updatedDaily))
+        // console.log(payload)
+        // console.log(selectedTags)
+        // console.log(repeatOn)
+        // console.log('CHECKLIST', checklist)
+        //switch case
+        //gather all elements
     }
 
     const handleDelete = () => {
@@ -85,18 +100,23 @@ function TaskEditModal({ taskType, task }) {
         setChecklist(updatedChecklist)
     }
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        const formData = new FormData(e.target)
-        const payload = Object.fromEntries(formData)
-        // console.log(payload)
-        // console.log(selectedTags)
-        // console.log(repeatOn)
-        console.log('CHECKLIST', checklist)
-        // console.log(formData.getAll)
-        //switch case
-        //gather all elements
+    const handleDayClick = (e) => {
+        e.target.className = e.target.className === '' ? 'selected-day' : ''
+        let clickedDay = e.target.attributes.value.nodeValue
+        let newArray
+        if (repeatOn.includes(clickedDay)) {
+            newArray = repeatOn.filter(day => day !== clickedDay);
+        } else {
+            newArray = [...repeatOn, clickedDay]
+        }
+        setRepeatOn(newArray)
     }
+
+    const checkRepeatOnDays = (day) => {
+        if(repeatOn.includes(day))
+        return 'selected-day'
+    }
+
 
     return (
         <form onSubmit={handleSubmit}>
@@ -170,12 +190,10 @@ function TaskEditModal({ taskType, task }) {
                 {/* Difficulty */}
                 <label htmlFor="difficulty">
                     <p>Difficulty</p>
-                    <select name='difficulty' defaultValue="Easy">
-                        <option value="Trivial">Trivial</option>
-                        <option value="Easy">Easy</option>
-                        <option value="Medium">Medium</option>
-                        <option value="Hard">Hard</option>
-                    </select>
+                    <DifficultySelector
+                        difficulty={difficulty}
+                        setDifficulty={setDifficulty}
+                    />
                 </label>
 
                 {/* ONLY FOR TODO */}
@@ -193,7 +211,12 @@ function TaskEditModal({ taskType, task }) {
                     <>
                         <div>
                             <p>Start Date</p>
-                            <input name="start_date" type="date" />
+                            <input
+                                name="start_date"
+                                type="date"
+                                value={startDate}
+                                onChange={(e)=> {setStartDate(e.target.value)}}
+                            />
                         </div>
                         <div>
                             <p>Repeats</p>
@@ -217,13 +240,13 @@ function TaskEditModal({ taskType, task }) {
 
                         {selectedRepeats.value === 'Weekly' &&
                             <div>
-                                <span id='day-box' value="Sunday" onClick={(e) => handleDayClick(e)}>Su</span>
-                                <span id='day-box' value="Monday" onClick={(e) => handleDayClick(e)}>Mo</span>
-                                <span id='day-box' value="Tuesday" onClick={(e) => handleDayClick(e)}>Tu</span>
-                                <span id='day-box' value="Wednesday" onClick={(e) => handleDayClick(e)}>We</span>
-                                <span id='day-box' value="Thursday" onClick={(e) => handleDayClick(e)}>Th</span>
-                                <span id='day-box' value="Friday" onClick={(e) => handleDayClick(e)}>Fr</span>
-                                <span id='day-box' value="Saturday" onClick={(e) => handleDayClick(e)}>Sa</span>
+                                <span id='day-box' value="Sunday" className={checkRepeatOnDays("Sunday")} onClick={(e) => handleDayClick(e)}>Su</span>
+                                <span id='day-box' value="Monday" className={checkRepeatOnDays("Monday")} onClick={(e) => handleDayClick(e)}>Mo</span>
+                                <span id='day-box' value="Tuesday" className={checkRepeatOnDays("Tuesday")} onClick={(e) => handleDayClick(e)}>Tu</span>
+                                <span id='day-box' value="Wednesday" className={checkRepeatOnDays("Wednesday")} onClick={(e) => handleDayClick(e)}>We</span>
+                                <span id='day-box' value="Thursday" className={checkRepeatOnDays("Thursday")} onClick={(e) => handleDayClick(e)}>Th</span>
+                                <span id='day-box' value="Friday" className={checkRepeatOnDays("Friday")} onClick={(e) => handleDayClick(e)}>Fr</span>
+                                <span id='day-box' value="Saturday" className={checkRepeatOnDays("Saturday")} onClick={(e) => handleDayClick(e)}>Sa</span>
                             </div>
                         }
 
@@ -274,22 +297,23 @@ const when = (selectedRepeats) => {
 function TagSelector({ selectedTags, setSelectedTags }) {
     const tags = useSelector(state => state.tags.tagsArray)
     //creating options array of objects with the tags on the database/redux-store
-    const options = []
-    tags.forEach(tag => {
-        let tagObj = { value: tag, label: tag }
-        options.push(tagObj)
-    })
+    const options = tags.map(tag => ({value: tag, label: tag}))
+
     //function to update selected tags state
     const handleSelect = (selectedOptions) => {
         setSelectedTags(selectedOptions)
     }
+    const handleCreate = (newTag) => {
+        setSelectedTags((prev)=> [...prev, {value: newTag, label: newTag}] )
+    }
     //component
-    return <Select
+    return <CreatebleSelect
         isMulti
         options={options}
         value={selectedTags}
         disabled placeholder="Add tags..."
         onChange={handleSelect}
+        onCreateOption={handleCreate}
     />
 }
 
@@ -312,4 +336,35 @@ function RepeatsSelector({ selectedRepeats, setSelectedRepeats }) {
         placeholder="Weekly"
         onChange={handleSelect}
     />
+}
+
+function DifficultySelector({difficulty, setDifficulty}) {
+    const options = [
+        { value: 'Trivial', label: 'Trivial' },
+        { value: 'Easy', label: 'Easy' },
+        { value: 'Medium', label: 'Medium' },
+        { value: 'Hard', label: 'Hard' },
+    ]
+    //function to update selected Repeats state
+    const handleSelect = (selectedOption) => {
+        setDifficulty(selectedOption)
+    }
+
+    return <Select
+        name="difficulty"
+        options={options}
+        value={difficulty}
+        placeholder="Easy"
+        onChange={handleSelect}
+    />
+}
+
+function reactSelectParser(val){
+    if (typeof(val) == 'string') return {value: val, label: val}
+
+    if (Array.isArray(val)) {
+        let parsedArray = val.map(el => (el = {value: el, label: el}))
+        return parsedArray
+    }
+    else return val
 }
