@@ -1,5 +1,5 @@
 import { useSelector,useDispatch } from "react-redux"
-import { useEffect } from "react"
+import { useEffect,useState } from "react"
 import { getRewards } from "../../redux/rewards";
 import { useModal } from "../../context/Modal";
 import ManageRewardModal from "./rewardsModal";
@@ -10,25 +10,21 @@ function UserRewards({sessionUser}){
     const rewards= useSelector(state => state.rewards)
     const rewardArr= Object.values(rewards).filter(reward => reward.custom == false)
     const {setModalContent} = useModal();
-    console.log(rewardArr)
-
-    let newRewardsArr = []
-
-    if(rewardArr.length >= 8){
-        newRewardsArr.push(rewardArr[0],rewardArr[1],rewardArr[2],
-            rewardArr[3],rewardArr[4],rewardArr[5],rewardArr[6],rewardArr[7],
-            rewardArr[8],rewardArr[9]
-        )
-    }
-    else{
-        rewardArr.forEach((reward)=> newRewardsArr.push(reward))
-    }
-
+    const [newRewardsArr,setRewards] = useState([])
 
     useEffect(() => {
         dispatch(getRewards())
     },[dispatch,sessionUser.id])
 
+
+    useEffect(()=> {
+        let updatedRewards = [];
+        if (rewardArr.length >= 10){
+            updatedRewards = rewardArr.slice(0, 10);
+        }
+        else updatedRewards = rewardArr;
+        setRewards(updatedRewards)
+    },[rewardArr.length])
     return(
     <>
         <div className="displayFlex alignBottom spaceBetween">
