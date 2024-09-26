@@ -43,3 +43,7 @@
     position: relative; /* For tooltip positioning */
     transition: transform 0.3s;
 }
+.rewards-card:hover{
+    cursor: pointer;
+    transform: scale(1.05);
+}

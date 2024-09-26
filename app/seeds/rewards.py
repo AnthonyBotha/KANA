@@ -1,5 +1,6 @@
 from app.models import db, Item,User,Reward, environment, SCHEMA
 from sqlalchemy.sql import text
+import random
 
 
 def seed_rewards():
@@ -7,8 +8,10 @@ def seed_rewards():
     bobbie=User.query.filter_by(email='bobbie@aa.io').first()
     marnie=User.query.filter_by(email='marnie@aa.io').first()
     items= Item.query.all()
+    new_items = [item for item in items]
+    shuffled = shuffle_list(new_items)
 
-    for item in items:
+    for item in shuffled:
         if (item.id != demo.items[0].id and item.id != demo.items[1].id
         and item.id != demo.items[2].id and item.id != demo.items[3].id
         and item.id != demo.items[4].id and item.id != demo.items[5].id
@@ -56,3 +59,11 @@ def undo_rewards():
         db.session.execute(text("DELETE FROM rewards"))
 
     db.session.commit()
+
+
+
+def shuffle_list(li):
+    for i in range(len(li) - 1, 0, -1):
+        j = random.randint(0, i)
+        li[i], li[j] = li[j], li[i]
+    return li
