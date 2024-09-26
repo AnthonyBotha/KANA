@@ -16,7 +16,8 @@ function UserRewards({sessionUser}){
 
     if(rewardArr.length >= 8){
         newRewardsArr.push(rewardArr[0],rewardArr[1],rewardArr[2],
-            rewardArr[3],rewardArr[4],rewardArr[5],rewardArr[6],rewardArr[7]
+            rewardArr[3],rewardArr[4],rewardArr[5],rewardArr[6],rewardArr[7],
+            rewardArr[8],rewardArr[9]
         )
     }
     else{
