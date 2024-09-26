@@ -53,19 +53,33 @@ export const equipItem = (itemId) => async(dispatch) => {
 }
 };
 
-export const deleteItem = (itemId) => async (dispatch) => {
-    const response = await csrfFetch(`/api/inventory/${itemId}`,{
-        method:"DELETE"
+export const deleteItem = (itemId,ItemImage) => async (dispatch) => {
+    const item ={
+        itemImg:ItemImage
+    }
+    const backToRewards = await csrfFetch(`/api/rewards/user_rewards`,{
+        method:'POST',
+        body:JSON.stringify(item)
     })
 
-    if (response.ok){
-        const conf = await response.json()
-        if (conf.message ==  "Successfully deleted"){
-            dispatch(deleteFromInventory(itemId));
-            await dispatch(getItems());
-            return conf;
+    if(backToRewards.ok){
+        const data= backToRewards.json()
+        const response = await csrfFetch(`/api/inventory/${itemId}`,{
+            method:"DELETE"
+        })
+
+        if (response.ok){
+            const conf = await response.json()
+            if (conf.message ==  "Successfully deleted"){
+                dispatch(deleteFromInventory(itemId));
+                await dispatch(getItems());
+                return conf;
+            }
         }
+
     }
+
+
 }
 
 const initialState = {};

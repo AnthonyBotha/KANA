@@ -23,7 +23,7 @@ def insert_reward():
     user = User.query.filter_by(id=current_user.id).first()
 
 
-    item_img=data.get('item_img')
+    item_img=data.get('itemImg')
     reward=Reward.query.filter_by(reward_img=item_img).first()
     # looking if reward exists
     if reward is None:
