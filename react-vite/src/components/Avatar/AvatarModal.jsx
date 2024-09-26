@@ -4,11 +4,13 @@ import { useEffect, useState } from 'react';
 import { useModal } from '../../context/Modal';
 import { getAvatarAntennas, getAvatarBackgrounds, getAvatarEars, getAvatarEyes, getAvatarHeads, getAvatarMouths, getAvatarNecks, getAvatarNoses } from '../../redux/avatarpart';
 import { getAvatar, createNewAvatar, deleteExistingAvatar, updateExistingAvatar } from '../../redux/avatar';
+
 import "./AvatarModal.css"
 
 
 function AvatarModal() {
   const dispatch = useDispatch();
+
   const [avatarParts, setAvatarParts] = useState({});
   const [selectedPart, setSelectedPart] = useState("head");
   const [activePartItem, setActivePartItem] = useState(null);
@@ -16,6 +18,10 @@ function AvatarModal() {
 
   const user = useSelector(state => state.session.user);
   const avatar = useSelector(state => state.avatar);
+  
+
+  const [userAvatar] = Object.values(avatar).filter(avatar => avatar.userId === user.id);
+
 
   const avatarDefaultUrl = "https://res.cloudinary.com/dmg8yuivs/image/upload/v1726881553/user-avatar_clr2no.png";
   const headSelectionUrl = "https://res.cloudinary.com/dmg8yuivs/image/upload/v1726681230/robot_pzzvjx.png";
@@ -40,6 +46,7 @@ function AvatarModal() {
   },[dispatch])
 
   useEffect(() => {
+
     dispatch(getAvatarAntennas());
     dispatch(getAvatarBackgrounds());
     dispatch(getAvatarEars());
@@ -52,12 +59,20 @@ function AvatarModal() {
     // dispatch(getAvatar());
   }, [dispatch]);
 
+  
+
+  // console.log("Avatar:", Object.values(avatar))
+  // // console.log("User Avatar:",avatar[user] )
+  // // const userAvatar = Object.values(avatar).filter(avatar => avatar.userId === )
+  // console.log("User:",user);
+  // console.log("AvatarId:",user.avatar.id)
+
   useEffect(() => {
-    if (avatar && Object.keys(avatar).length > 0) {
-      setAvatarParts(Object.values(avatar)[0]);
+    if (userAvatar && Object.keys(userAvatar).length > 0) {
+      setAvatarParts(avatar[userAvatar.id]);
       setErrorFetchingAvatar(false);
     }
-  }, [avatar])
+  }, [avatar, userAvatar])
 
 
   //helper function to get a random element from an array
@@ -109,6 +124,7 @@ function AvatarModal() {
       noseId: getRandomElement(Object.values(noses)).id,
       mouthId: getRandomElement(Object.values(mouths)).id,
       neckId: getRandomElement(Object.values(necks)).id,
+      userId: user.id
     })
   }
 
@@ -143,22 +159,23 @@ function AvatarModal() {
     }));
   };
 
+ 
   const handleSaveAvatar = () => {
-    if (Object.values(avatar).length > 0) {
-      const [avatarId] = Object.keys(avatar)
-      dispatch(updateExistingAvatar(parseInt(avatarId), avatarParts))
+    if (userAvatar && Object.keys(userAvatar).length > 0) {
+      dispatch(updateExistingAvatar(parseInt(userAvatar.id), avatarParts))
       closeModal();
       
     } else {
+
       dispatch(createNewAvatar(avatarParts))
       closeModal();
     }
   }
 
   const handleDeleteAvatar = () => {
-    if (Object.values(avatar).length > 0) {
-      const [avatarId] = Object.keys(avatar)
-      dispatch(deleteExistingAvatar(parseInt(avatarId)));
+    if (Object.keys(userAvatar).length > 0) {
+      dispatch(deleteExistingAvatar(parseInt(userAvatar.id)));
+
       
       setErrorFetchingAvatar(true);
       closeModal();
@@ -193,7 +210,7 @@ function AvatarModal() {
           <h2>Welcome, {user.username}</h2>
           <h4>Level {user.level}</h4>
         </div>
-        {Object.keys(avatar).length > 0 && (
+        {userAvatar && Object.keys(userAvatar).length > 0 && (
           <h4 className="delete-avatar" onClick={handleDeleteAvatar}>Delete Avatar</h4>
         )}
       </div>

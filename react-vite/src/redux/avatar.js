@@ -138,6 +138,7 @@ const avatarReducer = (state = initialState, action) => {
                 earId: avatar.earId,
                 noseId: avatar.noseId,
                 backgroundId: avatar.backgroundId,
+                userId: avatar.userId,
                 createdAt: avatar.createdAt,
                 updatedAt: avatar.updatedAt
             }
