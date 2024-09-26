@@ -1,0 +1,42 @@
+.reward #modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.reward #modal-content {
+    position: absolute;
+    background-color: #6F42C1;
+    padding: 25px;
+    border-radius: 5px;
+    width: 400px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+/* Add space between input sections */
+.reward-form-group {
+    margin-bottom: 20px;
+}
+
+/* Ensure the icon and input are on the same line */
+.coin-input-wrapper {
+    display: flex;
+    align-items: center;
+
+}
+.coinIcon {
+    color: gold;
+    margin-right: 10px; /* Adds space between the icon and input */
+}
+
+.reward-input {
+    flex-grow: 1; /* Allows the input to fill the remaining space */
+    
+}
+
+
+

@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import { thunkTags } from "../../redux/tags";
 import UserDashboard from "../UserDashboard/UserDashboard";
 import UserRewards from "../Rewards";
+import AddTask from "./AddTask";
 
 function UserHomePage() {
   const dispatch = useDispatch()
@@ -26,7 +27,7 @@ function UserHomePage() {
 
         {/* Add task button */}
         <div className="rightPageBorder textRight littleBottomMargin littleTopMargin">
-          <button>Add Task</button>
+          <AddTask />
         </div>
 
         {/* Checklists and Rewards Tables */}

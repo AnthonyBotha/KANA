@@ -1,0 +1,32 @@
+.add-task-container {
+    position: relative;
+}
+
+
+.task-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    z-index: 10;
+    background-color: #444;
+    padding: 8px;
+    list-style-type: none;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    margin-top: 0;
+}
+
+.task-option {
+    padding: 10px 15px;
+    color: white;
+    cursor: pointer;
+    background-color: transparent;
+    text-align: left;
+    width: 100%;
+}
+
+.task-option:hover {
+    background-color: #666;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+}
