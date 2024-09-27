@@ -1,16 +1,18 @@
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { getAvatar } from "../../redux/avatar";
 import { getAvatarAntennas, getAvatarBackgrounds, getAvatarEars, getAvatarEyes, getAvatarHeads, getAvatarMouths, getAvatarNecks, getAvatarNoses } from "../../redux/avatarpart";
 
 import "./UserDashboard.css";
+import EquipedItems from "./EquipedItems";
 
 function UserDashboard() {
   const dispatch = useDispatch();
 
   const sessionUser = useSelector(state => state.session.user);
-  const avatarState = useSelector(state => state.avatar);
-  const [avatar] = Object.values(avatarState);
+  const avatar = useSelector(state => state.avatar);
+
+  const [userAvatar] = Object.values(avatar).filter(avatar => avatar.userId === sessionUser.id);
 
   const avatarDefaultUrl = "https://res.cloudinary.com/dmg8yuivs/image/upload/v1727241517/user_inui1g.png";
 
@@ -67,23 +69,23 @@ function UserDashboard() {
         {/* Avatar */}
 
         <div className="avatar-container littleRightMargin lightDropShadow">
-          {avatar ? (
+          {userAvatar && Object.values(userAvatar).length > 0 ? (
             <>
-              <img src={getPartImageUrl("antenna", avatar?.antennaId)} className="avatar-antenna" />
-              <img src={getPartImageUrl("background", avatar?.backgroundId)} className="avatar-background" />
-              <img src={getPartImageUrl("ear", avatar?.earId)} className="avatar-ear" />
-              <img src={getPartImageUrl("eye", avatar?.eyeId)} className="avatar-eye" />
-              <img src={getPartImageUrl("head", avatar?.headId)} className="avatar-head" />
-              <img src={getPartImageUrl("mouth", avatar?.mouthId)} className="avatar-mouth" />
-              <img src={getPartImageUrl("neck", avatar?.neckId)} className="avatar-neck" />
-              <img src={getPartImageUrl("nose", avatar?.noseId)} className="avatar-nose" />
+              <img src={getPartImageUrl("antenna", userAvatar.antennaId)} className="avatar-antenna" />
+              <img src={getPartImageUrl("background", userAvatar.backgroundId)} className="avatar-background" />
+              <img src={getPartImageUrl("ear", userAvatar.earId)} className="avatar-ear" />
+              <img src={getPartImageUrl("eye", userAvatar.eyeId)} className="avatar-eye" />
+              <img src={getPartImageUrl("head", userAvatar.headId)} className="avatar-head" />
+              <img src={getPartImageUrl("mouth", userAvatar.mouthId)} className="avatar-mouth" />
+              <img src={getPartImageUrl("neck", userAvatar.neckId)} className="avatar-neck" />
+              <img src={getPartImageUrl("nose", userAvatar.noseId)} className="avatar-nose" />
             </>
 
           ) : (
 
-            <>
-              <img src={avatarDefaultUrl} className="default-avatar" />
-            </>
+          <>
+            <img src={avatarDefaultUrl} className="default-avatar" />
+          </>
 
           )}
 
@@ -99,7 +101,7 @@ function UserDashboard() {
 
         {/* Items and equipment dashboard */}
         <div className="almostBlack itemDashboard">
-          <p className="whiteFont">IMPORT ITEMS & EQUIPMENT COMPONENT</p>
+          <p className="whiteFont"><EquipedItems sessionUser={sessionUser}/></p>
         </div>
       </div>
     </div>

@@ -5,17 +5,17 @@ import { useModal } from "../../context/Modal";
 import { deleteItem,equipItem } from "../../redux/inventory";
 import "./ItemModal.css"
 
-const ManageItemModal = ({ itemId, itemName, itemImage, itemDescription, itemValue }) => {
+const ManageItemModal = ({ itemId, itemName, itemImage, itemDescription, itemValue,equipped }) => {
     const dispatch = useDispatch();
     const { closeModal } = useModal();
     const [message, setMessage] = useState("");
-
+    console.log(equipped)
 
     const handleSell = async () => {
         const result = true
 
         if (result) {
-            dispatch(deleteItem(itemId))
+            dispatch(deleteItem(itemId,itemImage))
             setMessage(`${itemName} Sold Successfully.`);
 
             setTimeout(() => {

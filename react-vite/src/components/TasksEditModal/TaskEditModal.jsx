@@ -1,8 +1,9 @@
 import { useModal } from "../../context/Modal"
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import Select from 'react-select'
-import './TaskEditModal.css'
+import Select from 'react-select';
+import './TaskEditModal.css';
+
 
 import { FaRegTrashAlt } from "react-icons/fa";
 import { CiCirclePlus } from "react-icons/ci";
@@ -72,63 +73,59 @@ function TaskEditModal({ taskType, task }) {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
+      <div id="modal" className="task">
+        <form id="modal-content" className="task" onSubmit={handleSubmit}>
 
-            <div className="lightPurple task-edit-modal">
-                <div className="orange-header">
+          <div className="displayFlex flexColumn fullWidth">
+            <div className="displayFlex alignCenter spaceBetween">
+              <p className="font whiteFont xx-largeFont">Edit {taskType}</p>
+              <div>
+                <button className="littleRightMargin" onClick={closeModal}>Cancel</button>
+                <button type='submit'>Save</button>
+              </div>
+            </div>
 
-                    <div className="heading">
-                        <h3>Edit {taskType}</h3>
-                        <div>
-                            <button onClick={closeModal}>Cancel</button>
-                            <button type='submit'>Save</button>
-                        </div>
-                    </div>
+            <div className="displayFlex flexColumn noPadding">
+                <p className="font whiteFont mediumFont noMargin">Title*</p>
+                <input className="littleLeftPadding littleTopMargin font almostBlackFont white noBorder topPadding littleBottomPadding littleBottomMargin roundedCorners" type="text" name='title' onChange={(e) => setTitle(e.target.value)} value={title} />
 
-                    <div className="title">
-                        <p>Title*</p>
-                        <input type="text" name='title' onChange={(e) => setTitle(e.target.value)} value={title} />
-                    </div>
+                <p className="font whiteFont mediumFont noMargin">Notes</p>
+                <input className="littleLeftPadding littleTopMargin font almostBlackFont white noBorder topPadding littleBottomPadding littleBottomMargin roundedCorners" type="text" name='notes' onChange={(e) => setNotes(e.target.value)} value={notes} />
+            </div>
 
-                    <div className="notes">
-                        <p>Notes</p>
-                        <input type="text" name='notes' onChange={(e) => setNotes(e.target.value)} value={notes} />
-                    </div>
+            {/* Checklist ONLY FOR DAILY AND TODO*/}
+            {(taskType == 'Daily' || taskType == 'Todo') &&
+              <div className="displayFlex flexColumn noPadding">
+                <p className="font whiteFont mediumFont noMargin">Checklist</p>
+                {/* Adding checklist from database */}
+                {checklist.length > 0 && checklist.map(el => (
+                  <div key={el.id}>
+                    <input type='checkbox' defaultChecked={el.completed}/>
+                    <input type='text' value={el.description} />
+                    <button onClick={deleteChecklistItem}>Delete</button>
+                  </div>
+                ))}
 
-                </div>
-
-                {/* Checklist ONLY FOR DAILY AND TODO*/}
-                {(taskType == 'Daily' || taskType == 'Todo') &&
-
-                    <div className="checklist">
-                        <p>Checklist</p>
-                        {/* Adding checklist from database */}
-                        {checklist.length > 0 && checklist.map(el => (
-                            <div key={el.id}>
-                                <input type='checkbox' defaultChecked={el.completed}/>
-                                <input type='text' value={el.description} />
-                                <button onClick={deleteChecklistItem}>Delete</button>
-                            </div>
-                        ))}
-                        {/* New checklist item input */}
-                        <div>
-                            <input type='checkbox' defaultChecked={false} />
-                            <input
-                                type='text'
-                                placeholder="New checklist item"
+                {/* New checklist item input */}
+                <div className="fullWidth displayFlex">
+                  <input type='checkbox' defaultChecked={false} />
+                  <input
+                    className="fullWidth littleLeftPadding littleTopMargin font almostBlackFont white noBorder topPadding littleBottomPadding littleBottomMargin roundedCorners"
+                    type='text'
+                    placeholder="New checklist item"
                                 value={newChecklistItem}
-                                onChange={(e) => setNewChecklistItem(e.target.value)}
-                                onKeyDown={(e) => {
-                                    if (e.key === 'Enter') {
-                                        e.preventDefault()
-                                        addChecklistItem(newChecklistItem);
-                                        setNewChecklistItem('');
-                                    }
-                                }}
-                            />
-                        </div>
-                    </div>
-                }
+                    onChange={(e) => setNewChecklistItem(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                          e.preventDefault()
+                          addChecklistItem(newChecklistItem);
+                          setNewChecklistItem('');
+                        }
+                    }}
+                    />
+                </div>
+              </div>
+            }
 
                 {/* ONLY FOR HABIT */}
                 {/* Positive Negative */}
@@ -139,16 +136,18 @@ function TaskEditModal({ taskType, task }) {
                     </div>
                 }
 
-                {/* Difficulty */}
-                <label htmlFor="difficulty">
-                    <p>Difficulty</p>
-                    <select name='difficulty' defaultValue="Easy">
-                        <option value="Trivial">Trivial</option>
-                        <option value="Easy">Easy</option>
-                        <option value="Medium">Medium</option>
-                        <option value="Hard">Hard</option>
-                    </select>
-                </label>
+            {/* Difficulty */}
+            <label htmlFor="difficulty">
+              <p className="font whiteFont mediumFont noMargin">Difficulty</p>
+              <select className="fullWidth littleLeftPadding littleTopMargin font almostBlackFont white noBorder topPadding littleBottomPadding littleBottomMargin roundedCorners"
+                      name='difficulty'
+                      defaultValue="Easy">
+                  <option value="Trivial">Trivial</option>
+                  <option value="Easy">Easy</option>
+                  <option value="Medium">Medium</option>
+                  <option value="Hard">Hard</option>
+              </select>
+            </label>
 
                 {/* ONLY FOR TODO */}
                 {/* Due Date */}
@@ -159,68 +158,77 @@ function TaskEditModal({ taskType, task }) {
                     </div>
                 }
 
-                {/* ONLY FOR DAILY */}
-                {/* repeats */}
-                {taskType === 'Daily' &&
-                    <>
-                        <div>
-                            <p>Start Date</p>
-                            <input name="start_date" type="date" />
-                        </div>
-                        <div>
-                            <p>Repeats</p>
-                            <RepeatsSelector
-                                selectedRepeats={selectedRepeats}
-                                setSelectedRepeats={setSelectedRepeats}
-                            />
-                        </div>
-                        <div>
-                            <p>Repeat Every</p>
-                            <div>
-                                <input
-                                    type="number"
-                                    name="repeat_every"
-                                    value={repeatEvery}
-                                    onChange={(e) => setRepeatEvery(parseInt(e.target.value))}
-                                />
-                                <p>{when(selectedRepeats)}</p>
-                            </div>
-                        </div>
+            {/* ONLY FOR DAILY */}
+            {/* repeats */}
+            {taskType === 'Daily' &&
+              <>
+                <div className="displayFlex flexColumn">
+                  <p className="font whiteFont mediumFont noMargin">Start Date</p>
+                  <input  className="fullWidth littleLeftPadding littleTopMargin font almostBlackFont white noBorder topPadding littleBottomPadding littleBottomMargin roundedCorners"
+                          name="start_date"
+                          type="date" />
+                </div>
 
-                        {selectedRepeats.value === 'Weekly' &&
-                            <div>
-                                <span id='day-box' value="Sunday" onClick={(e) => handleDayClick(e)}>Su</span>
-                                <span id='day-box' value="Monday" onClick={(e) => handleDayClick(e)}>Mo</span>
-                                <span id='day-box' value="Tuesday" onClick={(e) => handleDayClick(e)}>Tu</span>
-                                <span id='day-box' value="Wednesday" onClick={(e) => handleDayClick(e)}>We</span>
-                                <span id='day-box' value="Thursday" onClick={(e) => handleDayClick(e)}>Th</span>
-                                <span id='day-box' value="Friday" onClick={(e) => handleDayClick(e)}>Fr</span>
-                                <span id='day-box' value="Saturday" onClick={(e) => handleDayClick(e)}>Sa</span>
-                            </div>
-                        }
+                <div>
+                  <p className="font whiteFont mediumFont noMargin">Repeats</p>
+                  <div className="littleTopMargin littleBottomMargin">
+                    <RepeatsSelector
+                        selectedRepeats={selectedRepeats}
+                        setSelectedRepeats={setSelectedRepeats}
+                        />
+                  </div>
+                </div>
 
-                    </>
+                <div>
+                  <p className="font whiteFont mediumFont noMargin">Repeat Every</p>
+                  <div>
+                    <input
+                        className="fullWidth littleLeftPadding littleTopMargin font almostBlackFont white noBorder topPadding littleBottomPadding littleBottomMargin roundedCorners"
+                        type="number"
+                        name="repeat_every"
+                        value={repeatEvery}
+                        onChange={(e) => setRepeatEvery(parseInt(e.target.value))}
+                        />
+                    <p className="font whiteFont mediumFont noMargin">{when(selectedRepeats)}</p>
+                  </div>
+                </div>
+
+                {selectedRepeats.value === 'Weekly' &&
+                  <div className="displayFlex">
+                    <span id='day-box' value="Sunday" onClick={(e) => handleDayClick(e)}>Su</span>
+                    <span id='day-box' value="Monday" onClick={(e) => handleDayClick(e)}>Mo</span>
+                    <span id='day-box' value="Tuesday" onClick={(e) => handleDayClick(e)}>Tu</span>
+                    <span id='day-box' value="Wednesday" onClick={(e) => handleDayClick(e)}>We</span>
+                    <span id='day-box' value="Thursday" onClick={(e) => handleDayClick(e)}>Th</span>
+                    <span id='day-box' value="Friday" onClick={(e) => handleDayClick(e)}>Fr</span>
+                    <span id='day-box' value="Saturday" onClick={(e) => handleDayClick(e)}>Sa</span>
+                  </div>
                 }
 
+              </>
+            }
 
-                {/* Tags */}
-                <label htmlFor="tags">
-                    <p>Tags</p>
-                    <TagSelector
-                        selectedTags={selectedTags}
-                        setSelectedTags={setSelectedTags}
+            {/* Tags */}
+            <label htmlFor="tags">
+              <p className="font whiteFont mediumFont noMargin">Tags</p>
+              <div className="littleTopMargin">
+                <TagSelector
+                    selectedTags={selectedTags}
+                    setSelectedTags={setSelectedTags}
                     />
-                </label>
+              </div>
+            </label>
 
 
                 {/* Delete this TaskType */}
-                <div id="delete-task-button">
+                <div id="delete-task-button" className="redFont font textCenter">
                     <p onClick={handleDelete}><FaRegTrashAlt />Delete this {taskType}</p>
                 </div>
 
 
-            </div>
+          </div>
         </form>
+      </div>
     )
 }
 

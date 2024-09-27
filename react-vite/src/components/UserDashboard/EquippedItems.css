@@ -1,34 +1,14 @@
-.reward-image{
-    width: 100%;
-    height: 50px;
-    object-fit:cover;
-    margin-bottom: 0px;
-}
-
-.reward-name{
-    margin-top:0px;
-    margin-bottom: 10px;
-    font-size: xx-small;
-    /* white-space: nowrap; */
-    overflow: hidden;
-    text-overflow: ellipsis;
-    color: black;
-}
-
-.rewards-container{
+.equipped-container{
     position: relative;
 }
-
-.rewards-carousel{
+.equipped-carousel{
     display: flex;
     gap: 5px;
     overflow: hidden;
     padding: 20px 10px;
     flex-wrap: wrap;
-    /* position: relative;
-    top: 100px; */
 }
-.rewards-card{
+.equipped-card{
     flex: 0 0 auto;
     width: 50px;
     /* height: 65px; */
@@ -43,7 +23,7 @@
     position: relative; /* For tooltip positioning */
     transition: transform 0.3s;
 }
-.rewards-card:hover{
+.equipped-card:hover{
     cursor: pointer;
     transform: scale(1.05);
 }

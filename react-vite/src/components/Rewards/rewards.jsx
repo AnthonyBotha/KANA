@@ -1,5 +1,5 @@
 import { useSelector,useDispatch } from "react-redux"
-import { useEffect } from "react"
+import { useEffect,useState } from "react"
 import { getRewards } from "../../redux/rewards";
 import { useModal } from "../../context/Modal";
 import ManageRewardModal from "./rewardsModal";
@@ -10,7 +10,9 @@ function UserRewards({sessionUser}){
     const rewards= useSelector(state => state.rewards)
     const rewardArr= Object.values(rewards).filter(reward => reward.custom == false)
     const {setModalContent} = useModal();
+    const [newRewardsArr,setRewards] = useState([])
 
+<<<<<<< HEAD
 
     let newRewardsArr = []
 
@@ -23,10 +25,21 @@ function UserRewards({sessionUser}){
         rewardArr.forEach((reward)=> newRewardsArr.push(reward))
     }
 
+=======
+>>>>>>> cfcdc773d0ed4d0f15aedc820c74acffbda2bd42
     useEffect(() => {
         dispatch(getRewards())
     },[dispatch,sessionUser.id])
 
+
+    useEffect(()=> {
+        let updatedRewards = [];
+        if (rewardArr.length >= 10){
+            updatedRewards = rewardArr.slice(0, 10);
+        }
+        else updatedRewards = rewardArr;
+        setRewards(updatedRewards)
+    },[rewardArr.length])
     return(
     <>
         <div className="displayFlex alignBottom spaceBetween">
@@ -44,7 +57,7 @@ function UserRewards({sessionUser}){
             <div className="rewards-carousel">
             {newRewardsArr.map(reward => (
                 <div key={reward.id} className="rewards-card">
-                    <div onClick={() => setModalContent(<ManageRewardModal/>)}>
+                    <div onClick={() => setModalContent(<ManageRewardModal reward={reward}/>)}>
                         <img src={reward.rewardImg} alt={reward.name} className="reward-image" />
                         <h5 className="reward-name">{reward.title}</h5>
                         <div className="reward-name"><BsCoin className="yellowFont" />{reward.cost}</div>
