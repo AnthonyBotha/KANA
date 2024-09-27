@@ -47,7 +47,7 @@ def create_daily():
         notes = data.get('notes'),
         difficulty = data.get('difficulty'),
         repeats = data.get('repeats'),
-        repeat_every = data.get('repeatEvery'),
+        repeat_every = data.get('repeat_every'),
         # repeat_on = data.get('repeatOn')
     )
     db.session.add(new_daily)
