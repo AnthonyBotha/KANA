@@ -47,7 +47,6 @@ export const thunkCreateDaily = (newDaily) => async dispatch => {
     })
     if (response.ok) {
         const data = await response.json();
-        console.log('RESPONSE OK FROM DB. NEW DAILY: ', data)
         if (data.errors) {
             console.log('Errors: ',data.errors)
             return;
@@ -115,7 +114,7 @@ function dailiesReducer(state = initialState, action) {
             return newState
         }
         case DELETE_DAILY: {
-            let deletedDailyId = action.payload.dailyId
+            let deletedDailyId = action.payload
             let newState = {...state}
             let newDailyArray = newState.arrDailies.filter(daily => {
                 return Number(daily.id) !== Number(deletedDailyId)
