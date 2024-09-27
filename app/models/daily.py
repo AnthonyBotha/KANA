@@ -26,13 +26,10 @@ class Daily(db.Model):
     # Connect Daily to user create a many-to-one relationship
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     user = db.relationship('User', back_populates='dailies')
-
     # Relationship with Checklists
-    checklist = db.relationship('Checklist', back_populates='daily', cascade='all, delete-orphan')
-
+    checklist = db.relationship('Checklist', back_populates='daily', cascade='all, delete-orphan', order_by='Checklist.created_at')
     # Relationship with Tags through tasks_tags joint table
     tags = db.relationship('Tag', secondary=tasks_tags, back_populates='daily_tags', overlaps="habit_tags,todo_tags")
-
     # Relationship with repeat_on
     repeat_on_days = db.relationship('RepeatOn', back_populates='daily', cascade='all, delete-orphan')
 
@@ -43,7 +40,7 @@ class Daily(db.Model):
             'title': self.title,
             'notes': self.notes,
             'difficulty': self.difficulty,
-            'startDate': self.start_date,
+            'startDate': self.start_date.strftime('%Y-%m-%d') if self.start_date else None,
             'repeats': self.repeats,
             'repeatEvery': self.repeat_every,
             'repeatOn': [repeat_on.day for repeat_on in self.repeat_on_days] if self.repeat_on_days else [],

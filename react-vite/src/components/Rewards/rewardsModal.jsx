@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-// import { deleteExisingBooking } from "../../store/booking";
 import { useModal } from "../../context/Modal";
-import { buyReward } from "../../redux/rewards";
-// import { deleteItem,equipItem } from "../../redux/inventory";
+import { buyReward, deleteCustom } from "../../redux/rewards";
+
 
 
 const ManageRewardModal = ({reward}) => {
@@ -12,12 +11,12 @@ const ManageRewardModal = ({reward}) => {
     const [message, setMessage] = useState("");
 
 
-    const handleSell = async () => {
+    const handleDelete = async () => {
         const result = true
 
         if (result) {
-            dispatch(deleteItem(itemId))
-            setMessage(`${itemName} Sold Successfully.`);
+            dispatch(deleteCustom(reward.id))
+            setMessage(`${reward.title} Deleted Successfully.`);
 
             setTimeout(() => {
                 closeModal();
@@ -52,7 +51,7 @@ const ManageRewardModal = ({reward}) => {
                     <div className="item-action-buttons">
                         <span><button className="small-button" onClick={handleBuy}>Buy</button></span>
 
-                        {reward.custom == true && (<span><button className="small-button" onClick={handleSell}>Delete</button></span>)}
+                        {reward.custom == true && (<span><button className="small-button" onClick={handleDelete}>Delete</button></span>)}
                     </div>
 
                 </>

@@ -4,6 +4,7 @@ import { getAvatar } from "../../redux/avatar";
 import { getAvatarAntennas, getAvatarBackgrounds, getAvatarEars, getAvatarEyes, getAvatarHeads, getAvatarMouths, getAvatarNecks, getAvatarNoses } from "../../redux/avatarpart";
 
 import "./UserDashboard.css";
+import EquipedItems from "./EquipedItems";
 
 function UserDashboard() {
   const dispatch = useDispatch();
@@ -100,7 +101,7 @@ function UserDashboard() {
 
         {/* Items and equipment dashboard */}
         <div className="almostBlack itemDashboard">
-          <p className="whiteFont">IMPORT ITEMS & EQUIPMENT COMPONENT</p>
+          <p className="whiteFont"><EquipedItems sessionUser={sessionUser}/></p>
         </div>
       </div>
     </div>

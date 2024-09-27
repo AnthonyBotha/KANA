@@ -27,7 +27,6 @@ const createNewReward = (newReward) => {
 
 
 export const buyReward = (reward) => async (dispatch) => {
-    console.log(reward)
     const res = await csrfFetch("/api/inventory/",{
         method:"POST",
         body: JSON.stringify(reward)
@@ -44,6 +43,18 @@ export const buyReward = (reward) => async (dispatch) => {
             await dispatch(removeReward(reward.id))
             return message
         }
+    }
+}
+
+export const deleteCustom = (rewardId) => async (dispatch) => {
+    const res = await csrfFetch(`/api/rewards/${rewardId}`,{
+        method:"DELETE"
+    })
+
+    if(res.ok){
+        const message = res.json()
+        await dispatch(removeReward(rewardId))
+        return message
     }
 }
 
