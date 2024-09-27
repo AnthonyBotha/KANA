@@ -1,11 +1,13 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { BsCoin } from "react-icons/bs";
-import { createCustomReward } from "../../redux/rewards";
+import { FaRegTrashAlt } from "react-icons/fa";
+import { updateCustomReward } from "../../redux/rewards";
+import { deleteCustomReward } from "../../redux/rewards";
 import "./CreateRewardModal.css"
 
-function CreateRewardModal() {
+function UpdateRewardModal({ rewardId }) {
     const { closeModal } = useModal();
     const [title, setTitle] = useState("");
     const [notes, setNotes] = useState("");
@@ -13,24 +15,44 @@ function CreateRewardModal() {
 
     const dispatch = useDispatch();
 
+    const rewards = useSelector(state => state.rewards)
+    const reward = rewards[rewardId];
+
+    useEffect(() => {
+        if (reward) {
+            setTitle(reward.title || "");
+            setNotes(reward.notes || "");
+            setCost(reward.cost || 10);
+        }
+    }, [reward]);
+
+
+
     const handleSubmit = (e) => {
         e.preventDefault();
         const rewardData = { title, notes, cost };
-        console.log("Reward data submitted:", rewardData);
-        // Handle reward creation logic here
-        dispatch(createCustomReward(rewardData));
+      
+        dispatch(updateCustomReward(rewardId, rewardData));
         closeModal();
     };
+
+    const handleDelete = () => {
+        const confirmation = window.confirm("Are you sure you want to delete this reward?");
+        if (confirmation) {
+            dispatch(deleteCustomReward(rewardId));
+            closeModal();
+        }
+    }
 
     return (
         <div id="modal" className="reward">
             <form id="modal-content" className="reward" onSubmit={handleSubmit}>
                 {/* Modal Header */}
                 <div className="displayFlex alignCeter spaceBetween">
-                    <p className="font whiteFont largeFont">Create Reward</p>
+                    <p className="font whiteFont largeFont">Update Reward</p>
                     <div>
                         <button className="littleRightMargin" onClick={closeModal}>Cancel</button>
-                        <button type="submit">Create</button>
+                        <button type="submit">Save</button>
                     </div>
                 </div>
 
@@ -74,10 +96,12 @@ function CreateRewardModal() {
                         />
 
                     </div>
-
                 </div>
 
-
+                {/* Delete Reward */}
+                <div id="delete-reward-button" className="redFont font textCenter">
+                    <p onClick={handleDelete}><FaRegTrashAlt />Delete this Reward</p>
+                </div>
             </form>
 
         </div>
@@ -85,4 +109,4 @@ function CreateRewardModal() {
 
 }
 
-export default CreateRewardModal;
+export default UpdateRewardModal;
