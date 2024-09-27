@@ -59,9 +59,16 @@ def create_daily():
     #TAGS
     tags_post_manager(data, new_daily) #helper function in app.utils
 
+    #REPEAT ON
+    request_days = data.get('repeatOn', [])
+    for day in request_days:
+        new_day = RepeatOn(daily_id=new_daily.id, day=day)
+        db.session.add(new_day)
+        new_daily.repeat_on_days.append(new_day)
+    db.session.commit()
 
 
-    return jsonify({'new_daily':new_daily.to_dict()})
+    return jsonify({'newDaily':new_daily.to_dict()})
 
 
 

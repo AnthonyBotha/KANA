@@ -5,29 +5,28 @@ import Select from 'react-select';
 import CreatebleSelect from 'react-select/creatable'
 import * as dailyActions from '../../redux/dailies'
 // import * as todoActions from '../../redux/todolist'
-import './TaskEditModal.css';
 
 
-import { FaRegTrashAlt } from "react-icons/fa";
+// import { FaRegTrashAlt } from "react-icons/fa";
 import { CiCirclePlus } from "react-icons/ci";
 import { CiCircleMinus } from "react-icons/ci";
 
 
 
 
-function TaskEditModal({ taskType, task }) {
+function CreateTaskModal({ taskType }) {
     const dispatch = useDispatch()
     const { closeModal } = useModal();
-    const [title, setTitle] = useState(task.title)
-    const [notes, setNotes] = useState(task.notes)
-    const [selectedTags, setSelectedTags] = useState(reactSelectParser(task.tags))
-    const [selectedRepeats, setSelectedRepeats] = useState(reactSelectParser(task.repeats))
-    const [repeatEvery, setRepeatEvery] = useState(task.repeatEvery)
-    const [repeatOn, setRepeatOn] = useState(task.repeatOn)
-    const [checklist, setChecklist] = useState(task.checklist)
+    const [title, setTitle] = useState('')
+    const [notes, setNotes] = useState('')
+    const [selectedTags, setSelectedTags] = useState([])
+    const [selectedRepeats, setSelectedRepeats] = useState(reactSelectParser('Weekly'))
+    const [repeatEvery, setRepeatEvery] = useState(1)
+    const [repeatOn, setRepeatOn] = useState([])
+    const [checklist, setChecklist] = useState([])
     const [newChecklistItem, setNewChecklistItem] = useState('')
-    const [startDate, setStartDate] = useState(task.startDate)
-    const [difficulty, setDifficulty] = useState(reactSelectParser(task.difficulty))
+    const [startDate, setStartDate] = useState()
+    const [difficulty, setDifficulty] = useState(reactSelectParser('Easy'))
 
 
 
@@ -36,24 +35,21 @@ function TaskEditModal({ taskType, task }) {
         const tags = selectedTags.map(tag => (tag.value));
         const formData = new FormData(e.target)
         const payload = Object.fromEntries(formData)
-        const updatedDaily = {
-            ...payload,
-            checklist,
-            tags,
-            repeatOn
+
+        if(taskType =='Daily') {
+            const newDaily = {
+                ...payload,
+                checklist,
+                tags,
+                repeatOn
+            }
+            dispatch(dailyActions.thunkCreateDaily(newDaily))
+
         }
-        if(taskType =='Daily') dispatch(dailyActions.thunkUpdateDaily(task.id, updatedDaily))
-        if(taskType =='Todo')  dispatch(dailyActions.thunkUpdateDaily(task.id, updatedDaily))
+        // if(taskType =='Todo')  dispatch(dailyActions.thunkUpdateDaily(task.id, updatedDaily))
         closeModal()
     }
 
-    const handleDelete = () => {
-        const confirmation = window.confirm(`Are you sure you want to delete this ${taskType}?`)
-        if (confirmation) {
-            if(taskType =='Daily') dispatch(dailyActions.thunkDeleteDaily(task.id)).then(()=> closeModal())
-
-        }
-    }
 
     const addChecklistItem = (newChecklistItem) => {
         setChecklist((prev) => [...prev, { description: newChecklistItem, completed: false }])
@@ -134,7 +130,7 @@ function TaskEditModal({ taskType, task }) {
                         <div className="displayFlex flexColumn noPadding">
                             <p className="font whiteFont mediumFont noMargin">Checklist</p>
                             {/* Adding checklist from database */}
-                            {checklist.length > 0 && checklist.map((el, index) => (
+                            {checklist?.length > 0 && checklist.map((el, index) => (
                                 <div key={el.id}>
                                     <input type='checkbox' checked={el.completed} onChange={(e) => updateChecklistCheckbox(index, e)} />
                                     <input type='text' value={el.description} onChange={(e) => updateChecklistDescription(index, e)} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault() }} />
@@ -227,7 +223,7 @@ function TaskEditModal({ taskType, task }) {
                                 </div>
                             </div>
 
-                            {selectedRepeats.value === 'Weekly' &&
+                            {selectedRepeats?.value === 'Weekly' &&
                                 <div className="displayFlex">
                                     <span id='day-box' value="Sunday" className={checkRepeatOnDays("Sunday")} onClick={(e) => handleDayClick(e)}>Su</span>
                                     <span id='day-box' value="Monday" className={checkRepeatOnDays("Monday")} onClick={(e) => handleDayClick(e)}>Mo</span>
@@ -252,21 +248,13 @@ function TaskEditModal({ taskType, task }) {
                             />
                         </div>
                     </label>
-
-
-                    {/* Delete this TaskType */}
-                    <div id="delete-task-button" className="redFont font textCenter">
-                        <p onClick={handleDelete}><FaRegTrashAlt />Delete this {taskType}</p>
-                    </div>
-
-
                 </div>
             </form>
         </div>
     )
 }
 
-export default TaskEditModal
+export default CreateTaskModal
 
 
 // HELPER COMPONENTS & functions
