@@ -25,14 +25,39 @@ function UserRewards({sessionUser}){
         else updatedRewards = rewardArr;
         setRewards(updatedRewards)
     },[rewardArr.length])
+
+    const changeToDefault = () => {
+        let rewardArr = Object.values(rewards).filter(reward => reward.custom == false)
+        let updatedRewards = []
+
+        if (rewardArr.length >= 10){
+            updatedRewards = rewardArr.slice(0, 10);
+        }
+        else updatedRewards = rewardArr;
+        setRewards(updatedRewards)
+    }
+
+    const changeToCustom = () => {
+        let rewardArr = Object.values(rewards).filter(reward => reward.custom == true)
+        let updatedRewards = []
+
+        if (rewardArr.length >= 3){
+            updatedRewards = rewardArr.slice(0, 3);
+        }
+        else updatedRewards = rewardArr;
+        setRewards(updatedRewards)
+
+    }
+
     return(
+
     <>
         <div className="displayFlex alignBottom spaceBetween">
             <h2 className="font purpleFont">Rewards</h2>
 
             <div className="displayFlex littlePadding">
-                <p className="fontLight whiteFont smallFont littlePadding">All</p>
-                <p className="fontLight whiteFont smallFont littlePadding">Custom</p>
+                <p onClick={changeToDefault} className="fontLight whiteFont smallFont littlePadding">Default</p>
+                <p  onClick={changeToCustom} className="fontLight whiteFont smallFont littlePadding">Custom</p>
             </div>
 
         </div>
