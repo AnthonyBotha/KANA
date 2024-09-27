@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
-import { buyReward, deleteCustom } from "../../redux/rewards";
-
+import { buyReward } from "../../redux/rewards";
+import deleteCustom from '../../redux/rewards'
 
 
 const ManageRewardModal = ({reward}) => {
