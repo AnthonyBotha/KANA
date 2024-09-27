@@ -1,15 +1,18 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 // import { deleteExisingBooking } from "../../store/booking";
 import { useModal } from "../../context/Modal";
 import { deleteItem,equipItem } from "../../redux/inventory";
 import "./ItemModal.css"
 
-const ManageItemModal = ({ itemId, itemName, itemImage, itemDescription, itemValue,equipped }) => {
+const ManageItemModal = ({ itemId, itemName, itemImage, itemDescription, itemValue,equipped,equipment }) => {
     const dispatch = useDispatch();
     const { closeModal } = useModal();
     const [message, setMessage] = useState("");
-    console.log(equipped)
+
+    const user_items = useSelector(state => state.inventory)
+    const itemsArray = Object.values(user_items).filter(item => item.equipment == false && item.equipped == true)
+    const equipementArray = Object.values(user_items).filter(item => item.equipment == true && item.equipped == true)
 
     const handleSell = async () => {
         const result = true
@@ -24,8 +27,17 @@ const ManageItemModal = ({ itemId, itemName, itemImage, itemDescription, itemVal
         }
     };
 
-    const handleEquip = async () => {
-        const result = true
+    const handleEquipItems = async () => {
+        let result = true
+
+        if(itemsArray.length >= 8 && (equipped != true)){
+            result=false
+            setMessage(`${itemName} Couldn't be equipped. Too many items equipped!`);
+
+            setTimeout(() => {
+                closeModal();
+            }, 2000);
+        }
 
         if (result) {
             dispatch(equipItem(itemId))
@@ -36,6 +48,29 @@ const ManageItemModal = ({ itemId, itemName, itemImage, itemDescription, itemVal
             }, 2000);
         }
     };
+
+    const handleEquipEquipment = async () => {
+        let result = true
+
+        if(equipementArray.length >= 8 && (equipped != true)){
+            result=false
+            setMessage(`${itemName} Couldn't be equipped. Only 8 pieces of equipment at a time!`);
+
+            setTimeout(() => {
+                closeModal();
+            }, 2000);
+        }
+
+        if (result) {
+            dispatch(equipItem(itemId))
+            setMessage(`${itemName} Equiped Sucessfully.`);
+
+            setTimeout(() => {
+                closeModal();
+            }, 2000);
+        }
+    };
+
 
 
     return (
@@ -49,7 +84,10 @@ const ManageItemModal = ({ itemId, itemName, itemImage, itemDescription, itemVal
                         <p className="font whiteFont value">Value:{itemValue}</p>
                     </div>
                     <div className="item-action-buttons">
-                        <span><button className="small-button" onClick={handleEquip}>Mount</button></span>
+                        {(equipped == true && !equipment) && (<span><button className="small-button" onClick={handleEquipItems}>Unmount</button></span>)}
+                        {(equipped == false && !equipment) && (<span><button className="small-button" onClick={handleEquipItems}>Mount</button></span>)}
+                        {(equipped == true && equipment) && (<span><button className="small-button" onClick={handleEquipEquipment}>Unmount</button></span>)}
+                        {(equipped == false && equipment) && (<span><button className="small-button" onClick={handleEquipEquipment}>Mount</button></span>)}
                         <span><button className="small-button" onClick={handleSell}>Sell</button></span>
                     </div>
 

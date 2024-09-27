@@ -27,3 +27,8 @@
     cursor: pointer;
     transform: scale(1.05);
 }
+
+.equipped-card.placeholder{
+    background-color: black;
+    cursor: default;
+}

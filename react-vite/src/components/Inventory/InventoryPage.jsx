@@ -14,9 +14,10 @@ function ItemsPage() {
   const user_items = useSelector(state => state.inventory)
   const itemsArray = Object.values(user_items).filter(item => item.equipment == false)
   // const sessionUser = useSelector(state => state.session.user);
-  const { setModalContent } = useModal();
+  const  { setModalContent } = useModal();
 
-  console.log(itemsArray)
+
+
 
   const eggsArr = itemsArray.filter(item => item.type === "egg");
 
@@ -184,25 +185,25 @@ function ItemsPage() {
           ) : (<p className="no-items">You dont own any of these.</p>)}
           {/* Potions Carousel */}
           <h4 className="font whiteFont item-title">Potions</h4>
-          {potionArr.length > 0 ? (
-            <div className="carousel-container">
-              <button
-                className="carousel-arrow left"
-                onClick={() => loadNextBatchPotion("left")}
-                disabled={currentBatchPotion === 0}
-              >
-                &lt;
-              </button>
-              <div className="inventory-carousel">
-                {visiblePotion.map(item => (
-                  <div key={item.id} className="inventory-card">
-                    <div
-                      className="inventory-card-content"
-                      onClick={() => setModalContent(<ManageItemModal itemId={item.id} itemName={item.name} itemImage={item.itemImg} itemDescription={item.description} itemValue={item.cost} />)}
-                    >
-                      <img src={item.itemImg} alt={item.name} className="inventory-image" />
-                      <h5 className="inventory-name">{item.name}</h5>
-                    </div>
+            {potionArr.length > 0 ? (
+              <div className="carousel-container">
+                <button
+                  className="carousel-arrow left"
+                  onClick={() => loadNextBatchPotion("left")}
+                  disabled={currentBatchPotion === 0}
+                >
+                  &lt;
+                </button>
+                <div className="inventory-carousel">
+                  {visiblePotion.map(item => (
+                    <div key={item.id} className="inventory-card">
+                        <div
+                          className="inventory-card-content"
+                          onClick={() => setModalContent(<ManageItemModal itemId={item.id} itemName={item.name} itemImage={item.itemImg} itemDescription={item.description} itemValue={item.cost} item={item} equipped={item.equipped} />)}
+                        >
+                          <img src={item.itemImg} alt={item.name} className="inventory-image" />
+                          <h5 className="inventory-name">{item.name}</h5>
+                        </div>
 
 
                   </div>
@@ -219,25 +220,25 @@ function ItemsPage() {
           ) : (<p className="no-items">You dont own any of these.</p>)}
           {/* Food Carousel */}
           <h4 className="font whiteFont item-title">Food</h4>
-          {foodArr.length > 0 ? (
-            <div className="carousel-container">
-              <button
-                className="carousel-arrow left"
-                onClick={() => loadNextBatchFood("left")}
-                disabled={currentBatchFood === 0}
-              >
-                &lt;
-              </button>
-              <div className="inventory-carousel">
-                {visibleFood.map(item => (
-                  <div key={item.id} className="inventory-card">
-                    <div
-                      className="inventory-card-content"
-                      onClick={() => setModalContent(<ManageItemModal itemId={item.id} itemName={item.name} itemImage={item.itemImg} itemDescription={item.description} itemValue={item.cost} />)}
-                    >
-                      <img src={item.itemImg} alt={item.name} className="inventory-image" />
-                      <h5 className="inventory-name">{item.name}</h5>
-                    </div>
+            {foodArr.length > 0 ? (
+              <div className="carousel-container">
+                <button
+                  className="carousel-arrow left"
+                  onClick={() => loadNextBatchFood("left")}
+                  disabled={currentBatchFood === 0}
+                >
+                  &lt;
+                </button>
+                <div className="inventory-carousel">
+                  {visibleFood.map(item => (
+                    <div key={item.id} className="inventory-card">
+                        <div
+                          className="inventory-card-content"
+                          onClick={() => setModalContent(<ManageItemModal itemId={item.id} itemName={item.name} itemImage={item.itemImg} itemDescription={item.description} itemValue={item.cost} equipped={item.equipped} />)}
+                        >
+                          <img src={item.itemImg} alt={item.name} className="inventory-image" />
+                          <h5 className="inventory-name">{item.name}</h5>
+                        </div>
 
 
                   </div>
@@ -254,25 +255,25 @@ function ItemsPage() {
           ) : (<p className="no-items">You dont own any of these.</p>)}
           {/* Special Carousel */}
           <h4 className="font whiteFont item-title">Special</h4>
-          {specialArr.length > 0 ? (
-            <div className="carousel-container">
-              <button
-                className="carousel-arrow left"
-                onClick={() => loadNextBatchSpecial("left")}
-                disabled={currentBatchSpecial === 0}
-              >
-                &lt;
-              </button>
-              <div className="inventory-carousel">
-                {visibleSpecial.map(item => (
-                  <div key={item.id} className="inventory-card">
-                    <div
-                      className="inventory-card-content"
-                      onClick={() => setModalContent(<ManageItemModal itemId={item.id} itemName={item.name} itemImage={item.itemImg} itemDescription={item.description} itemValue={item.cost} />)}
-                    >
-                      <img src={item.itemImg} alt={item.name} className="inventory-image" />
-                      <h5 className="inventory-name">{item.name}</h5>
-                    </div>
+            {specialArr.length > 0 ? (
+              <div className="carousel-container">
+                <button
+                  className="carousel-arrow left"
+                  onClick={() => loadNextBatchSpecial("left")}
+                  disabled={currentBatchSpecial === 0}
+                >
+                  &lt;
+                </button>
+                <div className="inventory-carousel">
+                  {visibleSpecial.map(item => (
+                    <div key={item.id} className="inventory-card">
+                        <div
+                          className="inventory-card-content"
+                          onClick={() => setModalContent(<ManageItemModal itemId={item.id} itemName={item.name} itemImage={item.itemImg} itemDescription={item.description} itemValue={item.cost} equipped={item.equipped || false} />)}
+                        >
+                          <img src={item.itemImg} alt={item.name} className="inventory-image" />
+                          <h5 className="inventory-name">{item.name}</h5>
+                        </div>
 
 
                   </div>
