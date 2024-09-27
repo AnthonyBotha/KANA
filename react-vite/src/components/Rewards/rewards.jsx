@@ -75,7 +75,7 @@ function UserRewards({sessionUser}){
                 </div>
             ))}
             </div>
-        ) : (<p>All Rewards Purchased</p>)}
+        ) : (<p className="font whiteFont littlePadding">No Custom Rewards</p>)}
 
         </div>
     </>
