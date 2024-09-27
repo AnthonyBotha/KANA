@@ -136,7 +136,7 @@ function ItemsPage() {
                     <div key={item.id} className="inventory-card">
                         <div
                           className="inventory-card-content"
-                          onClick={() => setModalContent(<ManageItemModal itemId={item.id} itemName={item.name} itemImage={item.itemImg} itemDescription={item.description} itemValue={item.cost} />)}
+                          onClick={() => setModalContent(<ManageItemModal itemId={item.id} itemName={item.name} itemImage={item.itemImg} itemDescription={item.description} itemValue={item.cost} equipped={item.equipped} />)}
                         >
                           <img src={item.itemImg} alt={item.name} className="inventory-image" />
                           <h5 className="inventory-name">{item.name}</h5>
