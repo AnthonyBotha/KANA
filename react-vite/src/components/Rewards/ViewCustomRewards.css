@@ -1,0 +1,76 @@
+.rewards-container-custom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+}
+
+.rewards-carousel-custom {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.rewards-card-custom {
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 220px;
+    height: 50px;
+    padding: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.2s ease-in-out;
+}
+
+.rewards-card-custom:hover {
+    transform: scale(1.05);
+}
+
+.reward-name-custom {
+    font-size: 16px;
+    margin: 0;
+}
+
+.reward-notes-custom {
+    font-size: 14px;
+    margin-top: 5px;
+    color: #ccc;
+}
+.reward-cost-container-custom {
+    display: flex;
+    align-items: stretch;
+    justify-content: flex-end;
+}
+
+.reward-cost-custom {
+    color: white;
+    padding: 8px 12px;
+    border-radius: 0 8px 8px 0;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.reward-details-custom {
+    flex-grow: 1;
+    text-align: left;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
