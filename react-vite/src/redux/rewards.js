@@ -2,6 +2,7 @@ import { csrfFetch } from "./.csrf";
 
 const LOAD_REWARDS = "rewards/LOAD_REWARDS"
 const BUY_REWARDS = "rewards/BUY_REWARDS"
+const CREATE_REWARDS = "rewards/CREATE_REWARDS"
 
 const loadRewards = (rewards) => {
     return{
@@ -14,6 +15,13 @@ const removeReward = (rewardId) => {
     return {
         type:BUY_REWARDS,
         payload:rewardId
+    }
+}
+
+const createNewReward = (newReward) => {
+    return {
+        type:CREATE_REWARDS,
+        payload:newReward
     }
 }
 
@@ -48,6 +56,10 @@ export const getRewards = () => async (dispatch) => {
         dispatch(loadRewards(rewards));
         return rewards
     }
+}
+
+export const createCustomReward = () => async (dispatch) => {
+    const res = await csrfFetch("")
 }
 
 const initialState = {}
