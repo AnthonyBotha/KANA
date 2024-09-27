@@ -51,6 +51,7 @@ function TaskEditModal({ taskType, task }) {
             repeatOn
         }
         dispatch(dailyActions.thunkUpdateDaily(task.id, updatedDaily))
+        closeModal()
     }
 
     const handleDelete = () => {
