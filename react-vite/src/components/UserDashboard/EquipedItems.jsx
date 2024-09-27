@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { getItems } from "../../redux/inventory";
 import { BsCoin } from "react-icons/bs";
 import "./EquippedItems.css"
-import ManageItemModal from "../Inventory/ItemModal";
+import ManageEquippedModal from "./EquippedModal";
 
 function EquipedItems(){
     const dispatch = useDispatch()
@@ -26,7 +26,7 @@ function EquipedItems(){
                     <div className="equipped-carousel">
                         {itemsArray.map(item => (
                             <div key={item.id} className="equipped-card">
-                                <div onClick={() => setModalContent(<ManageItemModal itemId={item.id} itemName={item.name} itemImage={item.itemImg} itemDescription={item.description} itemValue={item.cost}/>)}>
+                                <div onClick={() => setModalContent(<ManageEquippedModal itemId={item.id} itemName={item.name} itemImage={item.itemImg} itemDescription={item.description} itemValue={item.cost}/>)}>
                                     <img src={item.itemImg} alt={item.name} className="reward-image" />
                                     <h5 className="reward-name">{item.name}</h5>
                                     <div className="reward-name"><BsCoin className="yellowFont" />{item.cost}</div>

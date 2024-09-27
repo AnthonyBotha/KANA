@@ -1,5 +1,6 @@
 import { useEffect, useState, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { NavLink } from "react-router-dom";
 import { useModal } from "../../../context/Modal";
 import { getItems } from "../../../redux/inventory";
 import ManageItemModal from "../ItemModal";
@@ -179,7 +180,33 @@ function EquipmentPage() {
       <UserDashboard />
 
         <div className="leftPageBorder items-container">
-          <h2 className="font purpleFont">Equipment</h2>
+          <div className="items-page-header">
+            <h2 className="items-heading font purpleFont">Equipment</h2>
+            <div className="inventory-headings">
+              <NavLink
+                to="/inventory/items"
+                className="inventory-navlink font whiteFont littleBottomMargin littleTopMargin"
+              >
+                Items
+              </NavLink>
+              <NavLink
+                to="/inventory/equipment"
+                className={({ isActive }) => {
+                  if (isActive) {
+                    return "inventory-navlink font purpleFont littleBottomMargin littleTopMargin active-link disabled-link";
+                  }
+                  return "inventory-navlink font whiteFont littleBottomMargin littleTopMargin";
+                }}
+                
+              >
+                Equipment
+              </NavLink>
+
+            </div>
+
+          </div>
+
+
           {/* Armor Carousel */}
           <h4 className="font whiteFont item-title">Armor</h4>
           {armorArr.length > 0 ? (
