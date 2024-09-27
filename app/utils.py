@@ -10,75 +10,51 @@ def str_to_bool(value):
 
 def tags_post_manager(data, task_instance):
     user = User.query.get(current_user.id)
-    db_tags = user.tags #query for all tags in database
-    stored_tags = [tag.to_dict()['tag_name'] for tag in db_tags] # returns a list of the tags in the database in this format: ['Work', 'Excercise', 'Creativity', 'Chores', etc]
-    tags = data.get('tags') #return a list of strings representing the tags in the request (from frontend)
-    if tags:
-        for tag in tags:
-            if tag not in stored_tags:
-                # store new tag to get id
-                new_tag = Tag(tag_name = str(tag), user_id = current_user.id)
-                db.session.add(new_tag)
-                db.session.commit()
-            else:
-                #fetch the existing tag to get id
-                new_tag = Tag.query.filter_by(tag_name=tag).first()
-            #create association in joined table:
-            _create_tag_association(task_instance, new_tag)
+    db_tags = user.tags #query all tags from the database associated with the user
+    stored_tags = {tag.tag_name: tag for tag in db_tags} # returns a list of the tags in the database in this format: ['Work', 'Excercise', 'Creativity', 'Chores', etc]
+    request_tags = data.get('tags', []) #return a list of strings representing the tags in the request (from frontend)
+
+    for tag_name in request_tags:
+        new_tag = stored_tags.get(tag_name) #check if the tag exists in the db and get it
+        if new_tag is None: # meaning is not in the db, then create a new Tag
+            new_tag = Tag(tag_name=str(tag_name), user_id=current_user.id)
+            db.session.add(new_tag)
+        #create association
+        task_instance.tags.append(new_tag)
+    try:
         db.session.commit()
+    except Exception as e:
+        db.session.rollback()
+        print(f"Error committing tags: {e}")
 
 
 def tags_update_manager(data, task_instance):
-    request_tags = data.get('tags') #Tag incoming from request
     user = User.query.get(current_user.id)
-    db_tags = user.tags #query for all tags in database
-    stored_tags = [tag.tag_name for tag in db_tags] # returns a list of the tags in the database in this format: ['Work', 'Excercise', 'Creativity', 'Chores', etc]
-    current_tags = [tag.tag_name for tag in task_instance.tags] #Tags the current Daily/Todo/Habit instance has.
-    if request_tags:
-    #check for removed tags
-        for tag in current_tags:
-            if tag not in request_tags:
-                #find the specific tag in the database
-                tag_to_remove = Tag.query.filter_by(tag_name=tag).first()
-                if tag_to_remove:
-                    # Remove the association between the Daily/Todo/Habit instance and the Tag
-                    task_instance.tags.remove(tag_to_remove)
-    #check for new tags
-        for tag in request_tags:
-            if tag not in current_tags:
-                #check if its in the database already so that we don't have duplicates
-                if tag in stored_tags:
-                    new_tag = Tag.query.filter_by(tag_name=tag).first()
-                else:
-                    new_tag = Tag(tag_name=str(tag), user_id=current_user.id)
+    db_tags = user.tags  # query all tags from the database associated with the user
+    stored_tags = {tag.tag_name: tag for tag in db_tags}  # Dictionary for fast lookup O(n)
+    current_tags = {tag.tag_name: tag for tag in task_instance.tags}  # Dictionary for fast lookup O(n)
+    request_tags = data.get('tags', [])  # get the tags in the incoming request or default to an empty list
+
+    # check for removed tags
+    for tag_name in list(current_tags):  # create a copy of the current_tags as an array to avoid modifying the original dictionary
+        if tag_name not in request_tags:
+            tag_to_remove = current_tags[tag_name]
+            task_instance.tags.remove(tag_to_remove)
+
+    # associate new tags if they exist in db(stored_tags) or create and associate new ones
+    for tag_name in request_tags:
+        if tag_name not in current_tags: # Then fetch existing tag from db or create a new one
+            if tag_name in stored_tags:
+                new_tag = stored_tags[tag_name]
+            else:
+                new_tag = Tag(tag_name=tag_name, user_id=current_user.id)
                 db.session.add(new_tag)
-                db.session.commit()
-                #add to db and make association on joined table
-                _create_tag_association(task_instance, new_tag)
-    else:
-        task_instance.tags = []
 
+            # create association
+            task_instance.tags.append(new_tag)
 
+    db.session.commit()
 
-def _create_tag_association(task_instance, new_tag):
-    if isinstance(task_instance, Daily):
-        db.session.execute(
-        tasks_tags.insert().values(
-            daily_id=task_instance.id,
-            tag_id=new_tag.id
-        ))
-    elif isinstance(task_instance, Habit):
-        db.session.execute(
-        tasks_tags.insert().values(
-            habit_id=task_instance.id,
-            tag_id=new_tag.id
-        ))
-    elif isinstance(task_instance, Todo):
-        db.session.execute(
-        tasks_tags.insert().values(
-            todo_id=task_instance.id,
-            tag_id=new_tag.id
-        ))
 
 
 ## CHECKLIST MANAGERS
@@ -105,15 +81,11 @@ def checklist_post_manager(data, task_instance):
 
 def checklist_update_manager(data, task_instance):
     checklist = data.get('checklist') # list of dictionaries (array of objects)
-    print('-----'*200, 'TASK INSTANCE: ', task_instance)
 
      #check for removed items by creating id sets and getting the difference:
     current_checklist_ids = {int(check.id) for check in task_instance.checklist} if task_instance.checklist else set()
     request_checklist_ids = {int(check['id']) for check in checklist if check.get('id') is not None} if checklist else set()
-    print('----'*100, 'current_checklist_ids', current_checklist_ids)
-    print('----'*100, 'request_checklist_ids', request_checklist_ids)
     removed_items = current_checklist_ids - request_checklist_ids
-    print('----'*100, 'removed_items', removed_items)
 
     if removed_items:
         for id in removed_items:
@@ -130,22 +102,9 @@ def checklist_update_manager(data, task_instance):
             if checklist_item['description'] is None:
                 return {"errors": "message: description can't be None"}
 
-            print('-----'*200, checklist_item)
-
-
-
             if checklist_item.get('id'):
-                print('---------------00 got Id: ', checklist_item.get('id'))
-                checklists = Checklist.query.all()
-                print('all checklist', checklists)
-
-                db_checklist_filter = Checklist.query.filter_by(id=int(checklist_item.get('id'))).first()
-                print('------QUERYING WITH FILTER_BY:', db_checklist_filter)
 
                 db_checklist = Checklist.query.get(int(checklist_item['id']))
-
-                print('---------------: DID QUERY Checklist.query.get(int(checklist_item["id"])) WORK??????  ', db_checklist)
-
                 db_checklist.description = checklist_item['description'] or db_checklist.description
                 db_checklist.completed = str_to_bool(checklist_item.get('completed', db_checklist.completed))
 

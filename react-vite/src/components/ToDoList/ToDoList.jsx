@@ -1,17 +1,25 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
-
+import { useModal } from "../../context/Modal";
+import TaskEditModal from "../TasksEditModal";
 import { getTodoList } from '../../redux/todolist.js';
 
 
 function ToDoList(userId) {
   const dispatch = useDispatch();
-  const todos = useSelector(state => state.todoList.todos)
+  const todos = useSelector(state => state.userTodos)
+  const { setModalContent} = useModal()
+  const [isLoaded, setIsLoaded] = useState(false)
   const [selectedIds, setSelectedIds] = useState([]);
 
   useEffect(() => {
-    dispatch(getTodoList());
-  }, [dispatch, userId])
+    dispatch(getTodoList()).then(()=> setIsLoaded(true));
+  }, [dispatch, userId, setIsLoaded])
+
+  const openModal = (id) => {
+    const task = todos.objTodos[id]
+    setModalContent(<TaskEditModal taskType='Todo' task={task}/>)
+}
 
   const handleCheckboxChange = (e) => {
     const checkedId = e.target.value;
@@ -22,7 +30,7 @@ function ToDoList(userId) {
     }
   }
 
-  return (
+  if(isLoaded) return (
     <>
       <div className='displayFlex alignBottom spaceBetween'>
         <h2 className='font purpleFont'>To-Dos</h2>
@@ -40,8 +48,8 @@ function ToDoList(userId) {
 
       {/* individual tasks */}
       <div className='displayFlex flexColumn littlePadding littleMargin'>
-        {todos?.map(({id, completed, title, difficulty, dueDate, notes}) => (
-          <div key={id} className='displayFlex flexColumn darkGrey littleMargin roundedCorners'>
+        {todos.arrTodos?.map(({id, completed, title, difficulty, dueDate, notes}) => (
+          <div key={id} onClick={()=>openModal(id)} className='displayFlex flexColumn darkGrey littleMargin roundedCorners'>
 
              <div className='displayFlex spaceBetween alignCenter'>
               <label>
@@ -51,7 +59,7 @@ function ToDoList(userId) {
                   className=''
                   // checked={selectedIds.includes(`${id}`)}
                    checked={completed} //if completed = True then the checkbox is checked
-                  onClick={(e) => { handleCheckboxChange(e) }}
+                  onChange={(e) => { handleCheckboxChange(e) }}
                 />
                 {/* figure out how to update db dynamically */}
                 {completed = selectedIds.includes(`${id}`)}

@@ -48,7 +48,7 @@ function Dailies(userId) {
                                         <input
                                             type='checkbox' value={id} className=''
                                             checked={!isDue} //if completed = True then the checkbox is checked
-                                            onClick={(e) => { handleCheckboxChange(e) }}
+                                            onChange={(e) => { handleCheckboxChange(e) }}
                                         />
                                     </label>
 
