@@ -21,6 +21,7 @@ function EquipmentPage() {
 
   const inventoryArr = Object.values(inventory).filter(item => item.equipment == true);
 
+  console.log(inventoryArr)
   const armorArr = inventoryArr.filter(item => item.type === "armor");
 
   const helmetsArr = inventoryArr.filter(item => item.type === "helmet");
@@ -196,7 +197,7 @@ function EquipmentPage() {
                   <div key={item.id} className="inventory-card">
                     <div
                       className="inventory-card-content"
-                      onClick={() => setModalContent(<ManageItemModal itemId={item.id} itemName={item.name} itemImage={item.itemImg} itemDescription={item.description} itemValue={item.cost} />)}
+                      onClick={() => setModalContent(<ManageItemModal itemId={item.id} itemName={item.name} itemImage={item.itemImg} itemDescription={item.description} itemValue={item.cost} equipped={item.equipped} equipment={item.equipment} />)}
                     >
                       <img src={item.itemImg} alt={item.name} className="inventory-image" />
                       <h5 className="inventory-name">{item.name}</h5>
@@ -231,7 +232,7 @@ function EquipmentPage() {
                   <div key={item.id} className="inventory-card">
                     <div
                       className="inventory-card-content"
-                      onClick={() => setModalContent(<ManageItemModal itemId={item.id} itemName={item.name} itemImage={item.itemImg} itemDescription={item.description} itemValue={item.cost} />)}
+                      onClick={() => setModalContent(<ManageItemModal itemId={item.id} itemName={item.name} itemImage={item.itemImg} itemDescription={item.description} itemValue={item.cost} equipped={item.equipped} equipment={item.equipment}  />)}
                     >
                       <img src={item.itemImg} alt={item.name} className="inventory-image" />
                       <h5 className="inventory-name">{item.name}</h5>
@@ -266,7 +267,7 @@ function EquipmentPage() {
                   <div key={item.id} className="inventory-card">
                     <div
                       className="inventory-card-content"
-                      onClick={() => setModalContent(<ManageItemModal itemId={item.id} itemName={item.name} itemImage={item.itemImg} itemDescription={item.description} itemValue={item.cost} />)}
+                      onClick={() => setModalContent(<ManageItemModal itemId={item.id} itemName={item.name} itemImage={item.itemImg} itemDescription={item.description} itemValue={item.cost} equipped={item.equipped} equipment={item.equipment}   />)}
                     >
                       <img src={item.itemImg} alt={item.name} className="inventory-image" />
                       <h5 className="inventory-name">{item.name}</h5>
@@ -301,7 +302,7 @@ function EquipmentPage() {
                   <div key={item.id} className="inventory-card">
                     <div
                       className="inventory-card-content"
-                      onClick={() => setModalContent(<ManageItemModal itemId={item.id} itemName={item.name} itemImage={item.itemImg} itemDescription={item.description} itemValue={item.cost} />)}
+                      onClick={() => setModalContent(<ManageItemModal itemId={item.id} itemName={item.name} itemImage={item.itemImg} itemDescription={item.description} itemValue={item.cost} equipped={item.equipped} equipment={item.equipment}  />)}
                     >
                       <img src={item.itemImg} alt={item.name} className="inventory-image" />
                       <h5 className="inventory-name">{item.name}</h5>
@@ -336,7 +337,7 @@ function EquipmentPage() {
                   <div key={item.id} className="inventory-card">
                     <div
                       className="inventory-card-content"
-                      onClick={() => setModalContent(<ManageItemModal itemId={item.id} itemName={item.name} itemImage={item.itemImg} itemDescription={item.description} itemValue={item.cost} />)}
+                      onClick={() => setModalContent(<ManageItemModal itemId={item.id} itemName={item.name} itemImage={item.itemImg} itemDescription={item.description} itemValue={item.cost} equipped={item.equipped} equipment={item.equipment}   />)}
                     >
                       <img src={item.itemImg} alt={item.name} className="inventory-image" />
                       <h5 className="inventory-name">{item.name}</h5>
@@ -369,7 +370,7 @@ function EquipmentPage() {
                   <div key={item.id} className="inventory-card">
                     <div
                       className="inventory-card-content"
-                      onClick={() => setModalContent(<ManageItemModal itemId={item.id} itemName={item.name} itemImage={item.itemImg} itemDescription={item.description} itemValue={item.cost} />)}
+                      onClick={() => setModalContent(<ManageItemModal itemId={item.id} itemName={item.name} itemImage={item.itemImg} itemDescription={item.description} itemValue={item.cost} equipped={item.equipped}  equipment={item.equipment} />)}
                     >
                       <img src={item.itemImg} alt={item.name} className="inventory-image" />
                       <h5 className="inventory-name">{item.name}</h5>
@@ -402,7 +403,7 @@ function EquipmentPage() {
                   <div key={item.id} className="inventory-card">
                     <div
                       className="inventory-card-content"
-                      onClick={() => setModalContent(<ManageItemModal itemId={item.id} itemName={item.name} itemImage={item.itemImg} itemDescription={item.description} itemValue={item.cost} />)}
+                      onClick={() => setModalContent(<ManageItemModal itemId={item.id} itemName={item.name} itemImage={item.itemImg} itemDescription={item.description} itemValue={item.cost} equipped={item.equipped} equipment={item.equipment}  />)}
                     >
                       <img src={item.itemImg} alt={item.name} className="inventory-image" />
                       <h5 className="inventory-name">{item.name}</h5>
@@ -435,7 +436,7 @@ function EquipmentPage() {
                   <div key={item.id} className="inventory-card">
                     <div
                       className="inventory-card-content"
-                      onClick={() => setModalContent(<ManageItemModal itemId={item.id} itemName={item.name} itemImage={item.itemImg} itemDescription={item.description} itemValue={item.cost} />)}
+                      onClick={() => setModalContent(<ManageItemModal itemId={item.id} itemName={item.name} itemImage={item.itemImg} itemDescription={item.description} itemValue={item.cost} equipped={item.equipped}  equipment={item.equipment} />)}
                     >
                       <img src={item.itemImg} alt={item.name} className="inventory-image" />
                       <h5 className="inventory-name">{item.name}</h5>

@@ -101,7 +101,7 @@ function UserDashboard() {
 
         {/* Items and equipment dashboard */}
         <div className="almostBlack itemDashboard">
-          <p className="whiteFont"><EquipedItems sessionUser={sessionUser}/></p>
+          <div className="whiteFont"><EquipedItems sessionUser={sessionUser}/></div>
         </div>
       </div>
     </div>
