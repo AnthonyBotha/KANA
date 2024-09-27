@@ -235,13 +235,13 @@ function TaskEditModal({ taskType, task }) {
 
                             {selectedRepeats.value === 'Weekly' &&
                                 <div className="displayFlex">
-                                    <span id='day-box' value="Sunday" onClick={(e) => handleDayClick(e)}>Su</span>
-                                    <span id='day-box' value="Monday" onClick={(e) => handleDayClick(e)}>Mo</span>
-                                    <span id='day-box' value="Tuesday" onClick={(e) => handleDayClick(e)}>Tu</span>
-                                    <span id='day-box' value="Wednesday" onClick={(e) => handleDayClick(e)}>We</span>
-                                    <span id='day-box' value="Thursday" onClick={(e) => handleDayClick(e)}>Th</span>
-                                    <span id='day-box' value="Friday" onClick={(e) => handleDayClick(e)}>Fr</span>
-                                    <span id='day-box' value="Saturday" onClick={(e) => handleDayClick(e)}>Sa</span>
+                                    <span id='day-box' value="Sunday" className={checkRepeatOnDays("Sunday")} onClick={(e) => handleDayClick(e)}>Su</span>
+                                    <span id='day-box' value="Monday" className={checkRepeatOnDays("Monday")} onClick={(e) => handleDayClick(e)}>Mo</span>
+                                    <span id='day-box' value="Tuesday" className={checkRepeatOnDays("Tuesday")} onClick={(e) => handleDayClick(e)}>Tu</span>
+                                    <span id='day-box' value="Wednesday" className={checkRepeatOnDays("Wednesday")} onClick={(e) => handleDayClick(e)}>We</span>
+                                    <span id='day-box' value="Thursday" className={checkRepeatOnDays("Thursday")} onClick={(e) => handleDayClick(e)}>Th</span>
+                                    <span id='day-box' value="Friday" className={checkRepeatOnDays("Friday")} onClick={(e) => handleDayClick(e)}>Fr</span>
+                                    <span id='day-box' value="Saturday" className={checkRepeatOnDays("Saturday")} onClick={(e) => handleDayClick(e)}>Sa</span>
                                 </div>
                             }
 
