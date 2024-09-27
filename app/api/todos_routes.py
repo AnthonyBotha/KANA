@@ -16,7 +16,7 @@ def todos():
     user_todos = Todo.query.filter_by(user_id=current_user.id).options(
         joinedload(Todo.tags),
         joinedload(Todo.checklist)
-    ).all()
+    ).order_by(Todo.id.asc()).all()
 
     if len(user_todos) < 1:
         return {'todos':[]}
@@ -31,14 +31,14 @@ def create_todo():
     """
     Create new To-do for the current user
     """
-
     data = request.json
+    print('---'*200, 'DATA IN CREATE TODO ROUTE: ', data)
 
     title= data.get("title")
     notes= data.get("notes")
     difficulty= data.get('difficulty')
     due_date=data.get('due_date')
-
+    
     due_date = due_date.split('-')
     if len(due_date) < 3:
         return {'error':{'message':'date needs to be formatted (YYYY-MM-DD)'}},400
@@ -68,8 +68,8 @@ def update_todo(todo_id):
     """
     Update todo by id for the current user by extracting fields from request body
     """
-
     data=request.json
+    print("========================="*100 ," DATA IN TODO PUT DB ROUTE", data )
     todo=Todo.query.get(todo_id)
 
     if todo.user_id != current_user.id:
