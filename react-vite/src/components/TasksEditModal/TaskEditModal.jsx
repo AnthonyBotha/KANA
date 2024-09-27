@@ -4,7 +4,7 @@ import { useState } from "react";
 import Select from 'react-select';
 import CreatebleSelect from 'react-select/creatable'
 import * as dailyActions from '../../redux/dailies'
-// import * as todoActions from '../../redux/todolist'
+import * as todoActions from '../../redux/todolist'
 import './TaskEditModal.css';
 
 
@@ -28,7 +28,7 @@ function TaskEditModal({ taskType, task }) {
     const [newChecklistItem, setNewChecklistItem] = useState('')
     const [startDate, setStartDate] = useState(task.startDate)
     const [difficulty, setDifficulty] = useState(reactSelectParser(task.difficulty))
-
+    const [dueDate, setDueDate] = useState(task.dueDate)
 
 
     const handleSubmit = (e) => {
@@ -36,14 +36,23 @@ function TaskEditModal({ taskType, task }) {
         const tags = selectedTags.map(tag => (tag.value));
         const formData = new FormData(e.target)
         const payload = Object.fromEntries(formData)
-        const updatedDaily = {
-            ...payload,
-            checklist,
-            tags,
-            repeatOn
+        if(taskType =='Daily') {
+            const updatedDaily = {
+                ...payload,
+                checklist,
+                tags,
+                repeatOn
+            }
+            dispatch(dailyActions.thunkUpdateDaily(task.id, updatedDaily))
         }
-        if(taskType =='Daily') dispatch(dailyActions.thunkUpdateDaily(task.id, updatedDaily))
-        if(taskType =='Todo')  dispatch(dailyActions.thunkUpdateDaily(task.id, updatedDaily))
+        if(taskType =='Todo') {
+            const updatedTodo = {
+                ...payload,
+                checklist,
+                tags
+            }
+            dispatch(todoActions.thunkUpdateTodo(task.id, updatedTodo))
+        }
         closeModal()
     }
 
@@ -51,6 +60,7 @@ function TaskEditModal({ taskType, task }) {
         const confirmation = window.confirm(`Are you sure you want to delete this ${taskType}?`)
         if (confirmation) {
             if(taskType =='Daily') dispatch(dailyActions.thunkDeleteDaily(task.id)).then(()=> closeModal())
+            if(taskType =='Todo') dispatch(todoActions.thunkDeleteTodo(task.id)).then(()=> closeModal())
 
         }
     }
@@ -134,7 +144,7 @@ function TaskEditModal({ taskType, task }) {
                         <div className="displayFlex flexColumn noPadding">
                             <p className="font whiteFont mediumFont noMargin">Checklist</p>
                             {/* Adding checklist from database */}
-                            {checklist.length > 0 && checklist.map((el, index) => (
+                            {checklist?.length > 0 && checklist?.map((el, index) => (
                                 <div key={el.id}>
                                     <input type='checkbox' checked={el.completed} onChange={(e) => updateChecklistCheckbox(index, e)} />
                                     <input type='text' value={el.description} onChange={(e) => updateChecklistDescription(index, e)} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault() }} />
@@ -187,7 +197,12 @@ function TaskEditModal({ taskType, task }) {
                     {taskType === 'Todo' &&
                         <div>
                             <p>Due Date</p>
-                            <input name="due_date" type="date" />
+                            <input
+                                name="due_date"
+                                type="date"
+                                value={dueDate}
+                                onChange={(e)=> setDueDate(e.target.value)}
+                            />
                         </div>
                     }
 
