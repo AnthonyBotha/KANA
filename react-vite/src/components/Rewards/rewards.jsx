@@ -10,23 +10,8 @@ function UserRewards({sessionUser}){
     const rewards= useSelector(state => state.rewards)
     const rewardArr= Object.values(rewards).filter(reward => reward.custom == false)
     const {setModalContent} = useModal();
-    const [newRewardsArr,setRewards] = useState([])
+    const [newRewardsArr, setRewards] = useState([])
 
-<<<<<<< HEAD
-
-    let newRewardsArr = []
-
-    if(rewardArr.length >= 8){
-        newRewardsArr.push(rewardArr[0],rewardArr[1],rewardArr[2],
-            rewardArr[3],rewardArr[4],rewardArr[5],rewardArr[6],rewardArr[7]
-        )
-    }
-    else{
-        rewardArr.forEach((reward)=> newRewardsArr.push(reward))
-    }
-
-=======
->>>>>>> cfcdc773d0ed4d0f15aedc820c74acffbda2bd42
     useEffect(() => {
         dispatch(getRewards())
     },[dispatch,sessionUser.id])
