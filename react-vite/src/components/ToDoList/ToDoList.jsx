@@ -7,7 +7,7 @@ import { getTodoList } from '../../redux/todolist.js';
 
 function ToDoList(userId) {
   const dispatch = useDispatch();
-  const todos = useSelector(state => state.usersTodos)
+  const todos = useSelector(state => state.userTodos)
   const { setModalContent} = useModal()
   const [isLoaded, setIsLoaded] = useState(false)
   const [selectedIds, setSelectedIds] = useState([]);

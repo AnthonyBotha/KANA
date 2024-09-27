@@ -19,7 +19,7 @@ const rootReducer = combineReducers({
   avatar: avatarReducer,
   avatarParts: avatarPartsReducer,
   inventory: inventoryReducer,
-  usersTodos: todosReducer,
+  userTodos: todosReducer,
   userDailies: dailiesReducer,
   tags: tagsReducer,
   rewards: rewardsReducer
