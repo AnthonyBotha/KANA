@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useModal } from "../../context/Modal";
 import CreateRewardModal from "../Rewards/CreateRewardModal";
+import CreateTaskModal from "../CreateTaskModal";
 import "./AddTask.css"
 
 function AddTask(){
@@ -37,7 +38,13 @@ function AddTask(){
             {showMenu && (
                 <ul className="task-dropdown" ref={ulRef}>
                     <li className="task-option" onClick={closeMenu}>Add Habit</li>
-                    <li className="task-option" onClick={closeMenu}>Add Daily</li>
+                    <li className="task-option"
+                        onClick={() => {
+                            setModalContent(<CreateTaskModal taskType={'Daily'}/>)
+                            setShowMenu(false)
+                        }}
+                    >Add Daily
+                    </li>
                     <li className="task-option" onClick={closeMenu}>Add To Do</li>
                     <li className="task-option" onClick={() => setModalContent(<CreateRewardModal />)}>Add Reward</li>
                 </ul>
