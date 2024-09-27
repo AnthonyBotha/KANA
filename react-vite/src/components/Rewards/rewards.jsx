@@ -10,7 +10,7 @@ function UserRewards({sessionUser}){
     const rewards= useSelector(state => state.rewards)
     const rewardArr= Object.values(rewards).filter(reward => reward.custom == false)
     const {setModalContent} = useModal();
-    const [newRewardsArr,setRewards] = useState([])
+    const [newRewardsArr, setRewards] = useState([])
 
     useEffect(() => {
         dispatch(getRewards())
