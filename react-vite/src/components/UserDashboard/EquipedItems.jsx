@@ -6,7 +6,7 @@ import { BsCoin } from "react-icons/bs";
 import "./EquippedItems.css"
 import ManageItemModal from "../Inventory/ItemModal";
 
-function EquipedItems({sessionUser}){
+function EquipedItems(){
     const dispatch = useDispatch()
     const user_items = useSelector(state => state.inventory)
     const itemsArray = Object.values(user_items).filter(item => item.equipped == true)

@@ -25,7 +25,7 @@ export const buyReward = (reward) => async (dispatch) => {
     })
 
     if(res.ok){
-        const data = await res.json()
+        // const data = await res.json()
         const deletedReward = await csrfFetch(`/api/rewards/${reward.id}`,{
             method:"DELETE"
         })

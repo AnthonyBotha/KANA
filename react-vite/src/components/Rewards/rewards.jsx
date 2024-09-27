@@ -24,7 +24,7 @@ function UserRewards({sessionUser}){
         }
         else updatedRewards = rewardArr;
         setRewards(updatedRewards)
-    },[rewardArr.length])
+    },[rewardArr.length, rewardArr])
     return(
     <>
         <div className="displayFlex alignBottom spaceBetween">

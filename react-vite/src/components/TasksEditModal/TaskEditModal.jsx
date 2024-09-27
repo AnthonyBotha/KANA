@@ -4,6 +4,7 @@ import { useState } from "react";
 import Select from 'react-select';
 import CreatebleSelect from 'react-select/creatable'
 import * as dailyActions from '../../redux/dailies'
+// import * as todoActions from '../../redux/todolist'
 import './TaskEditModal.css';
 
 
@@ -13,15 +14,6 @@ import { CiCircleMinus } from "react-icons/ci";
 
 
 
-// import { PiStarFourThin } from "react-icons/pi";
-
-// const renderStar = (num) => {
-//     return (
-//         Array.from({length: num}, (_, i)=>(
-//            <span key={i}><PiStarFourThin/></span>
-//         ))
-//     )
-// }
 
 function TaskEditModal({ taskType, task }) {
     const dispatch = useDispatch()
@@ -50,7 +42,8 @@ function TaskEditModal({ taskType, task }) {
             tags,
             repeatOn
         }
-        dispatch(dailyActions.thunkUpdateDaily(task.id, updatedDaily))
+        if(taskType =='Daily') dispatch(dailyActions.thunkUpdateDaily(task.id, updatedDaily))
+        if(taskType =='Todo')  dispatch(dailyActions.thunkUpdateDaily(task.id, updatedDaily))
         closeModal()
     }
 
