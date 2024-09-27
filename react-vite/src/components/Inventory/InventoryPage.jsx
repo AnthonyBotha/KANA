@@ -11,7 +11,7 @@ function ItemsPage() {
   const dispatch = useDispatch()
   const user_items = useSelector(state => state.inventory)
   const itemsArray = Object.values(user_items).filter(item => item.equipment == false)
-  const sessionUser = useSelector(state => state.session.user);
+  // const sessionUser = useSelector(state => state.session.user);
   const  { setModalContent } = useModal();
 
   console.log(itemsArray)

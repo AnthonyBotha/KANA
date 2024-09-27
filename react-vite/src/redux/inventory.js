@@ -63,7 +63,7 @@ export const deleteItem = (itemId,ItemImage) => async (dispatch) => {
     })
 
     if(backToRewards.ok){
-        const data= backToRewards.json()
+        // const data= backToRewards.json()
         const response = await csrfFetch(`/api/inventory/${itemId}`,{
             method:"DELETE"
         })

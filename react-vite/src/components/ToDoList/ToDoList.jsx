@@ -1,14 +1,14 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { useModal } from "../../context/Modal";
-import TaskEditModal from "../TasksEditModal";
+// import { useModal } from "../../context/Modal";
+// import TaskEditModal from "../TasksEditModal";
 import { getTodoList } from '../../redux/todolist.js';
 
 
 function ToDoList(userId) {
   const dispatch = useDispatch();
   const todos = useSelector(state => state.userTodos)
-  const { setModalContent} = useModal()
+  // const { setModalContent} = useModal()
   const [isLoaded, setIsLoaded] = useState(false)
   const [selectedIds, setSelectedIds] = useState([]);
 
@@ -16,10 +16,10 @@ function ToDoList(userId) {
     dispatch(getTodoList()).then(()=> setIsLoaded(true));
   }, [dispatch, userId, setIsLoaded])
 
-  const openModal = (id) => {
-    const task = todos.objTodos[id]
-    setModalContent(<TaskEditModal taskType='Todo' task={task}/>)
-}
+  // const openModal = (id) => {
+    // const task = todos.objTodos[id]
+    // setModalContent(<TaskEditModal taskType='Todo' task={task}/>)
+// }
 
   const handleCheckboxChange = (e) => {
     const checkedId = e.target.value;
@@ -49,7 +49,9 @@ function ToDoList(userId) {
       {/* individual tasks */}
       <div className='displayFlex flexColumn littlePadding littleMargin'>
         {todos.arrTodos?.map(({id, completed, title, difficulty, dueDate, notes}) => (
-          <div key={id} onClick={()=>openModal(id)} className='displayFlex flexColumn darkGrey littleMargin roundedCorners'>
+          <div key={id}
+          // onClick={()=>openModal(id)}
+          className='displayFlex flexColumn darkGrey littleMargin roundedCorners'>
 
              <div className='displayFlex spaceBetween alignCenter'>
               <label>
