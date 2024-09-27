@@ -2,6 +2,34 @@
     margin-bottom: 0px;
 }
 
+.items-page-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    position: relative;
+}
+
+.items-heading {
+    position:absolute;
+    margin-top: 10px;
+}
+
+.inventory-headings {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.inventory-navlink {
+    padding: 10px 5px;
+    cursor: pointer;
+}
+.active-link {
+    text-decoration: underline;
+    pointer-events: none;
+}
+
+
 .inventory-carousel {
     display: flex;
     gap: 15px;
