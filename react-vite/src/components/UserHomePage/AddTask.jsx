@@ -45,7 +45,12 @@ function AddTask(){
                         }}
                     >Add Daily
                     </li>
-                    <li className="task-option" onClick={closeMenu}>Add To Do</li>
+                    <li className="task-option"
+                        onClick={() => {
+                            setModalContent(<CreateTaskModal taskType={'Todo'}/>)
+                            setShowMenu(false)
+                        }}
+                    >Add To Do</li>
                     <li className="task-option" onClick={() => setModalContent(<CreateRewardModal />)}>Add Reward</li>
                 </ul>
             )}

@@ -4,7 +4,7 @@ import { useState } from "react";
 import Select from 'react-select';
 import CreatebleSelect from 'react-select/creatable'
 import * as dailyActions from '../../redux/dailies'
-// import * as todoActions from '../../redux/todolist'
+import * as todoActions from '../../redux/todolist'
 
 
 // import { FaRegTrashAlt } from "react-icons/fa";
@@ -27,7 +27,7 @@ function CreateTaskModal({ taskType }) {
     const [newChecklistItem, setNewChecklistItem] = useState('')
     const [startDate, setStartDate] = useState()
     const [difficulty, setDifficulty] = useState(reactSelectParser('Easy'))
-
+    const [dueDate, setDueDate] = useState(Date.today)
 
 
     const handleSubmit = (e) => {
@@ -36,7 +36,7 @@ function CreateTaskModal({ taskType }) {
         const formData = new FormData(e.target)
         const payload = Object.fromEntries(formData)
 
-        if(taskType =='Daily') {
+        if (taskType == 'Daily') {
             const newDaily = {
                 ...payload,
                 checklist,
@@ -44,9 +44,15 @@ function CreateTaskModal({ taskType }) {
                 repeatOn
             }
             dispatch(dailyActions.thunkCreateDaily(newDaily))
-
         }
-        // if(taskType =='Todo')  dispatch(dailyActions.thunkUpdateDaily(task.id, updatedDaily))
+        if (taskType == 'Todo') {
+            const newTodo = {
+                ...payload,
+                checklist,
+                tags
+            }
+            dispatch(todoActions.thunkCreateTodo(newTodo))
+        }
         closeModal()
     }
 
@@ -183,7 +189,13 @@ function CreateTaskModal({ taskType }) {
                     {taskType === 'Todo' &&
                         <div>
                             <p>Due Date</p>
-                            <input name="due_date" type="date" />
+                            <input
+                                name="due_date"
+                                type="date"
+                                value={dueDate}
+                                required={true}
+                                onChange={(e) => setDueDate(e.target.value)}
+                            />
                         </div>
                     }
 
