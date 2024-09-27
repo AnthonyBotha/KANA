@@ -61,6 +61,7 @@
   font-style: normal;
   color: #432874;
   text-decoration: underline;
+  cursor: pointer;
 }
 
 .redFont:hover {
@@ -404,6 +405,3 @@ button:hover {
 .topLayer {
   z-index: 99;
 }
-
-
-
