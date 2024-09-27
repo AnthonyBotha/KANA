@@ -49,6 +49,9 @@ position: absolute;
 background-color:#6F42C1;
 padding: 25px 25px;
 border-radius: 5px;
+/* max-height: 80vh;
+overflow: scroll; */
+scale: 0.7;
 }
 
 .task ::placeholder {
