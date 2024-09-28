@@ -35,7 +35,7 @@ def create_habit():
 
     title = data.get("title")
     notes= data.get("notes")
-    is_positive = str_to_bool(data.get('is_positive'))
+    is_positive = str_to_bool(data.get('isPositive'))
     difficulty=data.get('difficulty')
 
     new_habit = Habit(
@@ -70,7 +70,7 @@ def update_habit(habit_id):
     habit.title=data.get('title',habit.title)
     habit.notes=data.get('notes',habit.notes)
     habit.difficulty=data.get('difficulty',habit.difficulty)
-    habit.is_positive=str_to_bool(data.get('is_positive',habit.is_positive))
+    habit.is_positive=str_to_bool(data.get('isPositive',habit.is_positive))
 
     #TAGS
     tags_update_manager(data, habit)

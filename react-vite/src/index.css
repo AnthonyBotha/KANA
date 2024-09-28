@@ -103,6 +103,10 @@
 .almostBlackFont {
   color: #131517;
 }
+.IsPostiveText{
+  font-size: 20px;
+}
+
 
 .redFont {
   color: rgb(181, 0, 0)
@@ -318,6 +322,10 @@
 
 .spaceBetween {
   justify-content: space-between;
+}
+.spaceEvenly{
+  padding-top: 15px;
+  justify-content: space-evenly;
 }
 
 .alignCenter {

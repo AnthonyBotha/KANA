@@ -19,6 +19,7 @@ function ToDoList(userId) {
   const openModal = (id) => {
     const task = todos.objTodos[id]
     setModalContent(<TaskEditModal taskType='Todo' task={task} />)
+
   }
 
   const handleCheckboxChange = (e) => {

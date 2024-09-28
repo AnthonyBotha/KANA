@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import SmallWhiteLogo from '../../static/SmallLogoWhite.png';
-
+import Habits from "../Habits";
 import ToDoList from "../ToDoList/ToDoList";
 import Dailies from "../Dailies";
 import { useEffect } from "react";
@@ -35,7 +35,7 @@ function UserHomePage() {
 
           {/* Habits Table */}
           <div className="almostBlack quarterScreen roundedCorners littleRightMargin">
-            <p className="whiteFont">IMPORT HABITS COMPONENT</p>
+            <Habits userId={sessionUser.id}/>
           </div>
 
           {/* Dailies Table */}
