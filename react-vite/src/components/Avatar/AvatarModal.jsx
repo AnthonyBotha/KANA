@@ -141,6 +141,7 @@ function AvatarModal() {
     switch (selectedPart) {
       case "head":{
         bodyPartsArr = []
+        console.log("Head Test:",[...bodyPartsArr, ...headsArr])
         return [...bodyPartsArr, ...headsArr];
       }
        
@@ -162,6 +163,7 @@ function AvatarModal() {
       }
       case "antenna":{
         bodyPartsArr = []
+        console.log("Antenna Test:", [...bodyPartsArr, ...antennasArr]);
         return [...bodyPartsArr, ...antennasArr];
       }
       case "neck":{
@@ -177,9 +179,9 @@ function AvatarModal() {
     }
   };
 
-  console.log("Display Parts:", displayParts());
-  console.log("Display Parts Keys:", Object.keys(displayParts()));
-  console.log("Display Parts Values:", Object.values(displayParts()));
+  // console.log("Display Parts:", displayParts());
+  // console.log("Display Parts Keys:", Object.keys(displayParts()));
+  // console.log("Display Parts Values:", Object.values(displayParts()));
 
   const handlePartItemClick = (partItem) => {
     setActivePartItem(partItem); //Set active part item
@@ -300,7 +302,7 @@ function AvatarModal() {
         </div>
         <div className="parts-list">
           {displayParts().map(part => (
-            <div key={part.id}
+            <div key={part.imgUrl}
               className={`part-item ${activePartItem === part ? "active-part-item" : ""}`}
               onClick={() => handlePartItemClick(part)}>
               <img src={part?.imgUrl} alt={part} />
