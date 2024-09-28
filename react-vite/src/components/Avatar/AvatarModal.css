@@ -5,6 +5,7 @@
     align-items: center;
     justify-content: center;
     background-color: lightgray;
+    z-index: 1000;
 }
 
 .modal-header {
@@ -115,7 +116,7 @@
     z-index: 1;
 }
 
-.auto-gen-button {
+.auto-gen-avatar {
     width: 170px;
     margin-top: 5px;
     margin-bottom: 15px;
@@ -132,7 +133,7 @@
     cursor: pointer;
 }
 
-.auto-gen-button:hover {
+.auto-gen-avatar:hover {
     background-color: #432874;
 }
 
