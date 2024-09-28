@@ -1,6 +1,6 @@
 // import { useModal } from '../../context/Modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState } from 'react';
 import { useModal } from '../../context/Modal';
 import { getAvatarAntennas, getAvatarBackgrounds, getAvatarEars, getAvatarEyes, getAvatarHeads, getAvatarMouths, getAvatarNecks, getAvatarNoses } from '../../redux/avatarpart';
 import { getAvatar, createNewAvatar, deleteExistingAvatar, updateExistingAvatar } from '../../redux/avatar';
@@ -18,7 +18,7 @@ function AvatarModal() {
 
   const user = useSelector(state => state.session.user);
   const avatar = useSelector(state => state.avatar);
-  
+
 
   const [userAvatar] = Object.values(avatar).filter(avatar => avatar.userId === user.id);
 
@@ -38,12 +38,12 @@ function AvatarModal() {
     const fetchAvatar = async () => {
       const response = await dispatch(getAvatar());
 
-      if (!response.ok){
+      if (!response.ok) {
         setErrorFetchingAvatar(true);
       }
     }
     fetchAvatar();
-  },[dispatch])
+  }, [dispatch])
 
   useEffect(() => {
 
@@ -59,7 +59,7 @@ function AvatarModal() {
     // dispatch(getAvatar());
   }, [dispatch]);
 
-  
+
 
   // console.log("Avatar:", Object.values(avatar))
   // // console.log("User Avatar:",avatar[user] )
@@ -136,37 +136,37 @@ function AvatarModal() {
     })
   }
 
-  const displayParts = useMemo(() => {
-    switch (selectedPart) {
-      case "head":{
-        return headsArr;
-      }
-       
-      case "eye":{
-        return eyesArr;
-      }
-      case "nose":{
-        return nosesArr;
-      }
-      case "mouth":{
-        return mouthsArr;
-      }
-      case "ear":{
-        return earsArr;
-      }
-      case "antenna":{
-        return antennasArr;
-      }
-      case "neck":{
-        return necksArr;
-      }
-      case "background":{
-        return backgroundsArr;
-      }
-      default:
-        return [];
-    }
-  },[selectedPart, headsArr, eyesArr, nosesArr, mouthsArr, earsArr, antennasArr, necksArr, backgroundsArr]);
+  // const displayParts = useMemo(() => {
+  //   switch (selectedPart) {
+  //     case "head": {
+  //       return headsArr;
+  //     }
+
+  //     case "eye": {
+  //       return eyesArr;
+  //     }
+  //     case "nose": {
+  //       return nosesArr;
+  //     }
+  //     case "mouth": {
+  //       return mouthsArr;
+  //     }
+  //     case "ear": {
+  //       return earsArr;
+  //     }
+  //     case "antenna": {
+  //       return antennasArr;
+  //     }
+  //     case "neck": {
+  //       return necksArr;
+  //     }
+  //     case "background": {
+  //       return backgroundsArr;
+  //     }
+  //     default:
+  //       return [];
+  //   }
+  // }, [selectedPart, headsArr, eyesArr, nosesArr, mouthsArr, earsArr, antennasArr, necksArr, backgroundsArr]);
 
   // console.log("Display Parts:", displayParts());
   // console.log("Display Parts Keys:", Object.keys(displayParts()));
@@ -180,12 +180,12 @@ function AvatarModal() {
     }));
   };
 
- 
+
   const handleSaveAvatar = () => {
     if (userAvatar && Object.keys(userAvatar).length > 0) {
       dispatch(updateExistingAvatar(parseInt(userAvatar.id), avatarParts))
       closeModal();
-      
+
     } else {
 
       dispatch(createNewAvatar(avatarParts))
@@ -197,10 +197,10 @@ function AvatarModal() {
     if (Object.keys(userAvatar).length > 0) {
       dispatch(deleteExistingAvatar(parseInt(userAvatar.id)));
 
-      
+
       setErrorFetchingAvatar(true);
       closeModal();
-      
+
     }
   }
 
@@ -260,46 +260,156 @@ function AvatarModal() {
             <img src={headSelectionUrl} className="menu-head" alt="Head" />
             <h2>Head</h2>
           </div>
-          <div className={`selection-item ${selectedPart === "eye" ? "selected" : ""}`} onClick={() => setSelectedPart("eye")}>
+          <div onClick={() => setSelectedPart("eye")} className={`selection-item ${selectedPart === "eye" ? "selected" : ""}`} >
             <img src={eyesSelectionUrl} className="menu-eyes" alt="Eyes" />
             <h2>Eyes</h2>
           </div>
+
           <div className={`selection-item ${selectedPart === "nose" ? "selected" : ""}`} onClick={() => setSelectedPart("nose")}>
             <img src={noseSelectionUrl} className="menu-nose" alt="Nose" />
             <h2>Nose</h2>
           </div>
+
           <div className={`selection-item ${selectedPart === "mouth" ? "selected" : ""}`} onClick={() => setSelectedPart("mouth")}>
             <img src={mouthSelectionUrl} className="menu-mouth" alt="Mouth" />
             <h2>Mouth</h2>
           </div>
+
           <div className={`selection-item ${selectedPart === "ear" ? "selected" : ""}`} onClick={() => setSelectedPart("ear")}>
             <img src={earsSelectionUrl} className="menu-ears" alt="Ears" />
             <h2>Ears</h2>
           </div>
+
           <div className={`selection-item ${selectedPart === "antenna" ? "selected" : ""}`} onClick={() => setSelectedPart("antenna")}>
             <img src={antennaSelectionUrl} className="menu-antenna" alt="Antenna" />
             <h2>Antenna</h2>
           </div>
+
           <div className={`selection-item ${selectedPart === "neck" ? "selected" : ""}`} onClick={() => setSelectedPart("neck")}>
             <img src={neckSelectionUrl} className="menu-neck" alt="Neck" />
             <h2>Neck</h2>
           </div>
+
           <div className={`selection-item ${selectedPart === "background" ? "selected" : ""}`} onClick={() => setSelectedPart("background")}>
             <img src={backgroundSelectionUrl} className="menu-background" alt="Background" />
             <h2>Background</h2>
           </div>
-        </div>
-        <div className="parts-list">
-          {displayParts.map(part => (
-            <div key={part.id}
-              className={`part-item ${activePartItem === part ? "active-part-item" : ""}`}
-              onClick={() => handlePartItemClick(part)}>
-              <img src={part?.imgUrl} alt={part} />
-              {console.log(`image printed`)}
-            </div>
-          ))}
 
         </div>
+
+        {/* Display Head Options */}
+        {selectedPart === "head" && (
+          <div className="parts-list">
+            {headsArr.map(part => (
+              <div key={part.id}
+                className={`part-item ${activePartItem === part ? "active-part-item" : ""}`}
+                onClick={() => handlePartItemClick(part)}>
+                <img src={part?.imgUrl} alt={part} />
+              </div>
+            ))}
+
+          </div>
+        )}
+
+        {/* Display Eye Options */}
+        {selectedPart === "eye" && (
+          <div className="parts-list">
+            {eyesArr.map(part => (
+              <div key={part.id}
+                className={`part-item ${activePartItem === part ? "active-part-item" : ""}`}
+                onClick={() => handlePartItemClick(part)}>
+                <img src={part?.imgUrl} alt={part} />
+              </div>
+            ))}
+
+          </div>
+
+        )}
+
+        {/* Display Nose Options */}
+        {selectedPart === "nose" && (
+          <div className="parts-list">
+            {console.log("Noses Array:", nosesArr)}
+            {nosesArr.map(part => (
+              <div key={part.id}
+                className={`part-item ${activePartItem === part ? "active-part-item" : ""}`}
+                onClick={() => handlePartItemClick(part)}>
+                <img src={part?.imgUrl} alt={part} />
+              </div>
+            ))}
+
+          </div>
+        )}
+
+        {/* Display Mouth Options */}
+        {selectedPart === "mouth" && (
+          <div className="parts-list">
+            {mouthsArr.map(part => (
+              <div key={part.id}
+                className={`part-item ${activePartItem === part ? "active-part-item" : ""}`}
+                onClick={() => handlePartItemClick(part)}>
+                <img src={part?.imgUrl} alt={part} />
+              </div>
+            ))}
+
+          </div>
+        )}
+
+        {/* Display Ear Options */}
+        {selectedPart === "ear" && (
+          <div className="parts-list">
+            {earsArr.map(part => (
+              <div key={part.id}
+                className={`part-item ${activePartItem === part ? "active-part-item" : ""}`}
+                onClick={() => handlePartItemClick(part)}>
+                <img src={part?.imgUrl} alt={part} />
+              </div>
+            ))}
+
+          </div>
+        )}
+
+        {/* Display Antenna Options */}
+        {selectedPart === "antenna" && (
+          <div className="parts-list">
+            {antennasArr.map(part => (
+              <div key={part.id}
+                className={`part-item ${activePartItem === part ? "active-part-item" : ""}`}
+                onClick={() => handlePartItemClick(part)}>
+                <img src={part?.imgUrl} alt={part} />
+              </div>
+            ))}
+
+          </div>
+        )}
+
+        {/* Display Neck Options */}
+        {selectedPart === "neck" && (
+          <div className="parts-list">
+            {necksArr.map(part => (
+              <div key={part.id}
+                className={`part-item ${activePartItem === part ? "active-part-item" : ""}`}
+                onClick={() => handlePartItemClick(part)}>
+                <img src={part?.imgUrl} alt={part} />
+              </div>
+            ))}
+
+          </div>
+        )}
+
+        {/* Display Background Options */}
+        {selectedPart === "background" && (
+          <div className="parts-list">
+            {backgroundsArr.map(part => (
+              <div key={part.id}
+                className={`part-item ${activePartItem === part ? "active-part-item" : ""}`}
+                onClick={() => handlePartItemClick(part)}>
+                <img src={part?.imgUrl} alt={part} />
+              </div>
+            ))}
+
+          </div>
+        )}
 
       </div>
       <button className="save-button" onClick={handleSaveAvatar}>Save</button>
