@@ -71,7 +71,7 @@ export const thunkUpdateTodo = (todoId, todo) => async dispatch => {
   })
 
   if (response.ok) {
-    const data = response.json()
+    const data = await response.json()
     dispatch(updateTodo(data))
   }
 }
@@ -108,6 +108,7 @@ const todosReducer = (state = initialState, action) => {
   }
     case UPDATE_TODO: {
       let updatedTodo = action.payload
+      console.log('=============== updated todo in reducer: ', updatedTodo)
       let newState = { ...state }
       let newTodoArray = newState.arrTodos.map(todo => {
         if (todo.id === updatedTodo.id) return updatedTodo

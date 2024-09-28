@@ -56,6 +56,7 @@ export const thunkCreateDaily = (newDaily) => async dispatch => {
 }
 
 export const thunkUpdateDaily = (dailyId, daily) => async dispatch => {
+    console.log('daily in thunk', daily)
     const response = await csrfFetch(`/api/dailies/${dailyId}`, {
         method: "PUT",
         body: JSON.stringify(daily)
