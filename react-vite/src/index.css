@@ -319,7 +319,10 @@
 .flexColumn {
   flex-direction: column;
 }
-
+.flexEnd{
+  justify-content: flex-end;
+  padding-right: 10px;
+}
 .spaceBetween {
   justify-content: space-between;
 }

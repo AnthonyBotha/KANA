@@ -51,9 +51,12 @@ export const updateHabit = (habitId, habit) => async dispatch => {
         body: JSON.stringify(habit)
     })
 
+
     if(res.ok){
+
         const data = res.json()
         dispatch(upgradeHabit(data))
+        return data
     }
 }
 

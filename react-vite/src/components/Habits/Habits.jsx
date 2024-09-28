@@ -3,7 +3,10 @@ import { useDispatch, useSelector } from "react-redux"
 import { getHabits } from "../../redux/habits";
 import TaskEditModal from "../TasksEditModal";
 import { useModal } from "../../context/Modal";
-
+import { CiCirclePlus } from "react-icons/ci";
+import { CiCircleMinus } from "react-icons/ci";
+import * as habitActions from '../../redux/habits'
+import './habits.css'
 
 function Habits(userId){
     const dispatch = useDispatch();
@@ -11,8 +14,6 @@ function Habits(userId){
 
     const {setModalContent} = useModal()
     const [isLoaded,setIsLoaded] = useState(false)
-
-    console.log(habits.arrHabits)
 
     useEffect(() => {
         dispatch(getHabits()).then(() => setIsLoaded(true))
@@ -22,6 +23,26 @@ function Habits(userId){
     const openModal = (id) => {
         const task = habits.arrHabits.find(habit => habit.id === id);
         setModalContent(<TaskEditModal taskType={'Habit'} task={task}/>)
+    }
+
+    async function increase(id,score){
+        let payload ={}
+        payload.score = Number(score+1);
+        const updateScore = {
+            ...payload
+        }
+       await dispatch(habitActions.updateHabit(id,updateScore));
+       await dispatch(habitActions.getHabits())
+    }
+
+    async function decrease(id,score){
+        let payload ={}
+        payload.score = Number(score-1);
+        const updateScore = {
+            ...payload
+        }
+        await dispatch(habitActions.updateHabit(id,updateScore));
+        await dispatch(habitActions.getHabits())
     }
 
     if(isLoaded)return (
@@ -43,6 +64,22 @@ function Habits(userId){
                        <p className='whiteFont font smallFont'>{title}</p>
                        <p className='whiteFont font smallFont'>DELETE</p>
                      </div>
+
+                     <div className="displayFlex flexEnd">
+                        <p className='whiteFont font smallFont'>Score: {score}</p>
+                        {isPositive == true && (<p className="whiteFont viewIsPostitve">
+                            <CiCirclePlus onClick={(e)=>{
+                            e.stopPropagation();
+                             increase(id,score)}}
+                             className="viewButton"/>
+                             </p>)}
+                        {isPositive == false && (<p className="whiteFont viewIsPostitve">
+                            <CiCircleMinus onClick={(e)=>{
+                            e.stopPropagation();
+                             decrease(id,score)}}
+                             className="viewButton"/>
+                            </p>)}
+                    </div>
 
                      <div className='displayFlex spaceBetween'>
                        <p className='lightGreyFont font smallFont'>{difficulty}</p>

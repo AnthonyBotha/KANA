@@ -71,6 +71,7 @@ def update_habit(habit_id):
     habit.notes=data.get('notes',habit.notes)
     habit.difficulty=data.get('difficulty',habit.difficulty)
     habit.is_positive=str_to_bool(data.get('isPositive',habit.is_positive))
+    habit.score = data.get('score', habit.score)
 
     #TAGS
     tags_update_manager(data, habit)
