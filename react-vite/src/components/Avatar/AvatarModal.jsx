@@ -1,6 +1,6 @@
 // import { useModal } from '../../context/Modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { useModal } from '../../context/Modal';
 import { getAvatarAntennas, getAvatarBackgrounds, getAvatarEars, getAvatarEyes, getAvatarHeads, getAvatarMouths, getAvatarNecks, getAvatarNoses } from '../../redux/avatarpart';
 import { getAvatar, createNewAvatar, deleteExistingAvatar, updateExistingAvatar } from '../../redux/avatar';
@@ -15,7 +15,6 @@ function AvatarModal() {
   const [selectedPart, setSelectedPart] = useState("head");
   const [activePartItem, setActivePartItem] = useState(null);
   const [errorFetchingAvatar, setErrorFetchingAvatar] = useState(false);
-  let bodyPartsArr = [];
 
   const user = useSelector(state => state.session.user);
   const avatar = useSelector(state => state.avatar);
@@ -137,47 +136,37 @@ function AvatarModal() {
     })
   }
 
-  const displayParts = () => {
+  const displayParts = useMemo(() => {
     switch (selectedPart) {
       case "head":{
-        bodyPartsArr = []
-        console.log("Head Test:",[...bodyPartsArr, ...headsArr])
-        return [...bodyPartsArr, ...headsArr];
+        return headsArr;
       }
        
       case "eye":{
-        bodyPartsArr = []
-        return [...bodyPartsArr, ...eyesArr];
+        return eyesArr;
       }
       case "nose":{
-        bodyPartsArr = []
-        return [...bodyPartsArr, ...nosesArr];
+        return nosesArr;
       }
       case "mouth":{
-        bodyPartsArr = []
-        return [...bodyPartsArr, ...mouthsArr];
+        return mouthsArr;
       }
       case "ear":{
-        bodyPartsArr = []
-        return [...bodyPartsArr, ...earsArr];
+        return earsArr;
       }
       case "antenna":{
-        bodyPartsArr = []
-        console.log("Antenna Test:", [...bodyPartsArr, ...antennasArr]);
-        return [...bodyPartsArr, ...antennasArr];
+        return antennasArr;
       }
       case "neck":{
-        bodyPartsArr = []
-        return [...bodyPartsArr, ...necksArr];
+        return necksArr;
       }
       case "background":{
-        bodyPartsArr = []
-        return [...bodyPartsArr, ...backgroundsArr];
+        return backgroundsArr;
       }
       default:
         return [];
     }
-  };
+  },[selectedPart, headsArr, eyesArr, nosesArr, mouthsArr, earsArr, antennasArr, necksArr, backgroundsArr]);
 
   // console.log("Display Parts:", displayParts());
   // console.log("Display Parts Keys:", Object.keys(displayParts()));
@@ -301,11 +290,12 @@ function AvatarModal() {
           </div>
         </div>
         <div className="parts-list">
-          {displayParts().map(part => (
-            <div key={part.imgUrl}
+          {displayParts.map(part => (
+            <div key={part.id}
               className={`part-item ${activePartItem === part ? "active-part-item" : ""}`}
               onClick={() => handlePartItemClick(part)}>
               <img src={part?.imgUrl} alt={part} />
+              {console.log(`image printed`)}
             </div>
           ))}
 
