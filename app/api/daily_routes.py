@@ -99,18 +99,13 @@ def update_daily(daily_id):
     daily.start_date = data.get('start_date', daily.start_date)
     daily.repeats = data.get('repeats', daily.repeats)
     daily.repeat_every = int(data.get('repeat_every', daily.repeat_every))
-
-    # daily.repeat_on = data.get('repeatOn', daily.repeat_on)
-    #Todo: repeat on table association
+    daily.is_due = data.get('isDue', True)
 
     #Checklist
     checklist_update_manager(data, daily)
     #tags
     tags_update_manager(data, daily)
     #RepeatOn
-     #REPEAT_ON
-    #receiving an array of days ['Monday', 'Thursday']
-    #get(repeatOn, []) then iterate, create instances of RepetOn model, save them, and new_daily.repeat_on_day.append(day)
     current_repeat_on_days = {day:day for day in daily.repeat_on_days}
     request_days = data.get('repeatOn', [])
     for day in list(current_repeat_on_days):
