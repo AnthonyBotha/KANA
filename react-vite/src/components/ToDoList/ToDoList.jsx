@@ -10,6 +10,7 @@ function ToDoList(userId) {
   const todos = useSelector(state => state.userTodos)
   const { setModalContent } = useModal()
   const [isLoaded, setIsLoaded] = useState(false)
+  const [completed, setCompleted] = useState(false)
 
   useEffect(() => {
     dispatch(getTodoList()).then(() => setIsLoaded(true));
@@ -42,14 +43,14 @@ function ToDoList(userId) {
 
         <div className='displayFlex littlePadding'>
           {/* onclick filter the current task list */}
-          <p className='fontLight whiteFont smallFont littlePadding'>Active</p>
-          <p className='fontLight whiteFont smallFont littlePadding'>Completed</p>
+          <p onClick={()=> setCompleted(false)} className='fontLight whiteFont smallFont littlePadding'>Active</p>
+          <p onClick={()=> setCompleted(true)} className='fontLight whiteFont smallFont littlePadding'>Completed</p>
         </div>
       </div>
 
       {/* individual tasks */}
       <div className='displayFlex flexColumn littlePadding littleMargin'>
-        {todos.arrTodos?.map(({ id, completed, title, difficulty, dueDate, notes }) => (
+        {todos.arrTodos?.filter(todo => todo.completed === completed).map(({ id, completed, title, difficulty, dueDate, notes }) => (
           <div key={id}
             onClick={(e) => openModal(e, id)}
             className='displayFlex flexColumn darkGrey littleMargin roundedCorners'>
