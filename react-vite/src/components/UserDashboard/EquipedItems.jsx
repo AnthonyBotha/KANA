@@ -5,7 +5,7 @@ import { getItems } from "../../redux/inventory";
 import { BsCoin } from "react-icons/bs";
 import "./EquippedItems.css"
 import ManageItemModal from "../Inventory/ItemModal";
-import { useLocation, useNavigate } from "react-router-dom";
+// import { useLocation, useNavigate } from "react-router-dom";
 
 
 function EquipedItems(){
@@ -24,7 +24,7 @@ function EquipedItems(){
     },[dispatch,itemsArray.length])
 
     useEffect(() => {
-        updateInventory()
+       updateInventory()
     },[user_items,activeTab])
 
 
