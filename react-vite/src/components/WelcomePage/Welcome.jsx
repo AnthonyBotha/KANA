@@ -4,7 +4,7 @@ import SmallWhiteLogo from '../../static/SmallLogoWhite.png';
 function WelcomePage() {
   return (
     <>
-      <div className="fullScreen purple displayFlex">
+      <div className="blackBackground fullScreen purple displayFlex">
 
         {/* left side of the page */}
         <div className="halfScreen leftPageBorder fullPadding">
