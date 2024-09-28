@@ -5,6 +5,7 @@ import Select from 'react-select';
 import CreatebleSelect from 'react-select/creatable'
 import * as dailyActions from '../../redux/dailies'
 import * as todoActions from '../../redux/todolist'
+import * as habitActions from '../../redux/habits'
 import './TaskEditModal.css';
 
 
@@ -29,13 +30,16 @@ function TaskEditModal({ taskType, task }) {
     const [startDate, setStartDate] = useState(task.startDate)
     const [difficulty, setDifficulty] = useState(reactSelectParser(task.difficulty))
     const [dueDate, setDueDate] = useState(task.dueDate)
+    const [isPositive,setIsPositive] = useState(task.isPositive)
+    const [activeButton, setActiveButton] = useState(task.isPositive);
 
 
-    const handleSubmit = (e) => {
+    async function handleSubmit(e){
         e.preventDefault()
         const tags = selectedTags.map(tag => (tag.value));
         const formData = new FormData(e.target)
         const payload = Object.fromEntries(formData)
+
         if(taskType =='Daily') {
             const updatedDaily = {
                 ...payload,
@@ -53,6 +57,16 @@ function TaskEditModal({ taskType, task }) {
             }
             dispatch(todoActions.thunkUpdateTodo(task.id, updatedTodo))
         }
+
+        if(taskType == 'Habit'){
+            payload.isPositive=isPositive
+            const updatehabit = {
+                ...payload,
+                tags
+            }
+            await dispatch(habitActions.updateHabit(task.id,updatehabit))
+            await dispatch(habitActions.getHabits())
+        }
         closeModal()
     }
 
@@ -61,6 +75,7 @@ function TaskEditModal({ taskType, task }) {
         if (confirmation) {
             if(taskType =='Daily') dispatch(dailyActions.thunkDeleteDaily(task.id)).then(()=> closeModal())
             if(taskType =='Todo') dispatch(todoActions.thunkDeleteTodo(task.id)).then(()=> closeModal())
+            if(taskType == 'Habit')dispatch(habitActions.deleteHabit(task.id)).then(() => closeModal())
 
         }
     }
@@ -178,8 +193,21 @@ function TaskEditModal({ taskType, task }) {
                     {/* Positive Negative */}
                     {taskType === 'Habit' &&
                         <div>
-                            <CiCircleMinus /><p>Negative</p>
-                            <CiCirclePlus /><p>Positive</p>
+                            <div className='displayFlex alignBottom spaceEvenly'>
+                                <p className="font bold IsPostiveText">Negative</p>
+                                <p className="font bold IsPostiveText">Positive</p>
+                            </div>
+                            <div className='displayFlex alignBottom spaceEvenly'>
+                                <CiCircleMinus onClick={() =>{
+                                    setIsPositive(false)
+                                    setActiveButton(false)
+                                }}
+                                    className={`isPostiveButtons ${activeButton === false ? 'active' : ''}` } />
+                                <CiCirclePlus onClick={() => {
+                                    setIsPositive(true)
+                                    setActiveButton(true)
+                                    }} className={`isPostiveButtons ${activeButton === true ? 'active' : ''}` }  />
+                            </div>
                         </div>
                     }
 

@@ -60,3 +60,22 @@ font-style: normal;
 padding: 10px;
 color: #131517;
 }
+
+.isPostiveButtons{
+  position: relative;
+  bottom: 30px;
+  width: auto;
+  height: 70px;
+  color:white;
+  cursor: pointer;           /* Pointer cursor on hover */
+  transition: background-color 0.3s; /* Smooth transition on hover */
+}
+
+.isPostiveButtons:hover{
+  color:yellow;
+  font-weight: bold;
+}
+
+.active{
+  color: yellow;
+}

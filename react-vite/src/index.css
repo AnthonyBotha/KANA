@@ -103,6 +103,10 @@
 .almostBlackFont {
   color: #131517;
 }
+.IsPostiveText{
+  font-size: 20px;
+}
+
 
 .redFont {
   color: rgb(181, 0, 0)
@@ -315,9 +319,16 @@
 .flexColumn {
   flex-direction: column;
 }
-
+.flexEnd{
+  justify-content: flex-end;
+  padding-right: 10px;
+}
 .spaceBetween {
   justify-content: space-between;
+}
+.spaceEvenly{
+  padding-top: 15px;
+  justify-content: space-evenly;
 }
 
 .alignCenter {
