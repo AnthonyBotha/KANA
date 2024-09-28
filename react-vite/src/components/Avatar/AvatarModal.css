@@ -44,7 +44,7 @@
     margin-bottom: 10px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: center; 
 }
 
 .default-avatar {
@@ -116,8 +116,26 @@
 }
 
 .auto-gen-button {
+    width: 170px;
+    margin-top: 5px;
     margin-bottom: 15px;
+    font-family: "Varela Round", sans-serif;
+    font-weight: 400;
+    font-size: medium;
+    font-style: normal;
+    color: #F8F9FA;
+    background-color: #BDA8FF;
+    padding: 10px 15px;
+    margin: 5px 0px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
+
+.auto-gen-button:hover {
+    background-color: #432874;
+}
+
 
 
 /* Selection Menu */
