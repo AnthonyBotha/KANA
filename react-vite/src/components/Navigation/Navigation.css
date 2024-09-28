@@ -6,3 +6,8 @@
   right: 50px;
   border-radius: 5px;
 }
+
+.logoutButton{
+  position: relative;
+  z-index: 1000;
+}
