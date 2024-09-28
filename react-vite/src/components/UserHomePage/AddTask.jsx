@@ -14,7 +14,7 @@ function AddTask(){
         setShowMenu(!showMenu);
     };
 
-    const closeMenu = () => setShowMenu(false);
+    // const closeMenu = () => setShowMenu(false);
 
     useEffect(() => {
         if (!showMenu) return;
@@ -37,7 +37,10 @@ function AddTask(){
             </button>
             {showMenu && (
                 <ul className="task-dropdown" ref={ulRef}>
-                    <li className="task-option" onClick={closeMenu}>Add Habit</li>
+                    <li className="task-option"  onClick={() => {
+                            setModalContent(<CreateTaskModal taskType={'Habit'}/>)
+                            setShowMenu(false)
+                        }}>Add Habit</li>
                     <li className="task-option"
                         onClick={() => {
                             setModalContent(<CreateTaskModal taskType={'Daily'}/>)

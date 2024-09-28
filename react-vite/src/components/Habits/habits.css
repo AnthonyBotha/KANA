@@ -1,0 +1,11 @@
+.viewIsPostitve{
+position: relative;
+left: 5px;
+bottom: 12px;
+}
+
+.viewButton{
+    font-size: xx-large;
+    z-index: 100;
+    cursor: pointer;
+}

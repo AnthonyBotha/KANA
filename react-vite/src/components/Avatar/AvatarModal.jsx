@@ -151,6 +151,10 @@ function AvatarModal() {
     }
   };
 
+  console.log("Display Parts:", displayParts());
+  console.log("Display Parts Keys:", Object.keys(displayParts()));
+  console.log("Display Parts Values:", Object.values(displayParts()));
+
   const handlePartItemClick = (partItem) => {
     setActivePartItem(partItem); //Set active part item
     setAvatarParts(prev => ({
@@ -232,7 +236,7 @@ function AvatarModal() {
           </>
         )}
       </div>
-      <button className="auto-gen-button" onClick={generateAvatar}>Generate New Avatar</button>
+      <h4 className="auto-gen-button" onClick={generateAvatar}>Generate New Avatar</h4>
       <div className="selection-menu">
         <div className="menu">
           <div className={`selection-item ${selectedPart === "head" ? "selected" : ""}`} onClick={() => { setSelectedPart("head") }}>
@@ -269,11 +273,11 @@ function AvatarModal() {
           </div>
         </div>
         <div className="parts-list">
-          {Object.keys(displayParts()).map(part => (
-            <div key={part}
-              className={`part-item ${activePartItem === displayParts()[part] ? "active-part-item" : ""}`}
-              onClick={() => handlePartItemClick(displayParts()[part])}>
-              <img src={displayParts()[part]?.imgUrl} alt={part} />
+          {Object.values(displayParts()).map(part => (
+            <div key={part.id}
+              className={`part-item ${activePartItem === part ? "active-part-item" : ""}`}
+              onClick={() => handlePartItemClick(part)}>
+              <img src={part?.imgUrl} alt={part} />
             </div>
           ))}
 

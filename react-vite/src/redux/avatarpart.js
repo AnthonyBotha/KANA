@@ -158,50 +158,58 @@ const initialState = {
 const avatarPartsReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_AVATAR_HEADS: {
-            const newState = { ...state, heads: {}};
+            const newState = structuredClone(state);
+            newState.heads = {};
             const headsArr = action.payload.heads;
             headsArr.forEach(head => newState.heads[head.id] = head);
             return newState;
         }
         case LOAD_AVATAR_EYES: {
-            const newState = { ...state, eyes: {}};
+            const newState = structuredClone(state);
+            newState.eyes = {};
             const eyesArr = action.payload.eyes;
             eyesArr.forEach(eye => newState.eyes[eye.id] = eye);
             return newState;
         }
         case LOAD_AVATAR_MOUTHS: {
-            const newState = { ...state, mouths: {}};
+            const newState = structuredClone(state);
+            newState.mouths = {};
             const mouthsArr = action.payload.mouths;
             mouthsArr.forEach(mouth => newState.mouths[mouth.id] = mouth);
             return newState;
         }
         case LOAD_AVATAR_ANTENNAS: {
-            const newState = { ...state, antennas: {}};
+            const newState = structuredClone(state);
+            newState.antennas = {};
             const antennasArr = action.payload.antennas;
             antennasArr.forEach(antenna => newState.antennas[antenna.id] = antenna);
    
             return newState;
         }
         case LOAD_AVATAR_NECKS: {
-            const newState = { ...state, necks: {}};
+            const newState = structuredClone(state);
+            newState.necks = {};
             const necksArr = action.payload.necks;
             necksArr.forEach(neck => newState.necks[neck.id] = neck);
             return newState;
         }
         case LOAD_AVATAR_EARS: {
-            const newState = { ...state, ears: {}};
+            const newState = structuredClone(state);
+            newState.ears = {};
             const earsArr = action.payload.ears;
             earsArr.forEach(ear => newState.ears[ear.id] = ear);
             return newState;
         }
         case LOAD_AVATAR_NOSES: {
-            const newState = { ...state, noses: {}};
+            const newState = structuredClone(state);
+            newState.noses = {};
             const nosesArr = action.payload.noses;
             nosesArr.forEach(nose => newState.noses[nose.id] = nose);
             return newState;
         }
         case LOAD_AVATAR_BACKGROUNDS: {
-            const newState = { ...state, backgrounds: {}};
+            const newState = structuredClone(state);
+            newState.backgrounds = {};
             const backgroundsArr = action.payload.backgrounds;
             backgroundsArr.forEach(background => newState.backgrounds[background.id] = background);
             return newState;
