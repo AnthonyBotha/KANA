@@ -15,6 +15,7 @@ function AvatarModal() {
   const [selectedPart, setSelectedPart] = useState("head");
   const [activePartItem, setActivePartItem] = useState(null);
   const [errorFetchingAvatar, setErrorFetchingAvatar] = useState(false);
+  let bodyPartsArr = [];
 
   const user = useSelector(state => state.session.user);
   const avatar = useSelector(state => state.avatar);
@@ -79,20 +80,28 @@ function AvatarModal() {
   const getRandomElement = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
   const antennas = useSelector(state => state.avatarParts.antennas);
+  const antennasArr = Object.values(antennas);
 
   const backgrounds = useSelector(state => state.avatarParts.backgrounds);
+  const backgroundsArr = Object.values(backgrounds);
 
   const ears = useSelector(state => state.avatarParts.ears);
+  const earsArr = Object.values(ears);
 
   const eyes = useSelector(state => state.avatarParts.eyes);
+  const eyesArr = Object.values(eyes);
 
   const heads = useSelector(state => state.avatarParts.heads);
+  const headsArr = Object.values(heads);
 
   const mouths = useSelector(state => state.avatarParts.mouths);
+  const mouthsArr = Object.values(mouths);
 
   const necks = useSelector(state => state.avatarParts.necks);
+  const necksArr = Object.values(necks);
 
   const noses = useSelector(state => state.avatarParts.noses);
+  const nosesArr = Object.values(noses);
 
 
 
@@ -130,22 +139,39 @@ function AvatarModal() {
 
   const displayParts = () => {
     switch (selectedPart) {
-      case "head":
-        return heads;
-      case "eye":
-        return eyes;
-      case "nose":
-        return noses;
-      case "mouth":
-        return mouths;
-      case "ear":
-        return ears;
-      case "antenna":
-        return antennas;
-      case "neck":
-        return necks;
-      case "background":
-        return backgrounds;
+      case "head":{
+        bodyPartsArr = []
+        return [...bodyPartsArr, ...headsArr];
+      }
+       
+      case "eye":{
+        bodyPartsArr = []
+        return [...bodyPartsArr, ...eyesArr];
+      }
+      case "nose":{
+        bodyPartsArr = []
+        return [...bodyPartsArr, ...nosesArr];
+      }
+      case "mouth":{
+        bodyPartsArr = []
+        return [...bodyPartsArr, ...mouthsArr];
+      }
+      case "ear":{
+        bodyPartsArr = []
+        return [...bodyPartsArr, ...earsArr];
+      }
+      case "antenna":{
+        bodyPartsArr = []
+        return [...bodyPartsArr, ...antennasArr];
+      }
+      case "neck":{
+        bodyPartsArr = []
+        return [...bodyPartsArr, ...necksArr];
+      }
+      case "background":{
+        bodyPartsArr = []
+        return [...bodyPartsArr, ...backgroundsArr];
+      }
       default:
         return [];
     }
@@ -236,7 +262,7 @@ function AvatarModal() {
           </>
         )}
       </div>
-      <h4 className="auto-gen-button" onClick={generateAvatar}>Generate New Avatar</h4>
+      <h4 className="auto-gen-avatar" onClick={generateAvatar}>Generate New Avatar</h4>
       <div className="selection-menu">
         <div className="menu">
           <div className={`selection-item ${selectedPart === "head" ? "selected" : ""}`} onClick={() => { setSelectedPart("head") }}>
@@ -273,7 +299,7 @@ function AvatarModal() {
           </div>
         </div>
         <div className="parts-list">
-          {Object.values(displayParts()).map(part => (
+          {displayParts().map(part => (
             <div key={part.id}
               className={`part-item ${activePartItem === part ? "active-part-item" : ""}`}
               onClick={() => handlePartItemClick(part)}>

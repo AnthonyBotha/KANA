@@ -12,11 +12,8 @@ function UserCustomRewards() {
     const user = useSelector(state => state.session.user);
     
     const rewardArr = Object.values(rewards).filter(reward => reward.custom === true);
-    console.log("Rewards Array:", rewardArr);
+    
     const { setModalContent } = useModal();
-
-
-    let newRewardsArr = rewardArr.slice(0, 10);
 
 
     useEffect(() => {
@@ -27,9 +24,9 @@ function UserCustomRewards() {
         <>
 
             <div className="rewards-container-custom">
-                {newRewardsArr.length > 0 ? (
+                {rewardArr.length > 0 ? (
                     <div className="rewards-carousel-custom">
-                        {newRewardsArr.map(reward => (
+                        {rewardArr.map(reward => (
                             <div key={reward.id} className="rewards-card-custom darkGrey littleMargin roundedCorners">
                                 <div className="reward-details-custom" onClick={() => setModalContent(<UpdateRewardModal rewardId={reward.id} />)}>
                                     <h5 className="reward-name-custom">{reward.title}</h5>
