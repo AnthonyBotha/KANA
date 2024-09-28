@@ -1,6 +1,6 @@
 import { useEffect, useState, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useModal } from "../../../context/Modal";
 import { getItems } from "../../../redux/inventory";
 import ManageItemModal from "../ItemModal";
@@ -11,8 +11,10 @@ import '../ItemsPage.css'
 
 function EquipmentPage() {
   const dispatch = useDispatch();
+  const navigate = useNavigate()
+  const [isLoading,setLoading] = useState(true)
   const { setModalContent } = useModal();
-  // const sessionUser = useSelector(state => state.session.user);
+  const sessionUser = useSelector(state => state.session.user);
 
   const inventory = useSelector(state => state.inventory);
 
@@ -22,7 +24,7 @@ function EquipmentPage() {
 
   const inventoryArr = Object.values(inventory).filter(item => item.equipment == true);
 
-  console.log(inventoryArr)
+
   const armorArr = inventoryArr.filter(item => item.type === "armor");
 
   const helmetsArr = inventoryArr.filter(item => item.type === "helmet");
@@ -86,8 +88,13 @@ function EquipmentPage() {
   useEffect(() => {
     let isMounted = true;
 
+    const checkSession = () => {
+      if(!sessionUser)navigate('/')
+      else setLoading(false)
+    }
+
     if (isMounted) {
-      dispatch(getItems());
+      dispatch(getItems()).then(() => checkSession());
     }
 
     // Function to calculate and set batch size based on screen width
@@ -115,7 +122,7 @@ function EquipmentPage() {
       window.removeEventListener("resize", updateBatchSize);
     }
 
-  }, [dispatch]);
+  }, [dispatch,navigate,sessionUser]);
 
   const loadNextBatchArmor = (direction) => {
     let newBatch = direction === "right" ? currentBatchArmor + 1 : currentBatchArmor - 1;
@@ -173,6 +180,7 @@ function EquipmentPage() {
     setCurrentBatchEyewear(newBatch);
   }
 
+  if(isLoading) return <h1>Loading...</h1>
 
   return (
     <>
@@ -198,7 +206,7 @@ function EquipmentPage() {
                   }
                   return "inventory-navlink font whiteFont littleBottomMargin littleTopMargin";
                 }}
-                
+
               >
                 Equipment
               </NavLink>
