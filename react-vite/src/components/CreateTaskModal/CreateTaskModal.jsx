@@ -5,6 +5,7 @@ import Select from 'react-select';
 import CreatebleSelect from 'react-select/creatable'
 import * as dailyActions from '../../redux/dailies'
 import * as todoActions from '../../redux/todolist'
+// import * as habitActions from '../../redux/habits'
 
 
 // import { FaRegTrashAlt } from "react-icons/fa";
@@ -53,6 +54,13 @@ function CreateTaskModal({ taskType }) {
             }
             dispatch(todoActions.thunkCreateTodo(newTodo))
         }
+        // if (taskType == 'Habit') {
+        //     const newHabit = {
+        //         ...payload,
+        //         tags
+        //     }
+            // dispatch(habitActions.thunkCreateHabit(newHabit))
+        // }
         closeModal()
     }
 
@@ -70,9 +78,6 @@ function CreateTaskModal({ taskType }) {
             return el
         })
         setChecklist(updatedChecklist)
-        console.log(e.target.checked)
-        console.log(e)
-        console.log(checklist)
     }
 
     const updateChecklistDescription = (index, e) => {
@@ -116,7 +121,7 @@ function CreateTaskModal({ taskType }) {
 
                 <div className="displayFlex flexColumn fullWidth">
                     <div className="displayFlex alignCenter spaceBetween">
-                        <p className="font whiteFont xx-largeFont">Edit {taskType}</p>
+                        <p className="font whiteFont xx-largeFont">Create {taskType}</p>
                         <div>
                             <button className="littleRightMargin" onClick={closeModal}>Cancel</button>
                             <button type='submit'>Save</button>
