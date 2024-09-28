@@ -253,7 +253,7 @@
 
 .quarterScreen {
   width: 25%;
-  height: 99950vh;
+  height: auto;
 }
 
 .fullWidth {
@@ -278,7 +278,7 @@
 }
 
 .fullScreen {
-  height: 100000vh;
+  height: auto;
 }
 
 .dropShadow {
