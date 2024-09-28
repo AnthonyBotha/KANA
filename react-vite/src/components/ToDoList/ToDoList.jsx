@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { useModal } from "../../context/Modal";
 import TaskEditModal from "../TasksEditModal";
-import { getTodoList } from '../../redux/todolist.js';
+import { getTodoList, thunkUpdateTodo } from '../../redux/todolist.js';
 
 
 function ToDoList(userId) {
@@ -10,25 +10,30 @@ function ToDoList(userId) {
   const todos = useSelector(state => state.userTodos)
   const { setModalContent } = useModal()
   const [isLoaded, setIsLoaded] = useState(false)
-  const [selectedIds, setSelectedIds] = useState([]);
 
   useEffect(() => {
     dispatch(getTodoList()).then(() => setIsLoaded(true));
   }, [dispatch, userId, setIsLoaded])
 
-  const openModal = (id) => {
-    const task = todos.objTodos[id]
-    setModalContent(<TaskEditModal taskType='Todo' task={task} />)
+  const openModal = (e, id) => {
+    if(e.target.tagName !== 'INPUT' || e.target.type !== 'checkbox') {
+      const task = todos.objTodos[id]
+      setModalContent(<TaskEditModal taskType='Todo' task={task} />)
+    }
+
   }
 
   const handleCheckboxChange = (e) => {
-    const checkedId = e.target.value;
-    if (e.target.checked && !selectedIds.includes(checkedId)) {
-      setSelectedIds([...selectedIds, checkedId])
-    } else {
-      setSelectedIds(selectedIds.filter(id => id !== checkedId))
-    }
-  }
+    const taskId = e.target.value
+    const checked = e.target.checked
+    console.log(checked)
+    const updatedTask = {
+        ...todos.objTodos[taskId],
+        completed: checked
+    };
+    console.log('updatedTask,', updatedTask)
+    dispatch(thunkUpdateTodo(taskId, updatedTask))
+}
 
   if (isLoaded) return (
     <>
@@ -46,7 +51,7 @@ function ToDoList(userId) {
       <div className='displayFlex flexColumn littlePadding littleMargin'>
         {todos.arrTodos?.map(({ id, completed, title, difficulty, dueDate, notes }) => (
           <div key={id}
-            onClick={() => openModal(id)}
+            onClick={(e) => openModal(e, id)}
             className='displayFlex flexColumn darkGrey littleMargin roundedCorners'>
             <div className='displayFlex spaceBetween alignCenter'>
               <label>
@@ -54,16 +59,12 @@ function ToDoList(userId) {
                   type='checkbox'
                   value={id}
                   className=''
-                  // checked={selectedIds.includes(`${id}`)}
-                  checked={completed} //if completed = True then the checkbox is checked
+                  checked={completed}
                   onChange={(e) => { handleCheckboxChange(e) }}
                 />
-                {/* figure out how to update db dynamically */}
-                {completed = selectedIds.includes(`${id}`)}
               </label>
 
               <p className='whiteFont font smallFont'>{title}</p>
-              <p className='whiteFont font smallFont'>DELETE</p>
             </div>
 
             <div className='displayFlex spaceBetween'>

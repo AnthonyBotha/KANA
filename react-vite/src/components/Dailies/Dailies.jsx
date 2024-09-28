@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { thunkDailies } from "../../redux/dailies";
+import { thunkDailies, thunkUpdateDaily } from "../../redux/dailies";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import TaskEditModal from "../TasksEditModal";
@@ -15,14 +15,21 @@ function Dailies(userId) {
         dispatch(thunkDailies()).then(()=> setIsLoaded(true))
     }, [dispatch, userId, setIsLoaded])
 
-    const openModal = (id) => {
-        const task = dailies.objDailies[id]
-        setModalContent(<TaskEditModal taskType='Daily' task={task}/>)
+    const openModal = (e, id) => {
+        if(e.target.tagName !== 'INPUT' || e.target.type !== 'checkbox') {
+            const task = dailies.objDailies[id]
+            setModalContent(<TaskEditModal taskType='Daily' task={task}/>)
+        }
     }
 
     const handleCheckboxChange = (e) => {
-        console.log(e)
-        console.log('clicked check button')
+        const taskId = e.target.value
+        const checked = e.target.checked
+        const updatedTask = {
+            ...dailies.objDailies[taskId],
+            isDue: !checked
+        };
+        dispatch(thunkUpdateDaily(taskId, updatedTask))
     }
 
     if (isLoaded) return (
@@ -42,24 +49,18 @@ function Dailies(userId) {
                 {/* individual tasks */}
                 <div className='displayFlex flexColumn littlePadding littleMargin'>
                     {dailies.arrDailies?.map(({ id, title, isDue, notes}) => (
-                        <div key={id} onClick={()=>openModal(id)} className='displayFlex flexColumn darkGrey littleMargin roundedCorners'>
+                        <div key={id} onClick={(e)=>openModal(e, id)} className='displayFlex flexColumn darkGrey littleMargin roundedCorners'>
                                 <div className='displayFlex spaceBetween alignCenter'>
                                     <label>
                                         <input
-                                            type='checkbox' value={id} className=''
+                                            type='checkbox' className=''
+                                            value={id}
                                             checked={!isDue} //if completed = True then the checkbox is checked
                                             onChange={(e) => { handleCheckboxChange(e) }}
                                         />
                                     </label>
 
                                     <p className='whiteFont font smallFont'>{title}</p>
-
-                                    <p className='whiteFont font smallFont'
-                                    // onClick={(e) => handleDelete(e)}
-                                    >
-                                        DELETE
-                                    </p>
-
                                 </div>
 
                                 <div className='displayFlex spaceBetween'>

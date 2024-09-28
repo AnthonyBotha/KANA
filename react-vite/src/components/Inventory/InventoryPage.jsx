@@ -3,7 +3,7 @@ import { useEffect, useState, useMemo } from "react";
 import { NavLink } from "react-router-dom";
 import { getItems } from "../../redux/inventory";
 import { useModal } from "../../context/Modal";
-
+import { useNavigate } from "react-router-dom";
 import ManageItemModal from "./ItemModal";
 import UserDashboard from "../UserDashboard/UserDashboard";
 import SmallWhiteLogo from '../../static/SmallLogoWhite.png';
@@ -11,10 +11,12 @@ import "./ItemsPage.css"
 
 function ItemsPage() {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const user_items = useSelector(state => state.inventory)
   const itemsArray = Object.values(user_items).filter(item => item.equipment == false)
-  // const sessionUser = useSelector(state => state.session.user);
+  const sessionUser = useSelector(state => state.session.user);
   const  { setModalContent } = useModal();
+  const [isLoading,setLoading] = useState(true)
 
 
 
@@ -54,7 +56,13 @@ function ItemsPage() {
   useEffect(() => {
     let isMounted = true;
 
-    if (isMounted) dispatch(getItems())
+    const checkSession = () => {
+      if(!sessionUser)navigate('/')
+      else setLoading(false)
+    }
+
+
+    if (isMounted) dispatch(getItems()).then(() => checkSession())
 
 
     const updateBatchSize = () => {
@@ -80,12 +88,12 @@ function ItemsPage() {
       isMounted = false;
       window.removeEventListener("resize", updateBatchSize);
     }
-  }, [dispatch])
+  }, [dispatch,sessionUser,navigate])
 
 
 
 
-  if (!itemsArray.length) return <h1>Loading...</h1>
+
 
 
 
@@ -117,6 +125,8 @@ function ItemsPage() {
     setCurrentBatchSpecial(newBatch);
   }
 
+
+  if (isLoading) return <h1>Loading...</h1>
   return (
     <>
       <div className="blackBackground">

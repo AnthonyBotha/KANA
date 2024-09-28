@@ -1,22 +1,34 @@
 import { useSelector, useDispatch } from "react-redux";
 import SmallWhiteLogo from '../../static/SmallLogoWhite.png';
-
+import Habits from "../Habits";
 import ToDoList from "../ToDoList/ToDoList";
 import Dailies from "../Dailies";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { thunkTags } from "../../redux/tags";
 import UserDashboard from "../UserDashboard/UserDashboard";
 import UserRewards from "../Rewards";
 import AddTask from "./AddTask";
+import { useNavigate } from "react-router-dom";
 
 function UserHomePage() {
+  const navigate = useNavigate();
   const dispatch = useDispatch()
   const sessionUser = useSelector(state => state.session.user)
+  const [isLoading,setLoading] = useState(true)
 
 
   useEffect(()=> {
-    dispatch(thunkTags())
-  },[dispatch, sessionUser])
+
+    const checkSession = () => {
+      if(!sessionUser)navigate('/')
+      else setLoading(false)
+    }
+    dispatch(thunkTags()).then(() => checkSession())
+
+  },[dispatch, sessionUser,navigate])
+
+
+  if(isLoading) return <h1>Loading...</h1>
 
 
   return (
@@ -35,7 +47,7 @@ function UserHomePage() {
 
           {/* Habits Table */}
           <div className="almostBlack quarterScreen roundedCorners littleRightMargin">
-            <p className="whiteFont">IMPORT HABITS COMPONENT</p>
+            <Habits userId={sessionUser.id}/>
           </div>
 
           {/* Dailies Table */}

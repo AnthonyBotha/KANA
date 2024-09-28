@@ -5,7 +5,7 @@ import Select from 'react-select';
 import CreatebleSelect from 'react-select/creatable'
 import * as dailyActions from '../../redux/dailies'
 import * as todoActions from '../../redux/todolist'
-// import * as habitActions from '../../redux/habits'
+import * as habitActions from '../../redux/habits'
 
 
 // import { FaRegTrashAlt } from "react-icons/fa";
@@ -29,6 +29,8 @@ function CreateTaskModal({ taskType }) {
     const [startDate, setStartDate] = useState()
     const [difficulty, setDifficulty] = useState(reactSelectParser('Easy'))
     const [dueDate, setDueDate] = useState(Date.today)
+    const [isPositive,setIsPositive] = useState(false)
+    const [activeButton, setActiveButton] = useState(null);
 
 
     const handleSubmit = (e) => {
@@ -54,13 +56,14 @@ function CreateTaskModal({ taskType }) {
             }
             dispatch(todoActions.thunkCreateTodo(newTodo))
         }
-        // if (taskType == 'Habit') {
-        //     const newHabit = {
-        //         ...payload,
-        //         tags
-        //     }
-            // dispatch(habitActions.thunkCreateHabit(newHabit))
-        // }
+        if (taskType == 'Habit') {
+            payload.isPositive = isPositive
+            const newHabit = {
+                ...payload,
+                tags
+            }
+            dispatch(habitActions.thunkCreateHabit(newHabit))
+        }
         closeModal()
     }
 
@@ -174,10 +177,23 @@ function CreateTaskModal({ taskType }) {
                     {/* ONLY FOR HABIT */}
                     {/* Positive Negative */}
                     {taskType === 'Habit' &&
-                        <div>
-                            <CiCircleMinus /><p>Negative</p>
-                            <CiCirclePlus /><p>Positive</p>
+                    <div>
+                        <div className='displayFlex alignBottom spaceEvenly'>
+                            <p className="font bold IsPostiveText">Negative</p>
+                            <p className="font bold IsPostiveText">Positive</p>
                         </div>
+                        <div className='displayFlex alignBottom spaceEvenly'>
+                            <CiCircleMinus onClick={() =>{
+                                setIsPositive(false)
+                                setActiveButton(false)
+                            }}
+                                className={`isPostiveButtons ${activeButton === false ? 'active' : ''}` } />
+                            <CiCirclePlus onClick={() => {
+                                setIsPositive(true)
+                                setActiveButton(true)
+                                }} className={`isPostiveButtons ${activeButton === true ? 'active' : ''}` }  />
+                        </div>
+                    </div>
                     }
 
                     {/* Difficulty */}
