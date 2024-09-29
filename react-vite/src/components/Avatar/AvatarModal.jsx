@@ -224,8 +224,8 @@ function AvatarModal() {
   }
 
   return (
-    <div className="modal">
-      <div className="modal-header">
+    <div className="avatar-landing-page">
+      <div className="avatar-landing-page-header">
         <div className="welcome-text">
           <h2>Welcome, {user.username}</h2>
           <h4>Level {user.level}</h4>
