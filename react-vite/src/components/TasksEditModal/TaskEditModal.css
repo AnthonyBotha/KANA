@@ -72,10 +72,24 @@ color: #131517;
 }
 
 .isPostiveButtons:hover{
-  color:yellow;
-  font-weight: bold;
+  color:#FFD700;
+
 }
 
 .active{
-  color: yellow;
+  color: #FFD700;
+}
+
+.coin{
+  position: relative;
+  top:1px;
+  right:1px;
+}
+
+.trash{
+  font-size: xx-large;
+}
+
+.trash:hover{
+  color: red;
 }

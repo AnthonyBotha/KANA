@@ -9,6 +9,7 @@
 
 .darkGrey {
   background-color: #343A40;
+  color: white;
 }
 
 .lightPurple {
@@ -21,6 +22,7 @@
 
 .darkPurple {
   background-color: #432874;
+  color: white;
 }
 
 .almostBlack {
@@ -29,6 +31,8 @@
 
 .black {
   background-color: #0b0b0b;
+  height: 100%;
+  min-height: 200px;
 }
 
 .noBackground {
@@ -86,6 +90,9 @@
 /* font colors */
 .whiteFont {
   color: #F8F9FA;
+}
+.center{
+  text-align: center;
 }
 
 .purpleFont {
@@ -250,6 +257,7 @@
 .halfScreen {
   width: 50%;
 }
+
 
 .quarterScreen {
   width: 25%;

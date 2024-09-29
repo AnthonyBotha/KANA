@@ -299,7 +299,7 @@ function TaskEditModal({ taskType, task }) {
 
                     {/* Delete this TaskType */}
                     <div id="delete-task-button" className="redFont font textCenter">
-                        <p onClick={handleDelete}><FaRegTrashAlt />Delete this {taskType}</p>
+                        <p onClick={handleDelete}><FaRegTrashAlt className="whiteFont trash" /></p>
                     </div>
 
 

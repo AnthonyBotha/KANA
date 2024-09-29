@@ -58,15 +58,12 @@ function Habits(userId){
                      <div key={id}
                      onClick={() => openModal(id)}
                      className='displayFlex flexColumn darkGrey littleMargin roundedCorners'>
-                     <div className='displayFlex spaceBetween alignCenter'>
-
-
-                       <p className='whiteFont font smallFont'>{title}</p>
-                       <p className='whiteFont font smallFont'>DELETE</p>
-                     </div>
+                     <div className='center'>
+                        <p className='whiteFont font smallFont '>{title}</p>
+                    </div>
 
                      <div className="displayFlex flexEnd">
-                        <p className='whiteFont font smallFont'>Score: {score}</p>
+                        <div className='whiteFont font smallFont score'>Score: {score}</div>
                         {isPositive == true && (<p className="whiteFont viewIsPostitve">
                             <CiCirclePlus onClick={(e)=>{
                             e.stopPropagation();
@@ -82,8 +79,8 @@ function Habits(userId){
                     </div>
 
                      <div className='displayFlex spaceBetween'>
-                       <p className='lightGreyFont font smallFont'>{difficulty}</p>
-                       <p className='lightGreyFont font smallFont'>{notes}</p>
+                       <div className='lightGreyFont font smallFont paddHabit'>{difficulty}</div>
+                       <div className='lightGreyFont font smallFont paddHabit notes'>{notes}</div>
                      </div>
 
                    </div>
