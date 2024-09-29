@@ -79,6 +79,7 @@ function AvatarModal() {
 
   const antennas = useSelector(state => state.avatarParts.antennas);
   const antennasArr = Object.values(antennas);
+  const antennasArrDouble = [...antennasArr, ...antennasArr];
 
   const backgrounds = useSelector(state => state.avatarParts.backgrounds);
   const backgroundsArr = Object.values(backgrounds);
@@ -370,7 +371,7 @@ function AvatarModal() {
         {/* Display Antenna Options */}
         {selectedPart === "antenna" && (
           <div className="parts-list">
-            {antennasArr.map(part => (
+            {antennasArrDouble.map(part => (
               <div key={part.id}
                 className={`part-item ${activePartItem === part ? "active-part-item" : ""}`}
                 onClick={() => handlePartItemClick(part)}>
