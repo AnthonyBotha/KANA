@@ -311,7 +311,7 @@ function AvatarModal() {
         {/* Display Head Options */}
         {selectedPart === "head" && (
           <div className="parts-list">
-            {headsArr.map(part => (
+            {headsArr.forEach(part => (
               <div key={part.id}
                 className={`part-item ${activePartItem === part ? "active-part-item" : ""}`}
                 onClick={() => handlePartItemClick(part)}>
@@ -325,7 +325,7 @@ function AvatarModal() {
         {/* Display Eye Options */}
         {selectedPart === "eye" && (
           <div className="parts-list">
-            {eyesArr.map(part => (
+            {eyesArr.forEach(part => (
               <div key={part.id}
                 className={`part-item ${activePartItem === part ? "active-part-item" : ""}`}
                 onClick={() => handlePartItemClick(part)}>
@@ -340,7 +340,7 @@ function AvatarModal() {
         {/* Display Nose Options */}
         {selectedPart === "nose" && (
           <div className="parts-list">
-            {nosesArr.map(part => (
+            {nosesArr.forEach(part => (
               <div key={part.id}
                 className={`part-item ${activePartItem === part ? "active-part-item" : ""}`}
                 onClick={() => handlePartItemClick(part)}>
@@ -354,7 +354,7 @@ function AvatarModal() {
         {/* Display Mouth Options */}
         {selectedPart === "mouth" && (
           <div className="parts-list">
-            {mouthsArr.map(part => (
+            {mouthsArr.forEach(part => (
               <div key={part.id}
                 className={`part-item ${activePartItem === part ? "active-part-item" : ""}`}
                 onClick={() => handlePartItemClick(part)}>
@@ -368,7 +368,7 @@ function AvatarModal() {
         {/* Display Ear Options */}
         {selectedPart === "ear" && (
           <div className="parts-list">
-            {earsArr.map(part => (
+            {earsArr.ForEach(part => (
               <div key={part.id}
                 className={`part-item ${activePartItem === part ? "active-part-item" : ""}`}
                 onClick={() => handlePartItemClick(part)}>
@@ -382,7 +382,7 @@ function AvatarModal() {
         {/* Display Antenna Options */}
         {selectedPart === "antenna" && (
           <div className="parts-list">
-            {antennasArr.map(part => (
+            {antennasArr.forEach(part => (
               <div key={part.id}
                 className={`part-item ${activePartItem === part ? "active-part-item" : ""}`}
                 onClick={() => handlePartItemClick(part)}>
@@ -396,7 +396,7 @@ function AvatarModal() {
         {/* Display Neck Options */}
         {selectedPart === "neck" && (
           <div className="parts-list">
-            {necksArr.map(part => (
+            {necksArr.forEach(part => (
               <div key={part.id}
                 className={`part-item ${activePartItem === part ? "active-part-item" : ""}`}
                 onClick={() => handlePartItemClick(part)}>
@@ -410,7 +410,7 @@ function AvatarModal() {
         {/* Display Background Options */}
         {selectedPart === "background" && (
           <div className="parts-list">
-            {backgroundsArr.map(part => (
+            {backgroundsArr.forEach(part => (
               <div key={part.id}
                 className={`part-item ${activePartItem === part ? "active-part-item" : ""}`}
                 onClick={() => handlePartItemClick(part)}>
