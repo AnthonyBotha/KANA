@@ -277,8 +277,12 @@
   border-radius: 3px;
 }
 
-.fullScreen {
+.fullScreenPercent {
   height: 100%;
+}
+
+.fullScreenVh {
+  height: 100vh;
 }
 
 .dropShadow {

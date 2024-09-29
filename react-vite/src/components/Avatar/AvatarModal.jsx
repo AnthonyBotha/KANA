@@ -74,33 +74,44 @@ function AvatarModal() {
     }
   }, [avatar, userAvatar])
 
+  //Helper function to remove duplicates by "type"
+  const removeDuplicatesByType = (arr) => {
+    return arr.reduce((acc, current) => {
+      const isDuplicate = acc.some(item => item.type === current.type);
+      if (!isDuplicate) {
+        acc.push(current);
+      }
+      return acc;
+    }, [])
+  };
 
-  //helper function to get a random element from an array
+
+  //Helper function to get a random element from an array
   const getRandomElement = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
   const antennas = useSelector(state => state.avatarParts.antennas);
-  const antennasArr = Object.values(antennas);
+  const antennasArr = removeDuplicatesByType(Object.values(antennas));
 
   const backgrounds = useSelector(state => state.avatarParts.backgrounds);
-  const backgroundsArr = Object.values(backgrounds);
+  const backgroundsArr = removeDuplicatesByType(Object.values(backgrounds));
 
   const ears = useSelector(state => state.avatarParts.ears);
-  const earsArr = Object.values(ears);
+  const earsArr = removeDuplicatesByType(Object.values(ears));
 
   const eyes = useSelector(state => state.avatarParts.eyes);
-  const eyesArr = Object.values(eyes);
+  const eyesArr = removeDuplicatesByType(Object.values(eyes));
 
   const heads = useSelector(state => state.avatarParts.heads);
-  const headsArr = Object.values(heads);
+  const headsArr = removeDuplicatesByType(Object.values(heads));
 
   const mouths = useSelector(state => state.avatarParts.mouths);
-  const mouthsArr = Object.values(mouths);
+  const mouthsArr = removeDuplicatesByType(Object.values(mouths));
 
   const necks = useSelector(state => state.avatarParts.necks);
-  const necksArr = Object.values(necks);
+  const necksArr = removeDuplicatesByType(Object.values(necks));
 
   const noses = useSelector(state => state.avatarParts.noses);
-  const nosesArr = Object.values(noses);
+  const nosesArr = removeDuplicatesByType(Object.values(noses));
 
 
 
@@ -329,7 +340,6 @@ function AvatarModal() {
         {/* Display Nose Options */}
         {selectedPart === "nose" && (
           <div className="parts-list">
-            {console.log("Noses Array:", nosesArr)}
             {nosesArr.map(part => (
               <div key={part.id}
                 className={`part-item ${activePartItem === part ? "active-part-item" : ""}`}
