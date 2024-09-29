@@ -2,20 +2,23 @@ import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { useEffect,useState } from "react";
 import { getItems } from "../../redux/inventory";
-import { BsCoin } from "react-icons/bs";
 import "./EquippedItems.css"
 import ManageItemModal from "../Inventory/ItemModal";
-// import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation} from "react-router-dom";
 
 
 function EquipedItems(){
+    const location = useLocation()
     const dispatch = useDispatch()
     const user_items = useSelector(state => state.inventory)
     const itemsArray = Object.values(user_items).filter(item => item.equipped == true && item.equipment == false)
     const {setModalContent} = useModal();
     const [inventory,setInventory] = useState([])
-    const [activeTab,setTab] = useState('items')
     const placeHolderCount  = 8;
+    const url = location.pathname
+
+    const [activeTab,setTab] = useState('items')
+
 
 
 
@@ -48,6 +51,14 @@ function EquipedItems(){
     const changeToEquipment = () => {
         setTab('equipment')
     }
+
+
+    useEffect(() => {
+        if(url.split('/').includes('equipment')){
+            changeToEquipment()
+        }
+    },[url])
+
 
 
     const renderPlaceholders = () => {
@@ -83,7 +94,6 @@ function EquipedItems(){
                                 <div onClick={() => setModalContent(<ManageItemModal itemId={item.id} itemName={item.name} itemImage={item.itemImg} itemDescription={item.description} itemValue={item.cost} equipped={item.equipped} setInventory={setInventory} />)}>
                                     <img src={item.itemImg} alt={item.name} className="reward-image" />
                                     <h5 className="reward-name">{item.name}</h5>
-                                    <div className="reward-name"><BsCoin className="yellowFont" />{item.cost}</div>
                                 </div>
                             </div>
                         ))}

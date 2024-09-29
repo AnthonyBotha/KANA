@@ -28,6 +28,13 @@ function SignupFormPage() {
       });
     }
 
+    if (!email.includes('@')){
+      return setErrors({
+        email:
+          "Email is Invaild",
+      })
+    }
+
     const serverResponse = await dispatch(
       thunkSignup({
         email,

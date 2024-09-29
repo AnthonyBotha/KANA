@@ -1,7 +1,8 @@
 from flask import Blueprint, request,jsonify
-from app.models import User, db,Item,Reward
+from app.models import User, db,Item,Reward,Habit,Daily,Todo
 from app.forms import LoginForm
 from app.forms import SignUpForm
+from datetime import date
 from flask_login import current_user, login_user, logout_user, login_required
 
 auth_routes = Blueprint('auth', __name__)
@@ -52,6 +53,8 @@ def sign_up():
     form = SignUpForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
+        if at_in_email(form.data['email']) is False:
+            return jsonify({'error': "Email is invaild"}), 400
         user = User(
             username=form.data['username'],
             email=form.data['email'],
@@ -92,6 +95,66 @@ def sign_up():
                 user.rewards.append(reward)
             db.session.commit()
 
+
+            # default habits
+            habit1= Habit(
+                title='Add a task to KANA',
+                notes='Either a Habit, a Daily, or a To Do',
+                difficulty='Easy',
+                is_positive=True,
+                user_id=user.id
+            )
+
+            habit2= Habit(
+            title="Click here to edit this into a bad habit you'd like to quit",
+            notes='Or delete from the edit screen',
+            difficulty='Easy',
+            is_positive=False,
+            user_id=user.id
+            )
+
+            # default dailies
+            daily1 = Daily(
+            title="Most important task >> Worked on today's most important task",
+            notes='Tap to specify your most important task',
+            difficulty='Easy',
+            user_id=user.id
+            )
+
+            daily2= Daily(
+            title="Stretching >> Daily workout routine",
+            notes='Tap to choose your schedule and specify exercises!',
+            difficulty='Easy',
+            user_id=user.id,
+            repeats='Daily'
+            )
+
+            # default todos
+            todo1 = Todo(
+            title="Work project >> Complete work project",
+            notes='Tap to specify the name of your current project + set a due date!',
+            difficulty='Easy',
+            user_id=user.id,
+            due_date=date(2025,9,20)
+            )
+
+            todo2= Todo(
+            title="Set up workout schedule",
+            notes='Tap to add a checklist!',
+            difficulty='Easy',
+            user_id=user.id,
+            due_date=date(2025,10,11)
+            )
+
+            default_routine=[todo1,todo2,daily1,daily2,habit1,habit2]
+
+
+            # adds them to db
+            for default in default_routine:
+                db.session.add(default)
+            db.session.commit()
+
+
             login_user(user)
 
             return user.to_dict()
@@ -110,3 +173,9 @@ def unauthorized():
     Returns unauthorized JSON when flask-login authentication fails
     """
     return {'errors': {'message': 'Unauthorized'}}, 401
+
+
+
+
+def at_in_email(email):
+    return '@' in email

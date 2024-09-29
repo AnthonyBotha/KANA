@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { buyReward } from "../../redux/rewards";
 import deleteCustom from '../../redux/rewards'
+import { BsCoin } from "react-icons/bs";
 
 
 const ManageRewardModal = ({reward}) => {
@@ -46,7 +47,7 @@ const ManageRewardModal = ({reward}) => {
                         <img src={reward.rewardImg} alt={reward.title} className="inventory-image-modal" />
                         <h3 className="font whiteFont inventory-name-modal">{reward.title}</h3>
                         <p className="font whiteFont description">{reward.notes}</p>
-                        <p className="font whiteFont value">Value:{reward.cost}</p>
+                        <p className="font whiteFont value"><BsCoin className="coin yellowFont rewardsModal" />{reward.cost}</p>
                     </div>
                     <div className="item-action-buttons">
                         <span><button className="small-button" onClick={handleBuy}>Buy</button></span>
