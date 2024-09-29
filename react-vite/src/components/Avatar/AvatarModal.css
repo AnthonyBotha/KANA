@@ -6,7 +6,8 @@
     justify-content: center;
     background-color: lightgray;
     z-index: 1000;
-    width: 1050px;
+    width: 600px;
+    overflow: hidden;
 }
 
 .modal-header {
