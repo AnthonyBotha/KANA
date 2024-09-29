@@ -33,7 +33,7 @@ function UserHomePage() {
 
   return (
     <>
-      <div className="black">
+      <div className="blackBackground">
 
         <UserDashboard />
 
