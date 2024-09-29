@@ -74,44 +74,33 @@ function AvatarModal() {
     }
   }, [avatar, userAvatar])
 
-  //Helper function to remove duplicates by "type"
-  const removeDuplicatesByType = (arr) => {
-    return arr.reduce((acc, current) => {
-      const isDuplicate = acc.some(item => item.type === current.type);
-      if (!isDuplicate) {
-        acc.push(current);
-      }
-      return acc;
-    }, [])
-  };
 
-
-  //Helper function to get a random element from an array
+  //helper function to get a random element from an array
   const getRandomElement = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
   const antennas = useSelector(state => state.avatarParts.antennas);
-  const antennasArr = removeDuplicatesByType(Object.values(antennas));
+  const antennasArr = Object.values(antennas);
 
   const backgrounds = useSelector(state => state.avatarParts.backgrounds);
-  const backgroundsArr = removeDuplicatesByType(Object.values(backgrounds));
+  const backgroundsArr = Object.values(backgrounds);
 
   const ears = useSelector(state => state.avatarParts.ears);
-  const earsArr = removeDuplicatesByType(Object.values(ears));
+  const earsArr = Object.values(ears);
 
   const eyes = useSelector(state => state.avatarParts.eyes);
-  const eyesArr = removeDuplicatesByType(Object.values(eyes));
+  const eyesArr = Object.values(eyes);
 
   const heads = useSelector(state => state.avatarParts.heads);
-  const headsArr = removeDuplicatesByType(Object.values(heads));
+  const headsArr = Object.values(heads);
 
   const mouths = useSelector(state => state.avatarParts.mouths);
-  const mouthsArr = removeDuplicatesByType(Object.values(mouths));
+  const mouthsArr = Object.values(mouths);
 
   const necks = useSelector(state => state.avatarParts.necks);
-  const necksArr = removeDuplicatesByType(Object.values(necks));
+  const necksArr = Object.values(necks);
 
   const noses = useSelector(state => state.avatarParts.noses);
-  const nosesArr = removeDuplicatesByType(Object.values(noses));
+  const nosesArr = Object.values(noses);
 
 
 
@@ -311,7 +300,7 @@ function AvatarModal() {
         {/* Display Head Options */}
         {selectedPart === "head" && (
           <div className="parts-list">
-            {headsArr.forEach(part => (
+            {headsArr.map(part => (
               <div key={part.id}
                 className={`part-item ${activePartItem === part ? "active-part-item" : ""}`}
                 onClick={() => handlePartItemClick(part)}>
@@ -325,7 +314,7 @@ function AvatarModal() {
         {/* Display Eye Options */}
         {selectedPart === "eye" && (
           <div className="parts-list">
-            {eyesArr.forEach(part => (
+            {eyesArr.map(part => (
               <div key={part.id}
                 className={`part-item ${activePartItem === part ? "active-part-item" : ""}`}
                 onClick={() => handlePartItemClick(part)}>
@@ -340,7 +329,8 @@ function AvatarModal() {
         {/* Display Nose Options */}
         {selectedPart === "nose" && (
           <div className="parts-list">
-            {nosesArr.forEach(part => (
+            {console.log("Noses Array:", nosesArr)}
+            {nosesArr.map(part => (
               <div key={part.id}
                 className={`part-item ${activePartItem === part ? "active-part-item" : ""}`}
                 onClick={() => handlePartItemClick(part)}>
@@ -354,7 +344,7 @@ function AvatarModal() {
         {/* Display Mouth Options */}
         {selectedPart === "mouth" && (
           <div className="parts-list">
-            {mouthsArr.forEach(part => (
+            {mouthsArr.map(part => (
               <div key={part.id}
                 className={`part-item ${activePartItem === part ? "active-part-item" : ""}`}
                 onClick={() => handlePartItemClick(part)}>
@@ -368,7 +358,7 @@ function AvatarModal() {
         {/* Display Ear Options */}
         {selectedPart === "ear" && (
           <div className="parts-list">
-            {earsArr.ForEach(part => (
+            {earsArr.map(part => (
               <div key={part.id}
                 className={`part-item ${activePartItem === part ? "active-part-item" : ""}`}
                 onClick={() => handlePartItemClick(part)}>
@@ -382,7 +372,7 @@ function AvatarModal() {
         {/* Display Antenna Options */}
         {selectedPart === "antenna" && (
           <div className="parts-list">
-            {antennasArr.forEach(part => (
+            {antennasArr.map(part => (
               <div key={part.id}
                 className={`part-item ${activePartItem === part ? "active-part-item" : ""}`}
                 onClick={() => handlePartItemClick(part)}>
@@ -396,7 +386,7 @@ function AvatarModal() {
         {/* Display Neck Options */}
         {selectedPart === "neck" && (
           <div className="parts-list">
-            {necksArr.forEach(part => (
+            {necksArr.map(part => (
               <div key={part.id}
                 className={`part-item ${activePartItem === part ? "active-part-item" : ""}`}
                 onClick={() => handlePartItemClick(part)}>
@@ -410,7 +400,7 @@ function AvatarModal() {
         {/* Display Background Options */}
         {selectedPart === "background" && (
           <div className="parts-list">
-            {backgroundsArr.forEach(part => (
+            {backgroundsArr.map(part => (
               <div key={part.id}
                 className={`part-item ${activePartItem === part ? "active-part-item" : ""}`}
                 onClick={() => handlePartItemClick(part)}>
