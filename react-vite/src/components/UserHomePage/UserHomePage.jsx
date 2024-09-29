@@ -33,7 +33,7 @@ function UserHomePage() {
 
   return (
     <>
-      <div className="fullScreenPercent black">
+      <div className="black">
 
         <UserDashboard />
 
@@ -69,7 +69,7 @@ function UserHomePage() {
       </div>
 
       {/* footer */}
-      <div className="black displayFlex alignBottom spaceBetween littleBottomPadding">
+      <div className="black displayFlex alignBottom spaceBetween littleBottomPadding info">
         <p className='leftPageBorder font whiteFont smallFont noMargin'>© 2024 KANA. All rights reserved.</p>
         <img className="smallLogo" src={SmallWhiteLogo} />
         <a className="rightPageBorder fontLight whiteFont smallFont" href='https://github.com/AnthonyBotha/KANA/wiki'>GitHub</a>

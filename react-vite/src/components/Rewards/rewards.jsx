@@ -63,7 +63,7 @@ function UserRewards({ sessionUser }) {
                                     <div onClick={() => setModalContent(<ManageRewardModal reward={reward} />)}>
                                         <img src={reward.rewardImg} alt={reward.name} className="reward-image" />
                                         <h5 className="reward-name">{reward.title}</h5>
-                                        <div className="reward-name"><BsCoin className="yellowFont" />{reward.cost}</div>
+                                        <div className="reward-name"><BsCoin className="coin" />{reward.cost}</div>
                                     </div>
                                 </div>
                             ))}
