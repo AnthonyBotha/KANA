@@ -33,7 +33,7 @@ function UserHomePage() {
 
   return (
     <>
-      <div className="fullScreen black">
+      <div className="fullScreenPercent black">
 
         <UserDashboard />
 
