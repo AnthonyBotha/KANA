@@ -79,7 +79,7 @@ function AvatarModal() {
 
   const antennas = useSelector(state => state.avatarParts.antennas);
   const antennasArr = Object.values(antennas);
-  const antennasArrDouble = [...antennasArr, ...antennasArr];
+  const antennasArrDouble = [...antennasArr];
 
   const backgrounds = useSelector(state => state.avatarParts.backgrounds);
   const backgroundsArr = Object.values(backgrounds);
