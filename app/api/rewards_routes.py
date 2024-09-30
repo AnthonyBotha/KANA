@@ -24,9 +24,11 @@ def insert_reward():
 
 
     item_img=data.get('itemImg')
+    print("image url:",item_img)
     reward=Reward.query.filter_by(reward_img=item_img).first()
     # looking if reward exists
     if reward is None:
+        print('hiiiiiiiiii world')
         return {'errors': {'message': 'reward can not be added to user rewards'}}, 400
     # looks if user has reward already
     user_reward=db.session.query(user_rewards).filter_by(user_id=current_user.id,reward_id=reward.id).first()
