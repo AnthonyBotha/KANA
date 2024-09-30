@@ -47,3 +47,8 @@
     cursor: pointer;
     transform: scale(1.05);
 }
+
+.rewardsModal{
+    right: 5px;
+    top:2px;
+}

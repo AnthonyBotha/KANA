@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useModal } from "../../context/Modal";
 import TaskEditModal from "../TasksEditModal";
 import { getTodoList, thunkUpdateTodo } from '../../redux/todolist.js';
-
+import './todo.css'
 
 function ToDoList(userId) {
   const dispatch = useDispatch();
@@ -69,10 +69,11 @@ function ToDoList(userId) {
             </div>
 
             <div className='displayFlex spaceBetween'>
-              <p className='lightGreyFont font smallFont'>{difficulty}</p>
-              <p className='lightGreyFont font smallFont'>{dueDate}</p>
-              <p className='lightGreyFont font smallFont'>{notes}</p>
+              <p className='lightGreyFont font smallFont paddHabit'>{difficulty}</p>
+              <p className='lightGreyFont font smallFont todosNotes notes'>{notes}</p>
             </div>
+
+            <div className='lightGreyFont font smallFont paddHabit'>{dueDate}</div>
 
           </div>
         ))}

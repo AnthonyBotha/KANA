@@ -36,13 +36,14 @@ function LoginFormModal() {
       email: "demo@aa.io",
       password: "password"
     }))
-      .then(closeModal()) 
+      .then(closeModal())
   }
 
   return (
     <div className="displayFlex flexColumn alignCenter">
       <img className="logo bottomMargin" src={SmallLogo} />
       <form onSubmit={handleSubmit}>
+      {errors.email && (<p className="font whiteFont">{errors.email}</p>)}
         <label>
           <input
             className="fullWidth darkGrey noBorder topPadding littleBottomPadding littleBottomMargin roundedCorners"
@@ -53,10 +54,11 @@ function LoginFormModal() {
             required
           />
         </label>
-        {errors.email && <p>{errors.email}</p>}
+
+
         <label>
           <input
-            className="fullWidth darkGrey noBorder topPadding littleBottomPadding littleBottomMargin roundedCorners"
+            className=" fullWidth darkGrey noBorder topPadding littleBottomPadding littleBottomMargin roundedCorners"
             type="password"
             value={password}
             placeholder="Password"
@@ -64,7 +66,10 @@ function LoginFormModal() {
             required
           />
         </label>
-        {errors.password && <p>{errors.password}</p>}
+
+
+        <p className={`font whiteFont  ${errors.password ? '' : 'hidden'}`}>{errors.password}</p>
+
         <div className='displayFlex flexColumn'>
           <button type="submit">Log In</button>
           <button type="submit"

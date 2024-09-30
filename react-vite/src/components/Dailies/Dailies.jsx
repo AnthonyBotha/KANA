@@ -82,7 +82,7 @@ function Dailies(userId) {
                         </div>
 
                         <div className='displayFlex spaceBetween'>
-                            <p className='lightGreyFont font smallFont'>{notes}</p>
+                            <p className='lightGreyFont font smallFont notes paddHabit'>{notes}</p>
                         </div>
                     </div>
                 ))}
