@@ -54,6 +54,7 @@ export const equipItem = (itemId) => async(dispatch) => {
 };
 
 export const deleteItem = (itemId,ItemImage) => async (dispatch) => {
+
     const item ={
         itemImg:ItemImage
     }

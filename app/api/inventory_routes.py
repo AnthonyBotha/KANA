@@ -117,7 +117,7 @@ def add_to_inventory():
         db.session.rollback()
         return jsonify({'error': "Couldn't Add To inventory"}), 400
 
-@inventory_routes.route('/<int:item_id>',methods=['delete'])
+@inventory_routes.route('/<int:item_id>',methods=['DELETE'])
 @login_required
 def delete_from_inventory(item_id):
     item=Item.query.get(item_id)

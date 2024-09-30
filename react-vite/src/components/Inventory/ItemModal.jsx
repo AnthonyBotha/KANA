@@ -18,8 +18,12 @@ const ManageItemModal = ({ itemId, itemName, itemImage, itemDescription, itemVal
         const result = true
 
         if (result) {
-            dispatch(deleteItem(itemId,itemImage))
-            setMessage(`${itemName} Sold Successfully.`);
+            try{
+                await dispatch(deleteItem(itemId,itemImage))
+                setMessage(`${itemName} Sold Successfully.`);
+            }catch{
+                setMessage("Default Items can not be Sold!")
+            }
 
             setTimeout(() => {
                 closeModal();
