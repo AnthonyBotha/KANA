@@ -43,8 +43,8 @@ function ToDoList(userId) {
 
         <div className='displayFlex littlePadding'>
           {/* onclick filter the current task list */}
-          <p onClick={()=> setCompleted(false)} className='fontLight whiteFont smallFont littlePadding'>Active</p>
-          <p onClick={()=> setCompleted(true)} className='fontLight whiteFont smallFont littlePadding'>Completed</p>
+          <p onClick={()=> setCompleted(false)} className={`fontLight whiteFont smallFont littlePadding ${!completed ? 'active' :''}`}>Active</p>
+          <p onClick={()=> setCompleted(true)} className={`fontLight whiteFont smallFont littlePadding ${completed ? 'active' : ''}`}>Completed</p>
         </div>
       </div>
 

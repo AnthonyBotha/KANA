@@ -15,6 +15,7 @@
     list-style-type: none;
     padding: 25px;
     text-decoration: none;
+    z-index: 1000;
 }
 
 .inventory-navlink {

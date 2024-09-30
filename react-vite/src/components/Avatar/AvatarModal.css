@@ -1,4 +1,4 @@
-.modal {
+.avatar-landing-page {
     padding: 30px;
     display: flex;
     flex-direction: column;
@@ -6,9 +6,10 @@
     justify-content: center;
     background-color: lightgray;
     z-index: 1000;
+    width: 1000px;
 }
 
-.modal-header {
+.avatar-landing-page-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
