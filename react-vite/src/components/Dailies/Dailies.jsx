@@ -50,9 +50,9 @@ function Dailies(userId) {
 
                 <div className='displayFlex littlePadding'>
                     {/* onclick filter the current task list */}
-                    <p onClick={()=> setFilterActive(false)}className='fontLight whiteFont smallFont littlePadding'>All</p>
-                    <p onClick={(e)=> filterDailies(e)} value='true' className='fontLight whiteFont smallFont littlePadding'>Due</p>
-                    <p onClick={(e)=> filterDailies(e)} value='false' className='fontLight whiteFont smallFont littlePadding'>Not Due</p>
+                    <p onClick={()=> setFilterActive(false)}className={`fontLight whiteFont smallFont littlePadding ${!filterActive ? 'active-filter' : ''}`}>All</p>
+                    <p onClick={(e)=> filterDailies(e)} value='true' className={ `fontLight whiteFont smallFont littlePadding ${filterActive && isDue ? 'active-filter' : ''}`}>Due</p>
+                    <p onClick={(e)=> filterDailies(e)} value='false' className={`fontLight whiteFont smallFont littlePadding ${filterActive && !isDue ? 'active-filter' : ''}`}>Not Due</p>
                 </div>
             </div>
 

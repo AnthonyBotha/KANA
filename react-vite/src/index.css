@@ -68,6 +68,15 @@
   cursor: pointer;
 }
 
+.active-filter {
+  font-family: "Varela Round", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  color: #432874 !important;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 .redFont:hover {
   color: rgb(118, 0, 0);
   text-decoration: underline;
