@@ -5,6 +5,7 @@ import ProfileButton from "./ProfileButton";
 import LoginFormModal from "../LoginFormModal";
 import OpenModalButton from '../OpenModalButton';
 import logo from '../../static/KANA.png'
+import InventorySelectionButton from "./InventorySelection";
 import "./Navigation.css";
 
 function Navigation() {
@@ -15,13 +16,13 @@ function Navigation() {
       <div className="displayFlex alignCenter spaceBetween">
         <div className="displayFlex largeLeftMargin">
           <NavLink to='/home' className="fontLight largeFont whiteFont">Tasks</NavLink>
-          <NavLink to='/inventory' className="fontLight largeFont whiteFont leftMargin">Inventory</NavLink>
+          <InventorySelectionButton />
         </div>
         <div className="displayFlex alignCenter">
           <div className="displayFlex largeRightMargin">
             <div className="displayFlex alignCenter">
               <p className="x-largeFont noMargin noPadding textCenter littleRightMargin yellowFont">
-                <BsCoin /> 
+                <BsCoin />
               </p>
               <p className="font whiteFont">{sessionUser.gold}</p>
             </div>

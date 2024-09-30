@@ -42,8 +42,8 @@ def equip_item(item_id):
         return {'errors': {'message': 'Item Not Found'}}, 404
 
     # sends an error if equipment is false bcz only equipment can be equipped
-    if item.equipment is False:
-        return {'errors': {'message': 'Item can not be equipped'}}, 400
+    # if item.equipment is False:
+    #     return {'errors': {'message': 'Item can not be equipped'}}, 400
 
 
     inventory_of_item=db.session.query(inventory).filter_by(user_id=current_user.id,item_id=item.id).first()
@@ -90,7 +90,7 @@ def add_to_inventory():
 
 
     # this is to see if the reward is elgible to be part of inventory
-    reward_img=data.get('reward_img')
+    reward_img=data.get('rewardImg')
 
     item=Item.query.filter_by(item_img=reward_img).first()
     if item is None:

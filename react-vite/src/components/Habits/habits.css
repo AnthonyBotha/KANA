@@ -1,0 +1,25 @@
+.viewIsPostitve{
+position: relative;
+left: 5px;
+bottom: 20px;
+}
+
+.viewButton{
+    font-size: xx-large;
+    z-index: 100;
+    cursor: pointer;
+}
+
+.score{
+    position: relative;
+    top:5px
+}
+
+.paddHabit{
+    padding: 5px 7px;
+}
+
+.notes{
+    overflow-wrap: break-word;
+    overflow: hidden;
+}

@@ -1,39 +1,45 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import SmallWhiteLogo from '../../static/SmallLogoWhite.png';
-
+import Habits from "../Habits";
 import ToDoList from "../ToDoList/ToDoList";
+import Dailies from "../Dailies";
+import { useEffect, useState } from "react";
+import { thunkTags } from "../../redux/tags";
+import UserDashboard from "../UserDashboard/UserDashboard";
+import UserRewards from "../Rewards";
+import AddTask from "./AddTask";
+import { useNavigate } from "react-router-dom";
 
 function UserHomePage() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch()
   const sessionUser = useSelector(state => state.session.user)
+  const [isLoading,setLoading] = useState(true)
+
+
+  useEffect(()=> {
+
+    const checkSession = () => {
+      if(!sessionUser)navigate('/')
+      else setLoading(false)
+    }
+    dispatch(thunkTags()).then(() => checkSession())
+
+  },[dispatch, sessionUser,navigate])
+
+
+  if(isLoading) return <h1>Loading...</h1>
+
 
   return (
     <>
-      <div className="fullScreen black">
+      <div className="blackBackground">
 
-        {/* user dashboard */}
-        <div className="displayFlex leftPageBorder rightPageBorder spaceBetween littleTopPadding">
-          {/* Avatar */}
-          <div className="darkGrey littleRightMargin">
-            AVATAR PLACEHOLDER
-          </div>
-
-          {/* User info and stats */}
-          <div className="littleRightMargin">
-            <p className="font purpleFont xx-largeFont">{sessionUser.username}!</p>
-            <p className="font purpleFont mediumFont">Level: {sessionUser.level}</p>
-            <p className="white">experience: {sessionUser.experience}</p>
-            <p className="white">health: {sessionUser.health}</p>
-          </div>
-
-          {/* Items and equipment dashboard */}
-          <div className="almostBlack itemDashboard">
-            <p className="whiteFont">IMPORT ITEMS & EQUIPMENT COMPONENT</p>
-          </div>
-        </div>
+        <UserDashboard />
 
         {/* Add task button */}
         <div className="rightPageBorder textRight littleBottomMargin littleTopMargin">
-          <button>Add Task</button>
+          <AddTask />
         </div>
 
         {/* Checklists and Rewards Tables */}
@@ -41,12 +47,12 @@ function UserHomePage() {
 
           {/* Habits Table */}
           <div className="almostBlack quarterScreen roundedCorners littleRightMargin">
-            <p className="whiteFont">IMPORT HABITS COMPONENT</p>
+            <Habits userId={sessionUser.id}/>
           </div>
 
           {/* Dailies Table */}
           <div className="almostBlack quarterScreen roundedCorners littleRightMargin">
-            <p className="whiteFont">IMPORT DAILIES COMPONENT</p>
+           <Dailies userId={sessionUser.id}/>
           </div>
 
           {/* To-Dos Table */}
@@ -56,18 +62,18 @@ function UserHomePage() {
 
           {/* Rewards Table */}
           <div className="almostBlack quarterScreen roundedCorners">
-            <p className="whiteFont">IMPORT REWARDS COMPONENT</p>
+            <p className="whiteFont"><UserRewards sessionUser={sessionUser}/></p>
           </div>
         </div>
 
       </div>
-        
+
       {/* footer */}
-      <div className="black displayFlex alignBottom spaceBetween littleBottomPadding">
+      <div className="black displayFlex alignBottom spaceBetween littleBottomPadding info">
         <p className='leftPageBorder font whiteFont smallFont noMargin'>© 2024 KANA. All rights reserved.</p>
         <img className="smallLogo" src={SmallWhiteLogo} />
         <a className="rightPageBorder fontLight whiteFont smallFont" href='https://github.com/AnthonyBotha/KANA/wiki'>GitHub</a>
-      </div> 
+      </div>
     </>
   )
 }

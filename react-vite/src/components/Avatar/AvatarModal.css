@@ -1,0 +1,215 @@
+.avatar-landing-page {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: lightgray;
+    z-index: 1000;
+    width: 1000px;
+}
+
+.avatar-landing-page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.welcome-text {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.welcome-text h2 {
+    margin-bottom: 5px;
+}
+
+.welcome-text h4 {
+    margin-top: 0px;
+}
+
+.delete-avatar {
+    color: darkred;
+    cursor: pointer;
+}
+
+.delete-avatar:hover {
+    text-decoration: underline;
+}
+
+.avatar-container {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+}
+
+.default-avatar {
+    width: 200px;
+    height: 200px;
+}
+
+.avatar-background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.avatar-antenna {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+}
+
+.avatar-head {
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+}
+
+.avatar-eyes {
+    position: absolute;
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 4;
+}
+
+.avatar-ears {
+    position: absolute;
+    top: 58px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+}
+
+.avatar-nose {
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 6;
+}
+
+.avatar-mouth {
+    position: absolute;
+    top: 125px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 7;
+}
+
+.avatar-neck {
+    position: absolute;
+    top: 150px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+}
+
+.auto-gen-avatar {
+    width: 170px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    font-family: "Varela Round", sans-serif;
+    font-weight: 400;
+    font-size: medium;
+    font-style: normal;
+    color: #F8F9FA;
+    background-color: #BDA8FF;
+    padding: 10px 15px;
+    margin: 5px 0px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.auto-gen-avatar:hover {
+    background-color: #432874;
+}
+
+
+
+/* Selection Menu */
+.selection-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.menu {
+    display: flex;
+    gap: 50px;
+}
+
+.selection-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.selection-item img {
+    width: 30px;
+    height: 30px;
+}
+
+.selection-item h2 {
+    font-size: 8px;
+    color: #333;
+}
+
+.selection-item.selected {
+    transform: scale(1.1);
+    border-bottom: 4px solid purple;
+    font-weight: bold
+}
+
+.selection-item h2:hover {
+    text-decoration: underline;
+    color: purple;
+}
+
+.parts-list {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 15px;
+    padding: 10px;
+}
+
+.parts-list.two-rows {
+    flex-wrap: wrap;
+    max-height: 120px;
+    justify-content: start;
+}
+
+.part-item {
+    flex: 1 1 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.part-item img {
+    width: 45px;
+    height: auto;
+}
+
+/* Active part item styles */
+.part-item.active-part-item {
+    transform: scale(1.5);
+    font-weight: bold;
+    border-bottom: 2px solid purple;
+}

@@ -8,13 +8,23 @@ import thunk from "redux-thunk";
 import sessionReducer from "./session";
 import avatarReducer from "./avatar";
 import avatarPartsReducer from "./avatarpart";
-import todoListReducer from "./todolist";
+import todosReducer from "./todolist";
+import dailiesReducer from "./dailies";
+import tagsReducer from "./tags";
+import inventoryReducer from "./inventory";
+import rewardsReducer from "./rewards";
+import habitsReducer from "./habits";
 
 const rootReducer = combineReducers({
   session: sessionReducer,
   avatar: avatarReducer,
   avatarParts: avatarPartsReducer,
-  todoList: todoListReducer
+  inventory: inventoryReducer,
+  userTodos: todosReducer,
+  userDailies: dailiesReducer,
+  tags: tagsReducer,
+  rewards: rewardsReducer,
+  habits: habitsReducer
 });
 
 let enhancer;

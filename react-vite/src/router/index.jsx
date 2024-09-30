@@ -4,7 +4,8 @@ import SignupFormPage from '../components/SignupFormPage';
 import WelcomePage from '../components/WelcomePage';
 import UserHomePage from '../components/UserHomePage';
 import Layout from './Layout';
-import InventoryPage from '../components/Inventory';
+import ItemsPage from '../components/Inventory';
+import EquipmentPage from '../components/Inventory/Equipment/equipment';
 
 export const router = createBrowserRouter([
   {
@@ -19,8 +20,12 @@ export const router = createBrowserRouter([
         element: <UserHomePage />,
       },
       {
-        path: '/inventory',
-        element: <InventoryPage />,
+        path: '/inventory/items',
+        element: <ItemsPage />,
+      },
+      {
+        path: '/inventory/equipment',
+        element: <EquipmentPage />,
       },
       {
         path: "login",
@@ -30,6 +35,7 @@ export const router = createBrowserRouter([
         path: "signup",
         element: <SignupFormPage />,
       },
+
     ],
   },
 ]);

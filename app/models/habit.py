@@ -25,7 +25,7 @@ class Habit(db.Model):
     user= db.relationship('User',back_populates='habits')
 
     # Relationship with Tags through tasks_tags joint table
-    tags = db.relationship('Tag',secondary=tasks_tags,back_populates='habit_tags')
+    tags = db.relationship('Tag',secondary=tasks_tags,back_populates='habit_tags', overlaps="daily_tags,todo_tags")
 
     def to_dict(self):
         dic = {

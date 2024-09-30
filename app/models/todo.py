@@ -26,7 +26,7 @@ class Todo(db.Model):
     # Relationship with Checklist
     checklist = db.relationship('Checklist', back_populates='todo')
     # Relationship with Tags throught tasks_tags joint table
-    tags = db.relationship('Tag', secondary=tasks_tags, back_populates='todo_tags')
+    tags = db.relationship('Tag', secondary=tasks_tags, back_populates='todo_tags', overlaps="habit_tags,daily_tags")
 
 
 
@@ -37,7 +37,7 @@ class Todo(db.Model):
             'title': self.title,
             'notes': self.notes,
             'difficulty': self.difficulty,
-            'dueDate': self.due_date,
+            'dueDate': self.due_date.strftime('%Y-%m-%d') if self.due_date else None,
             'completed': self.completed,
             'createdAt':self.created_at,
             'updatedAt':self.updated_at,
@@ -52,7 +52,7 @@ class Todo(db.Model):
             'title': self.title,
             'notes': self.notes,
             'difficulty': self.difficulty,
-            'dueDate': self.due_date,
+            'dueDate': self.due_date.strftime('%Y-%m-%d') if self.due_date else None,
             'completed': self.completed,
             'createdAt':self.created_at,
             'updatedAt':self.updated_at,

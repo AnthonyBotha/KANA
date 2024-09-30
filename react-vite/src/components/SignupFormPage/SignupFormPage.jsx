@@ -16,7 +16,7 @@ function SignupFormPage() {
   const [errors, setErrors] = useState({});
   const { setModalContent } = useModal();
 
-  if (sessionUser) return <Navigate to="/home" replace={true} />;  
+  if (sessionUser) return <Navigate to="/home" replace={true} />;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,6 +26,13 @@ function SignupFormPage() {
         confirmPassword:
           "Confirm Password field must be the same as the Password field",
       });
+    }
+
+    if (!email.includes('@')){
+      return setErrors({
+        email:
+          "Email is Invaild",
+      })
     }
 
     const serverResponse = await dispatch(
@@ -46,8 +53,8 @@ function SignupFormPage() {
   return (
     <div className="frontPage displayFlex flexColumn alignCenter bottomPageBorder">
       <h1 className="font whiteFont">Sign Up</h1>
-      <p className="font whiteFont smallFont textCenter">Username must be 1-20 characters, containing only letters a to z, 
-        numbers 0 to 9, hyphens, or underscores, and cannot include any 
+      <p className="font whiteFont smallFont textCenter">Username must be 1-20 characters, containing only letters a to z,
+        numbers 0 to 9, hyphens, or underscores, and cannot include any
         inappropriate terms.
       </p>
       {errors.server && <p className="font whiteFont smallFont textCenter">{errors.server}</p>}

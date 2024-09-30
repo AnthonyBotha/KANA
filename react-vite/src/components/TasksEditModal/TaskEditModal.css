@@ -1,0 +1,95 @@
+#new-checklist-item-input::placeholder {
+  color: gray;
+}
+
+#day-box {
+background-color: #432874;
+height: 32px;
+width: 57px;
+padding: 1px 6px;
+font-size: 20px;
+text-align: center;
+font-family: "Varela Round", sans-serif;
+font-style: normal;
+color: white;
+margin: 2px;
+padding-top: 11px;
+border-radius: 5px;
+box-shadow: 2px 2px 10px #343A40;
+}
+
+#day-box:hover,
+#delete-task-button:hover {
+  cursor: pointer;
+}
+
+.selected-day {
+  background-color: #BDA8FF !important;
+  color: black !important;
+}
+
+
+#delete-task-button {
+ text-decoration: underline;
+}
+
+.task #modal {
+position: fixed;
+top: 0;
+right: 0;
+left: 0;
+bottom: 0;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.task #modal-content {
+position: absolute;
+background-color:#6F42C1;
+padding: 25px 25px;
+border-radius: 5px;
+/* max-height: 80vh;
+overflow: scroll; */
+scale: 0.7;
+}
+
+.task ::placeholder {
+font-family: "Varela Round", sans-serif;
+font-style: normal;
+padding: 10px;
+color: #131517;
+}
+
+.isPostiveButtons{
+  position: relative;
+  bottom: 30px;
+  width: auto;
+  height: 70px;
+  color:white;
+  cursor: pointer;           /* Pointer cursor on hover */
+  transition: background-color 0.3s; /* Smooth transition on hover */
+}
+
+.isPostiveButtons:hover{
+  color:#FFD700;
+
+}
+
+.active{
+  color: #FFD700;
+}
+
+.coin{
+  position: relative;
+  top:1px;
+  right:1px;
+}
+
+.trash{
+  font-size: xx-large;
+}
+
+.trash:hover{
+  color: red;
+}

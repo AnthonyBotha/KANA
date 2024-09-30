@@ -1,0 +1,23 @@
+.inventory-selection-container {
+    position: relative;
+}
+
+.inventory-text {
+    cursor: pointer;
+
+}
+
+.inventory-dropdown {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    list-style-type: none;
+    padding: 25px;
+    text-decoration: none;
+    z-index: 1000;
+}
+
+.inventory-navlink {
+    text-decoration: none;
+}

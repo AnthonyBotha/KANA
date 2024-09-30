@@ -1,72 +1,79 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
-
-import { getTodoList } from '../../redux/todolist.js';
-
+import { useModal } from "../../context/Modal";
+import TaskEditModal from "../TasksEditModal";
+import { getTodoList, thunkUpdateTodo } from '../../redux/todolist.js';
+import './todo.css'
 
 function ToDoList(userId) {
   const dispatch = useDispatch();
-  const todos = useSelector(state => state.todoList.todos)
-  const [selectedIds, setSelectedIds] = useState([]);
+  const todos = useSelector(state => state.userTodos)
+  const { setModalContent } = useModal()
+  const [isLoaded, setIsLoaded] = useState(false)
+  const [completed, setCompleted] = useState(false)
 
   useEffect(() => {
-    dispatch(getTodoList());
-  }, [dispatch, userId])
+    dispatch(getTodoList()).then(() => setIsLoaded(true));
+  }, [dispatch, userId, setIsLoaded])
 
-  const handleCheckboxChange = (e) => {
-    const checkedId = e.target.value;
-    if(e.target.checked && !selectedIds.includes(checkedId)){
-      setSelectedIds([...selectedIds, checkedId])
-    } else {
-      setSelectedIds(selectedIds.filter(id => id !== checkedId))
+  const openModal = (e, id) => {
+    if(e.target.tagName !== 'INPUT' || e.target.type !== 'checkbox') {
+      const task = todos.objTodos[id]
+      setModalContent(<TaskEditModal taskType='Todo' task={task} />)
     }
+
   }
 
-  return (
+  const handleCheckboxChange = (e) => {
+    const taskId = e.target.value
+    const checked = e.target.checked
+    console.log(checked)
+    const updatedTask = {
+        ...todos.objTodos[taskId],
+        completed: checked
+    };
+    console.log('updatedTask,', updatedTask)
+    dispatch(thunkUpdateTodo(taskId, updatedTask))
+}
+
+  if (isLoaded) return (
     <>
       <div className='displayFlex alignBottom spaceBetween'>
         <h2 className='font purpleFont'>To-Dos</h2>
 
-        {console.log("todos", JSON.stringify(todos))}
         <div className='displayFlex littlePadding'>
           {/* onclick filter the current task list */}
-          <p
-            className='fontLight whiteFont smallFont littlePadding'
-          >
-            Active
-          </p>
-          <p className='fontLight whiteFont smallFont littlePadding'>Completed</p>
+          <p onClick={()=> setCompleted(false)} className='fontLight whiteFont smallFont littlePadding'>Active</p>
+          <p onClick={()=> setCompleted(true)} className='fontLight whiteFont smallFont littlePadding'>Completed</p>
         </div>
       </div>
 
       {/* individual tasks */}
       <div className='displayFlex flexColumn littlePadding littleMargin'>
-        {todos?.map(({id, completed, title, difficulty, dueDate, notes}) => (
-          <div key={id} className='displayFlex flexColumn darkGrey littleMargin roundedCorners'>
-
-             <div className='displayFlex spaceBetween alignCenter'>
+        {todos.arrTodos?.filter(todo => todo.completed === completed).map(({ id, completed, title, difficulty, dueDate, notes }) => (
+          <div key={id}
+            onClick={(e) => openModal(e, id)}
+            className='displayFlex flexColumn darkGrey littleMargin roundedCorners'>
+            <div className='displayFlex spaceBetween alignCenter'>
               <label>
                 <input
                   type='checkbox'
                   value={id}
                   className=''
-                  // checked={selectedIds.includes(`${id}`)}
-                   checked={completed} //if completed = True then the checkbox is checked
-                  onClick={(e) => { handleCheckboxChange(e) }}
+                  checked={completed}
+                  onChange={(e) => { handleCheckboxChange(e) }}
                 />
-                {/* figure out how to update db dynamically */}
-                {completed = selectedIds.includes(`${id}`)}
               </label>
 
               <p className='whiteFont font smallFont'>{title}</p>
-              <p className='whiteFont font smallFont'>DELETE</p>
             </div>
 
             <div className='displayFlex spaceBetween'>
-              <p className='lightGreyFont font smallFont'>{difficulty}</p>
-              <p className='lightGreyFont font smallFont'>{dueDate.slice(0, (dueDate.length - 13))}</p>
-              <p className='lightGreyFont font smallFont'>{notes}</p>
+              <p className='lightGreyFont font smallFont paddHabit'>{difficulty}</p>
+              <p className='lightGreyFont font smallFont todosNotes notes'>{notes}</p>
             </div>
+
+            <div className='lightGreyFont font smallFont paddHabit'>{dueDate}</div>
 
           </div>
         ))}
